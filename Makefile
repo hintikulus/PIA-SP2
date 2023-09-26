@@ -1,88 +1,48 @@
 ############################################################
 # PROJECT ##################################################
 ############################################################
-.PHONY: project
-project: install setup
+#.PHONY: project install setup clean
+#
+#project: install setup
+DIR_DOCKER=docker
+PHP_CONTAINER_NAME=PIA-SP2_apache
 
-.PHONY: init
-init:
-	cp config/local.neon.example config/local.neon
+# start aplikace
+up:
+	cd "${DIR_DOCKER}" && docker-compose up
 
-.PHONY: install
+down stop:
+	cd "${DIR_DOCKER}" && docker-compose down
+
+#
 install:
-	composer install
+	cd "${DIR_DOCKER}" && docker exec -it "${PHP_CONTAINER_NAME}" bash -c "composer install"
 
-.PHONY: setup
 setup:
 	mkdir -p var/tmp var/log
 	chmod +0777 var/tmp var/log
 
-.PHONY: clean
 clean:
 	find var/tmp -mindepth 1 ! -name '.gitignore' -type f,d -exec rm -rf {} +
 	find var/log -mindepth 1 ! -name '.gitignore' -type f,d -exec rm -rf {} +
 
-############################################################
-# DEVELOPMENT ##############################################
-############################################################
-.PHONY: qa
-qa: cs phpstan
+delete-cache dc:
+	find var/tmp -mindepth 1 ! -name '.gitignore' -type f,d -exec rm -rf {} +
 
-.PHONY: cs
-cs:
-	vendor/bin/codesniffer app tests
+phpstan ps:
+	cd "${DIR_DOCKER}" && docker exec -it "${PHP_CONTAINER_NAME}" bash -c "vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=512M app tests/toolkit"
 
-.PHONY: csf
-csf:
-	vendor/bin/codefixer app tests
+tests test nt:
+	cd "${DIR_DOCKER}" && docker exec -it "${PHP_CONTAINER_NAME}" bash -c "vendor/bin/tester -s -p php --colors 1 -C tests"
 
-.PHONY: phpstan
-phpstan:
-	vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=512M
-
-.PHONY: tests
-tests:
-	vendor/bin/tester -s -p php --colors 1 -C tests
-
-.PHONY: coverage
 coverage:
-	vendor/bin/tester -s -p phpdbg --colors 1 -C --coverage ./coverage.xml --coverage-src ./app tests
+	cd "${DIR_DOCKER}" && docker exec -it "${PHP_CONTAINER_NAME}" bash -c "vendor/bin/tester -s -p phpdbg --colors 1 -C --coverage ./coverage.xml --coverage-src ./app tests"
 
-.PHONY: dev
-dev:
-	NETTE_DEBUG=1 NETTE_ENV=dev php -S 0.0.0.0:8000 -t www
+bash b:
+	cd "${DIR_DOCKER}" && docker exec -it "${PHP_CONTAINER_NAME}" bash -c "umask 000 && bash"
 
-.PHONY: build
-build:
-	NETTE_DEBUG=1 bin/console orm:schema-tool:drop --force --full-database
-	NETTE_DEBUG=1 bin/console migrations:migrate --no-interaction
-	NETTE_DEBUG=1 bin/console doctrine:fixtures:load --no-interaction --append
+migrate m:
+	cd "${DIR_DOCKER}" && docker exec -it "${PHP_CONTAINER_NAME}" bash -c "NETTE_DEBUG=1 bin/console migrations:migrate --no-interaction"
 
-############################################################
-# DEPLOYMENT ###############################################
-############################################################
-.PHONY: deploy
-deploy:
-	$(MAKE) clean
-	$(MAKE) project
-	$(MAKE) build
-	$(MAKE) clean
-
-############################################################
-# DOCKER ###################################################
-############################################################
-.PHONY: docker-postgres
-docker-postgres:
-	docker run \
-		-it \
-		-p 5432:5432 \
-		-e POSTGRES_PASSWORD=contributte \
-		-e POSTGRES_USER=contributte \
-		dockette/postgres:12
-
-.PHONY: docker-adminer
-docker-adminer:
-	docker run \
-		-it \
-		-p 9999:80 \
-		dockette/adminer:dg
+mig-create mc:
+	cd "${DIR_DOCKER}" && docker exec -it "${PHP_CONTAINER_NAME}" bash -c "NETTE_DEBUG=1 bin/console migrations:generate"

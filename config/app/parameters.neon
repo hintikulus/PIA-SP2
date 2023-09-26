@@ -5,13 +5,13 @@ parameters:
 	# System
 	system:
 		error:
-			email: dev@dev.dev
+			email: developer@hintik.cz
 			presenter: Front:Error
 
 	# Database
 	database:
-		driver: pdo_pgsql
-		port: 5432
+		driver: pdo_mysql
+		port: 3306
 
 	# Project
 	project:

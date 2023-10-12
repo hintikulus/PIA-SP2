@@ -8,7 +8,7 @@ trait TId
 {
 
 	/**
-	 * @ORM\Column(type="integer", nullable=FALSE)
+     * @ORM\Column(type="integer", nullable=FALSE, options={"unsigned": true})
 	 * @ORM\Id
 	 * @ORM\GeneratedValue
 	 */

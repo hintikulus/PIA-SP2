@@ -5,6 +5,7 @@ namespace App\Domain\User;
 use App\Model\Database\Entity\AbstractEntity;
 use App\Model\Database\Entity\TCreatedAt;
 use App\Model\Database\Entity\TId;
+use App\Model\Database\Entity\TUuid;
 use App\Model\Database\Entity\TUpdatedAt;
 use App\Model\Exception\Logic\InvalidArgumentException;
 use App\Model\Security\Identity;
@@ -18,166 +19,49 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class User extends AbstractEntity
 {
+    use TUuid;
 
-	use TId;
-	use TCreatedAt;
-	use TUpdatedAt;
+    /** @ORM\Column(type="string", length=255, nullable=FALSE, unique=false) */
+    private string $name;
 
-	public const ROLE_ADMIN = 'admin';
-	public const ROLE_USER = 'user';
+    /** @ORM\Column(type="string", length=255, nullable=FALSE, unique=false) */
+    private string $emailAddress;
 
-	public const STATE_FRESH = 1;
-	public const STATE_ACTIVATED = 2;
-	public const STATE_BLOCKED = 3;
+    /** @var @ORM\Column(type="string", length=255, nullable=FALSE, unique=false) */
+    private string $passwordHash;
 
-	public const STATES = [self::STATE_FRESH, self::STATE_BLOCKED, self::STATE_ACTIVATED];
+    public function __construct(string $name, string $emailAddress, string $passwordHash)
+    {
+        $this->name = $name;
+        $this->emailAddress = $emailAddress;
+        $this->passwordHash = $passwordHash;
+    }
 
-	/** @ORM\Column(type="string", length=255, nullable=FALSE, unique=false) */
-	private string $name;
+    public function getName(): string
+    {
+        return $this->name;
+    }
 
-	/** @ORM\Column(type="string", length=255, nullable=FALSE, unique=false) */
-	private string $surname;
+    public function getEmailAddress(): string
+    {
+        return $this->emailAddress;
+    }
 
-	/** @ORM\Column(type="string", length=255, nullable=FALSE, unique=TRUE) */
-	private string $email;
-
-	/** @ORM\Column(type="string", length=255, nullable=FALSE, unique=TRUE) */
-	private string $username;
-
-	/** @ORM\Column(type="integer", length=10, nullable=FALSE) */
-	private int $state;
-
-	/** @ORM\Column(type="string", length=255, nullable=FALSE) */
-	private string $password;
-
-	/** @ORM\Column(type="string", length=255, nullable=FALSE) */
-	private string $role;
-
-	/**
-	 * @var DateTime|NULL
-	 * @ORM\Column(type="datetime", nullable=TRUE)
-	 */
-	private ?DateTime $lastLoggedAt = null;
-
-	public function __construct(string $name, string $surname, string $email, string $username, string $passwordHash)
-	{
-		$this->name = $name;
-		$this->surname = $surname;
-		$this->email = $email;
-		$this->username = $username;
-		$this->password = $passwordHash;
-
-		$this->role = self::ROLE_USER;
-		$this->state = self::STATE_FRESH;
-	}
-
-	public function changeLoggedAt(): void
-	{
-		$this->lastLoggedAt = new DateTime();
-	}
-
-	public function getEmail(): string
-	{
-		return $this->email;
-	}
-
-	public function getUsername(): string
-	{
-		return $this->username;
-	}
-
-	public function changeUsername(string $username): void
-	{
-		$this->username = $username;
-	}
-
-	public function getLastLoggedAt(): ?DateTime
-	{
-		return $this->lastLoggedAt;
-	}
-
-	public function getRole(): string
-	{
-		return $this->role;
-	}
-
-	public function setRole(string $role): void
-	{
-		$this->role = $role;
-	}
-
-	public function getPasswordHash(): string
-	{
-		return $this->password;
-	}
-
-	public function changePasswordHash(string $password): void
-	{
-		$this->password = $password;
-	}
-
-	public function block(): void
-	{
-		$this->state = self::STATE_BLOCKED;
-	}
-
-	public function activate(): void
-	{
-		$this->state = self::STATE_ACTIVATED;
-	}
-
-	public function isActivated(): bool
-	{
-		return $this->state === self::STATE_ACTIVATED;
-	}
-
-	public function getName(): string
-	{
-		return $this->name;
-	}
-
-	public function getSurname(): string
-	{
-		return $this->surname;
-	}
-
-	public function getFullname(): string
-	{
-		return $this->name . ' ' . $this->surname;
-	}
-
-	public function rename(string $name, string $surname): void
-	{
-		$this->name = $name;
-		$this->surname = $surname;
-	}
-
-	public function getState(): int
-	{
-		return $this->state;
-	}
-
-	public function setState(int $state): void
-	{
-		if (!in_array($state, self::STATES, true)) {
-			throw new InvalidArgumentException(sprintf('Unsupported state %s', $state));
-		}
-
-		$this->state = $state;
-	}
+    public function getPasswordHash(): string
+    {
+        return $this->passwordHash;
+    }
 
 	public function getGravatar(): string
 	{
-		return 'https://www.gravatar.com/avatar/' . md5($this->email);
+		return 'https://www.gravatar.com/avatar/' . md5($this->emailAddress);
 	}
 
 	public function toIdentity(): Identity
 	{
-		return new Identity($this->getId(), [$this->role], [
-			'email' => $this->email,
+		return new Identity($this->getId(), [], [
+			'email' => $this->emailAddress,
 			'name' => $this->name,
-			'surname' => $this->surname,
-			'state' => $this->state,
 			'gravatar' => $this->getGravatar(),
 		]);
 	}

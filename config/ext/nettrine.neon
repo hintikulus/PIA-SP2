@@ -30,6 +30,11 @@ nettrine.dbal:
 		port: %database.port%
 		serverVersion: 10.0
 
+		types:
+			uuid:
+				class: Ramsey\Uuid\Doctrine\UuidType
+				commented: false
+
 nettrine.orm:
 	entityManagerDecoratorClass: App\Model\Database\EntityManagerDecorator
 	configuration:

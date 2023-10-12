@@ -2,7 +2,7 @@
 parameters:
 	database:
 		host: database
-		dbname: pia-sp2
+		dbname: PIA-SP
 		user: root
 		password: root_pristup_123
 

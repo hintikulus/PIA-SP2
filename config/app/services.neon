@@ -32,6 +32,7 @@ services:
 
 	# Domain =================
 	- App\Domain\User\CreateUserFacade
+	- App\Domain\User\UserFacade
 
 	# Console ================
 	- App\Console\HelloCommand

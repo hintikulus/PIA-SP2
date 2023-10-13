@@ -19,4 +19,10 @@ class UserRepository extends AbstractRepository
 		return $this->findOneBy(['email' => $email]);
 	}
 
+    public function getAllQueryBuilder()
+    {
+        $qb = $this->createQueryBuilder('u');
+        return $qb;
+    }
+
 }

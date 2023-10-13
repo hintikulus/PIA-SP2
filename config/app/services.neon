@@ -34,6 +34,9 @@ services:
 	- App\Domain\User\CreateUserFacade
 	- App\Domain\User\UserFacade
 
+	# Components =============
+	- App\UI\Components\User\UserListGridFactory
+
 	# Console ================
 	- App\Console\HelloCommand
 

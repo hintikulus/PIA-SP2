@@ -10,6 +10,7 @@ abstract class SecuredPresenter extends BasePresenter
 
 	public function checkRequirements(mixed $element): void
 	{
+        /*
 		if (!$this->user->isLoggedIn()) {
 			if ($this->user->getLogoutReason() === UserStorage::LOGOUT_INACTIVITY) {
 				$this->flashInfo('You have been logged out for inactivity');
@@ -20,6 +21,7 @@ abstract class SecuredPresenter extends BasePresenter
 				['backlink' => $this->storeRequest()]
 			);
 		}
+        */
 	}
 
 }

@@ -55,7 +55,7 @@ final class SignPresenter extends BaseAdminPresenter
 
 	protected function createComponentLoginForm(): BaseForm
 	{
-		$form = $this->formFactory->forBackend();
+		$form = new BaseForm();
 		$form->addEmail('email')
 			->setRequired(true);
 		$form->addPassword('password')

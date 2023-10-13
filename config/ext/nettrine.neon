@@ -34,6 +34,9 @@ nettrine.dbal:
 			uuid:
 				class: Ramsey\Uuid\Doctrine\UuidType
 				commented: false
+			uuid_binary:
+			    class: Ramsey\Uuid\Doctrine\UuidBinaryType
+
 
 nettrine.orm:
 	entityManagerDecoratorClass: App\Model\Database\EntityManagerDecorator

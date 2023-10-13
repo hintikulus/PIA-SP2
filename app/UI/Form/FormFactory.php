@@ -5,6 +5,11 @@ namespace App\UI\Form;
 final class FormFactory
 {
 
+	private function create(): BaseForm
+	{
+		return new BaseForm();
+	}
+
 	public function forFrontend(): BaseForm
 	{
 		return $this->create();
@@ -13,11 +18,6 @@ final class FormFactory
 	public function forBackend(): BaseForm
 	{
 		return $this->create();
-	}
-
-	private function create(): BaseForm
-	{
-		return new BaseForm();
 	}
 
 }

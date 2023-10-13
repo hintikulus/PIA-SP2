@@ -4,6 +4,8 @@ namespace App\Domain\User;
 
 use App\Model\Database\EntityManagerDecorator;
 use App\Model\Security\Passwords;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Mockery\Generator\StringManipulation\Pass\Pass;
 
 class UserFacade
@@ -26,5 +28,18 @@ class UserFacade
 
         $this->em->persist($user);
         $this->em->flush();
+    }
+
+    public function getAllQueryBuilder(): QueryBuilder
+    {
+        return $this->em
+            ->getUserRepository()
+            ->getAllQueryBuilder();
+
+    }
+
+    public function getAll(): array
+    {
+        return $this->em->getUserRepository()->findAll();
     }
 }

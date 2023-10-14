@@ -35,7 +35,8 @@ services:
 	- App\Domain\User\UserFacade
 
 	# Components =============
-	- App\UI\Components\User\UserListGridFactory
+	- App\UI\Components\Admin\Sign\SignInFormFactory
+	- App\UI\Components\Admin\User\UserListGridFactory
 
 	# Console ================
 	- App\Console\HelloCommand

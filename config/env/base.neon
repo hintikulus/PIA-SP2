@@ -14,7 +14,8 @@ php:
 
 # Nette section
 session:
-	autoStart: smart
+	#autoStart: smart
+	autoStart: always
 	#cookieDomain: '?->getUrl()->getDomain(4)'(@Nette\Http\IRequest)
 	cookieHttponly: true
 	#cookiePath: '?->getUrl()->getBasePath()'(@Nette\Http\IRequest) # Cookie path same as $basePath

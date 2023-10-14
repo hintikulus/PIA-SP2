@@ -59,7 +59,7 @@ class User extends AbstractEntity
 
 	public function toIdentity(): Identity
 	{
-		return new Identity($this->getId(), [], [
+		return new Identity($this->getId()->toString(), [], [
 			'email' => $this->emailAddress,
 			'name' => $this->name,
 			'gravatar' => $this->getGravatar(),

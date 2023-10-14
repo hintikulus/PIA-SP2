@@ -12,8 +12,8 @@ class UserQuery extends AbstractQuery
 	{
 		$self = new self();
 		$self->ons[] = function (QueryBuilder $qb) use ($email): QueryBuilder {
-			$qb->andWhere('u.email = :email')
-				->setParameter('email', $email);
+			$qb->andWhere('u.emailAddress = :emailAddress')
+				->setParameter('emailAddress', $email);
 
 			return $qb;
 		};

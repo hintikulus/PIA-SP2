@@ -32,22 +32,22 @@ trait TFlashMessage
 
     public function flashInfo(string $message): stdClass
     {
-        return $this->flashMessage('Informace;' . $message, 'bg-info');
+        return $this->flashMessage($message, 'info');
     }
 
     public function flashSuccess(string $message): stdClass
     {
-        return $this->flashMessage('Úspěch;' . $message, 'bg-success');
+        return $this->flashMessage($message, 'success');
     }
 
     public function flashWarning(string $message): stdClass
     {
-        return $this->flashMessage('Varování;' . $message, 'bg-warning');
+        return $this->flashMessage($message, 'warning');
     }
 
     public function flashError(string $message): stdClass
     {
-        return $this->flashMessage('Chyba;' . $message, 'bg-danger');
+        return $this->flashMessage($message, 'error');
     }
 
     public function flash(FlashMessage $flashMessage): stdClass

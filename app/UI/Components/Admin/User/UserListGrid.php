@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UI\Components\User;
+namespace App\UI\Components\Admin\User;
 
 use App\Domain\User\UserFacade;
 use App\UI\Components\Base\BaseComponent;

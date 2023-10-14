@@ -40,7 +40,8 @@
     "nettrine/migrations": "^0.8.0",
     "nettrine/fixtures": "^0.8.0",
     "ramsey/uuid-doctrine": "^2.0",
-    "ublaboo/datagrid": "^6.9"
+    "ublaboo/datagrid": "^6.9",
+    "contributte/translation": "^2.0"
   },
   "require-dev": {
     "contributte/qa": "^0.3",

@@ -18,7 +18,7 @@ class LocationType extends Type
     public function convertToPHPValue($value, AbstractPlatform $platform): Location
     {
         $values = explode(';', $value);
-        return new Location($value[0], $value[1]);
+        return new Location($values[0], $values[1]);
     }
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform)

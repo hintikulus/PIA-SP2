@@ -15,7 +15,6 @@ final class HomePresenter extends BaseAdminPresenter
 
     public function actionDefault()
     {
-        bdump($this->user->getRoles());
     }
 	protected function createComponentOrderForm(): Form
 	{

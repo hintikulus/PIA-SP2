@@ -21,6 +21,5 @@ final class HomePresenter extends BaseFrontPresenter
             'email' => 'test@test.cz',
             'password' => 'password',
         ]);
-        bdump('Hello');
     }
 }

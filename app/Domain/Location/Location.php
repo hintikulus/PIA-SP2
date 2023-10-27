@@ -37,4 +37,9 @@ class Location
 
         return false;
     }
+
+    public function toString(): string
+    {
+        return "{$this->latitude} N, {$this->longitude} E";
+    }
 }

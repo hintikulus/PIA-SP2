@@ -33,10 +33,12 @@ services:
 	# Domain =================
 	- App\Domain\User\CreateUserFacade
 	- App\Domain\User\UserFacade
+	- App\Domain\Stand\StandFacade
 
 	# Components =============
 	- App\UI\Components\Admin\Sign\SignInFormFactory
 	- App\UI\Components\Admin\User\UserListGridFactory
+	- App\UI\Components\Admin\Stand\StandListGridFactory
 
 	# Console ================
 	- App\Console\HelloCommand

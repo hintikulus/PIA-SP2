@@ -24,7 +24,9 @@ final class StaticAuthorizator extends Permission
 	protected function addRoles(): void
 	{
 		$this->addRole('guest');
-        $this->addRole('authenticated');
+        $this->addRole('regular', 'guest');
+        $this->addRole('service_man', 'regular');
+        $this->addRole('authenticated', 'regular');
 	}
 
 	/**
@@ -40,7 +42,9 @@ final class StaticAuthorizator extends Permission
 	 */
 	protected function addPermissions(): void
 	{
-		$this->allow(['guest', 'authenticated'], [
+        $this->allow(self::ALL, self::ALL);
+
+		$this->allow(['authenticated'], [
 			'Admin:Home',
 		]);
 	}

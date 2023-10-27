@@ -29,6 +29,8 @@ class UserListGrid extends BaseComponent
         $grid->addColumnText('id', 'ID');
         $grid->addColumnText('name', 'name');
         $grid->addColumnText('emailAddress', 'E-mail');
+        $grid->addColumnText('role', 'Role');
+        $grid->addColumnDateTime('lastlogin', 'Posl. přihlášení');
 
         return $grid;
     }

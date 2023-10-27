@@ -9,6 +9,7 @@ use App\UI\Modules\Front\BaseFrontPresenter;
 class SignPresenter extends BaseFrontPresenter
 {
     private SignInFormFactory $signInFormFactory;
+
     public function __construct(
         SignInFormFactory $signInFormFactory,
     )
@@ -18,7 +19,7 @@ class SignPresenter extends BaseFrontPresenter
 
     public function actionIn(): void
     {
-        if($this->user->isLoggedIn())
+        if ($this->user->isLoggedIn())
         {
             $this->redirect(':Admin:Home:');
         }
@@ -26,12 +27,14 @@ class SignPresenter extends BaseFrontPresenter
 
     public function actionOut(): void
     {
-        if($this->user->isLoggedIn())
+        if ($this->user->isLoggedIn())
         {
-            $this->user->logout(true);
-            $this->flashSuccess('Uživatel úspěšně odhlášen.');
-            $this->redirect(':Front:Home:');
+            $this->redirect('Sign:in');
         }
+
+        $this->user->logout(true);
+        $this->flashSuccess('Uživatel úspěšně odhlášen.');
+        $this->redirect(':Front:Home:');
     }
 
     public function actionUp(): void
@@ -42,8 +45,7 @@ class SignPresenter extends BaseFrontPresenter
     public function createComponentSignInForm(): SignInForm
     {
         $form = $this->signInFormFactory->create();
-        $form['form']->onSuccess[] = function()
-        {
+        $form['form']->onSuccess[] = function() {
             $this->redirect(':Admin:Home:');
         };
         return $form;

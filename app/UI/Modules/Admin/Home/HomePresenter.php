@@ -13,6 +13,10 @@ final class HomePresenter extends BaseAdminPresenter
 	/** @var EventDispatcherInterface @inject */
 	public EventDispatcherInterface $dispatcher;
 
+    public function actionDefault()
+    {
+        bdump($this->user->getRoles());
+    }
 	protected function createComponentOrderForm(): Form
 	{
 		$form = new Form();

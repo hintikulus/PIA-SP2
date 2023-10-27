@@ -36,6 +36,8 @@ nettrine.dbal:
 				commented: false
 			uuid_binary:
 			    class: Ramsey\Uuid\Doctrine\UuidBinaryType
+			location:
+			    class: App\Domain\Location\LocationType
 
 
 nettrine.orm:

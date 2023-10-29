@@ -2,13 +2,23 @@
 
 {block #content}
 <div class="row">
-    <div class="col-md-6 mx-auto">
+    <div class="col-md-8">
         <div class="card">
             <div class="card-header">
                 <span class="card-title">Seznam stojanů</span>
             </div>
             <div class="card-body p-0">
                 {control standListGrid}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Mapa stojanů</span>
+            </div>
+            <div class="card-body p-0">
+                <div id="map" style="height: 600px;"></div>
             </div>
         </div>
     </div>

@@ -19,15 +19,20 @@ class AbstractQuery implements Queryable
 
 	public function doQuery(EntityManagerInterface $em): Query
 	{
-		$qb = $em->createQueryBuilder();
-
-		$this->setup();
-
-		foreach ($this->ons as $on) {
-			$qb = $on($qb);
-		}
-
+		$qb = $this->getQueryBuilder($em);
 		return $qb->getQuery();
 	}
+
+    public function getQueryBuilder(EntityManagerInterface $em): QueryBuilder
+    {
+        $qb = $em->createQueryBuilder();
+        $this->setup();
+        foreach ($this->ons as $on)
+        {
+            $qb = $on($qb);
+        }
+
+        return $qb;
+    }
 
 }

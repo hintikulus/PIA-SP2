@@ -10,6 +10,10 @@ abstract class SecuredPresenter extends BasePresenter
 
 	public function checkRequirements(mixed $element): void
 	{
+        if(!$this->user->isLoggedIn())
+        {
+            $this->redirect(':Front:Sign:in');
+        }
         /*
 		if (!$this->user->isLoggedIn()) {
 			if ($this->user->getLogoutReason() === UserStorage::LOGOUT_INACTIVITY) {

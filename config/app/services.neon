@@ -44,6 +44,7 @@ services:
 	- App\Console\HelloCommand
 
 	- App\Model\Database\QueryManager
+	- App\Model\Database\QueryBuilderManager
 
 latte:
 	macros:

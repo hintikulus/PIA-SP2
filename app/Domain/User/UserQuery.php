@@ -7,6 +7,11 @@ use Doctrine\ORM\QueryBuilder;
 
 class UserQuery extends AbstractQuery
 {
+    public static function getAll(): self
+    {
+        $self = new self();
+        return $self;
+    }
 
 	public static function ofEmail(string $email): self
 	{

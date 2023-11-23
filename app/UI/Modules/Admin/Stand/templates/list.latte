@@ -1,3 +1,5 @@
+{varType array $stands}
+
 {block #title}Seznam stojanů{/block}
 
 {block #content}
@@ -23,3 +25,26 @@
         </div>
     </div>
 </div>
+{/block}
+
+{block #mapScript}
+    <script>
+        // Inicializace mapy
+        var map = L.map('map').setView([50.11, -0.09], 13);
+
+        // Přidání dlaždic z OpenStreetMap
+        L.tileLayer('https://{="{s}"|noescape}.tile.openstreetmap.org/{="{z}"|noescape}/{="{x}"|noescape}/{="{y}"|noescape}.png', {
+            maxZoom: 19
+        }).addTo(map);
+
+        // Zde přidáš kód pro získání bodů z databáze a jejich zobrazení na mapě
+        // Můžeš využít PHP pro komunikaci s databází, např. pomocí PDO nebo jiného frameworku
+
+        // Příklad: Zobrazení jednoho bodu na mapě
+        {foreach $stands as $stand}
+        {varType App\Domain\Stand\Stand $stand}
+            var marker = L.marker([{$stand->getLocation()->getLatitude()|noescape}, {$stand->getLocation()->getLongitude()|noescape}]).addTo(map);
+        {/foreach}
+
+    </script>
+{/block}

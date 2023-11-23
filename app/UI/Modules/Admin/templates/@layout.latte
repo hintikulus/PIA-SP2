@@ -338,22 +338,10 @@
 	<script src="{$basePath}/assets/admin/js/plugins/perfect-scrollbar.min.js"></script>
 	<script src="{$basePath}/assets/admin/js/plugins/smooth-scrollbar.min.js"></script>
 	<script src="{$basePath}/assets/admin/leaflet/leaflet.js"></script>
-	<script>
-		// Inicializace mapy
-		var map = L.map('map').setView([50.11, -0.09], 13);
 
-		// Přidání dlaždic z OpenStreetMap
-		L.tileLayer('https://{="{s}"|noescape}.tile.openstreetmap.org/{="{z}"|noescape}/{="{x}"|noescape}/{="{y}"|noescape}.png', {
-			maxZoom: 19
-		}).addTo(map);
-
-		// Zde přidáš kód pro získání bodů z databáze a jejich zobrazení na mapě
-		// Můžeš využít PHP pro komunikaci s databází, např. pomocí PDO nebo jiného frameworku
-
-		// Příklad: Zobrazení jednoho bodu na mapě
-		var marker = L.marker([50.1166386, 14.4424075]).addTo(map);
-		marker.bindPopup("<b>Popisek bodu</b>").openPopup();
-	</script>
+{ifset #mapScript}
+	{include #mapScript}
+	{/ifset}
 	<script src="{$basePath}/assets/admin/js/plugins/chartjs.min.js"></script>
 	<script>
 		var ctx = document.getElementById("chart-bars").getContext("2d");

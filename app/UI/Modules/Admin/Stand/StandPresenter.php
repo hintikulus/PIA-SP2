@@ -13,9 +13,15 @@ class StandPresenter extends BaseAdminPresenter
 
     public function __construct(
         StandListGridFactory $standListGridFactory,
+        private StandFacade $standFacade,
     )
     {
         $this->standListGridFactory = $standListGridFactory;
+    }
+
+    public function actionList()
+    {
+        $this->template->stands = $this->standFacade->getAll();
     }
 
     public function createComponentStandListGrid(): StandListGrid

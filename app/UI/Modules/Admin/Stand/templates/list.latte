@@ -1,5 +1,3 @@
-{varType array $stands}
-
 {block #title}Seznam stojanů{/block}
 
 {block #content}
@@ -7,7 +5,14 @@
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">
-                <span class="card-title">Seznam stojanů</span>
+                <div class="row">
+                    <div class="col-6 d-flex align-items-center">
+                        <h6 class="mb-0">Seznam stojanů</h6>
+                    </div>
+                    <div class="col-6 text-end">
+                        <a class="btn btn-primary mb-0" n:href=":add"><i class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Přidat stojan</a>
+                    </div>
+                </div>
             </div>
             <div class="card-body p-0">
                 {control standListGrid}
@@ -20,31 +25,9 @@
                 <span class="card-title">Mapa stojanů</span>
             </div>
             <div class="card-body p-0">
-                <div id="map" style="height: 600px;"></div>
+                {control standListMap}
             </div>
         </div>
     </div>
 </div>
-{/block}
-
-{block #mapScript}
-    <script>
-        // Inicializace mapy
-        var map = L.map('map').setView([50.11, -0.09], 13);
-
-        // Přidání dlaždic z OpenStreetMap
-        L.tileLayer('https://{="{s}"|noescape}.tile.openstreetmap.org/{="{z}"|noescape}/{="{x}"|noescape}/{="{y}"|noescape}.png', {
-            maxZoom: 19
-        }).addTo(map);
-
-        // Zde přidáš kód pro získání bodů z databáze a jejich zobrazení na mapě
-        // Můžeš využít PHP pro komunikaci s databází, např. pomocí PDO nebo jiného frameworku
-
-        // Příklad: Zobrazení jednoho bodu na mapě
-        {foreach $stands as $stand}
-        {varType App\Domain\Stand\Stand $stand}
-            var marker = L.marker([{$stand->getLocation()->getLatitude()|noescape}, {$stand->getLocation()->getLongitude()|noescape}]).addTo(map);
-        {/foreach}
-
-    </script>
 {/block}

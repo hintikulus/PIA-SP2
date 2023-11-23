@@ -21,6 +21,7 @@
 	<!-- CSS Files -->
 	<link id="pagestyle" href="{$basePath}/assets/admin/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
 
+	<link href="{$basePath}/assets/base/css/toastr/toastr.min.css" rel="stylesheet"/>
 	<link rel="stylesheet" href="{$basePath}/assets/admin/css/datagrid/datagrid.css?={$appVersion}">
 	<link rel="stylesheet" href="{$basePath}/assets/admin/css/datagrid/datagrid-spinners.css?={$appVersion}">
 	<link rel="stylesheet" href="{$basePath}/assets/admin/css/datepicker/bootstrap-datepicker.css?={$appVersion}">
@@ -29,6 +30,8 @@
 	<script src="{$basePath}/assets/admin/js/jquery/jquery.min.js?={$appVersion}"></script>
 	<script src="{$basePath}/assets/admin/js/netteforms/netteForms.js?={$appVersion}"></script>
 	<script src="https://cdn.jsdelivr.net/npm/nette.ajax.js@2.3.0/nette.ajax.js"></script>
+	<script src="{$basePath}/assets/admin/leaflet/leaflet.js"></script>
+
 
 	<!-- Nepcha Analytics (nepcha.com) -->
 	<!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
@@ -337,8 +340,31 @@
 	<script src="{$basePath}/assets/admin/js/core/bootstrap.min.js"></script>
 	<script src="{$basePath}/assets/admin/js/plugins/perfect-scrollbar.min.js"></script>
 	<script src="{$basePath}/assets/admin/js/plugins/smooth-scrollbar.min.js"></script>
-	<script src="{$basePath}/assets/admin/leaflet/leaflet.js"></script>
-
+	<script src="{$basePath}/assets/base/js/toastr/toastr.min.js"></script>
+	<script>
+		toastr.options = {
+			"closeButton": false,
+			"debug": false,
+			"newestOnTop": false,
+			"progressBar": false,
+			"positionClass": "toast-top-right",
+			"preventDuplicates": false,
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+		}
+	</script>
+	{snippet flashes}
+		<script n:inner-foreach="$flashes as $flash">
+			toastr.{$flash->type|noescape}({$flash->message});
+		</script>
+	{/snippet}
 {ifset #mapScript}
 	{include #mapScript}
 	{/ifset}

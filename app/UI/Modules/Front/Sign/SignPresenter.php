@@ -27,7 +27,7 @@ class SignPresenter extends BaseFrontPresenter
 
     public function actionOut(): void
     {
-        if ($this->user->isLoggedIn())
+        if (!$this->user->isLoggedIn())
         {
             $this->redirect('Sign:in');
         }

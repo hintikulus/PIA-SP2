@@ -2,31 +2,28 @@
 
 namespace App\Domain\Stand;
 
-use App\Domain\Location\Location;
-use App\Model\Database\EntityManagerDecorator;
-use Doctrine\ORM\QueryBuilder;
-
-class StandFacade
+interface StandFacade
 {
-    private EntityManagerDecorator $em;
+    /**
+     * Method returns all fetched Stand entities in array
+     * @return array Stand array
+     */
+    public function getAll(): array;
 
-    public function __construct(
-        EntityManagerDecorator $em,
-    )
-    {
-        $this->em = $em;
-    }
+    /**
+     * Method fetch Stand of given identifier
+     * @param string $id stand identifier
+     * @return ?Stand stand
+     */
+    public function get(string $id): ?Stand;
 
-    public function getAllQueryBuilder(): QueryBuilder
-    {
-        return $this->em
-            ->getStandRepository()
-            ->getAllQueryBuilder();
-
-    }
-
-    public function getAll(): array
-    {
-        return $this->em->getStandRepository()->findAll();
-    }
+    /**
+     * Method updates existing or creates new Stand entity with given information
+     * @param Stand|null $stand
+     * @param string $name
+     * @param $latitude
+     * @param $longtitude
+     * @return void
+     */
+    public function save(?Stand $stand, string $name, $latitude, $longtitude): void;
 }

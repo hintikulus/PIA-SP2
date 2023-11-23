@@ -18,9 +18,9 @@ class StandListGrid extends BaseComponent
     private Translator $translator;
 
     public function __construct(
-        StandFacade $standFacade,
+        StandFacade  $standFacade,
         QueryBuilderManager $queryBuilderManager,
-        Translator $translator,
+        Translator          $translator,
     )
     {
         $this->standFacade = $standFacade;
@@ -41,6 +41,8 @@ class StandListGrid extends BaseComponent
             {
                return $stand->getLocation()->toString();
             });
+
+        $grid->addAction('edit', 'Upravit', 'Stand:edit');
         return $grid;
     }
 }

@@ -28,7 +28,7 @@ class LocationType extends Type
             throw new InvalidArgumentException('Not valid type of location instance');
         }
 
-        return implode(';', [$value->getLongitude(), $value->getLatitude()]);
+        return implode(';', [$value->getLatitude(), $value->getLongitude()]);
     }
 
     public function getName()

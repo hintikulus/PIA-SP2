@@ -1,0 +1,49 @@
+{varType App\UI\Map\Map $control}
+{varType string $tileLayerUrl}
+{varType array $zoomRange}
+{varType App\Domain\Location\Location $viewLocation}
+{varType int $viewZoom}
+{varType array $markerTypes}
+{varType array $markers}
+
+<div id="map-{$control->getFullName()}" class="map map-{$control->getFullName()}" style="height: 600px;"></div>
+
+<script>
+    // Inicializace mapy
+    var map = L.map({= 'map-' . $control->getFullName()});
+    var map_{$control->getFullName()|replace: ['-' => '_']|noescape} = map;
+
+    // Přidání dlaždic
+    L.tileLayer({$tileLayerUrl}, {
+        minZoom: {$zoomRange['min']},
+        maxZoom: {$zoomRange['max']}
+    }).addTo(map);
+
+    // Definice ukazatelů
+    {foreach $markerTypes as $markerType}
+        {varType App\UI\Map\MarkerType $markerType}
+    var marker_{$markerType->getName()|noescape} = L.icon(
+            {if $markerType->getIconUrl() !== null}
+                {l}
+                    iconUrl: {$markerType->getIconUrl()}
+                    {if $markerType->getIconSize() !== null}
+                        , iconSize: [{$markerType->getIconSize()[0]}, {$markerType->getIconSize()[1]}]
+                    {/if}
+                    {if $markerType->getIconAnchor() != null}
+                        , iconAnchor: [{$markerType->getIconAnchor()[0]}, {$markerType->getIconAnchor()[1]}]
+                    {/if}
+                {r}
+            {/if}
+    );
+    {/foreach}
+
+    {foreach $markers as $marker}
+    {varType App\UI\Map\Marker $marker}
+        L.marker([{$marker->getLocation()->getLatitude()}, {$marker->getLocation()->getLongitude()}], {if $marker->getMarkerType() !== null}{l}icon: marker_{$marker->getMarkerType()|noescape}{r}{/if}).addTo(map)
+    {if $marker->getPopup() !== null}.bindPopup({$marker->getPopup()->toHtml()}){/if};
+    {/foreach}
+
+    map.setView([{$viewLocation->getLatitudeFloat()}, {$viewLocation->getLongitudeFloat()}], {$viewZoom});
+
+
+</script>

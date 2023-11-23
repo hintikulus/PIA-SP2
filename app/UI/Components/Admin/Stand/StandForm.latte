@@ -9,11 +9,14 @@
             {input latitude class => "form-control"}
         </div>
         <div class="form-group">
-            {label longtitude /}
-            {input longtitude class => "form-control"}
+            {label longitude /}
+            {input longitude class => "form-control"}
         </div>
         <div class="form-group">
             {input send class => "btn bg-gradient-primary mb-0"}
+            {if isset($form->getComponents()['cancel'])}
+                {input cancel class => "btn bg-gradient-default mb-0 float-right"}
+            {/if}
         </div>
     </form>
 {/snippet}

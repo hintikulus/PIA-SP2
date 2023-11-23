@@ -42,7 +42,8 @@ class StandListGrid extends BaseComponent
                return $stand->getLocation()->toString();
             });
 
-        $grid->addAction('edit', 'Upravit', 'Stand:edit');
+        $grid->addAction('edit', 'Upravit', 'Stand:edit')
+        ->setClass('btn btn-sm bg-gradient-secondary mb-0');
         return $grid;
     }
 }

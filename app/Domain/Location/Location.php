@@ -23,6 +23,16 @@ class Location
         return $this->latitude;
     }
 
+    public function getLatitudeFloat(): float
+    {
+        return floatval($this->latitude);
+    }
+
+    public function getLongitudeFloat(): float
+    {
+        return floatval($this->longitude);
+    }
+
     public function equals(mixed $location): bool
     {
         if(!($location instanceof $this))

@@ -6,7 +6,7 @@ interface StandFacade
 {
     /**
      * Method returns all fetched Stand entities in array
-     * @return array Stand array
+     * @return array<Stand> Stand array
      */
     public function getAll(): array;
 

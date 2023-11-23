@@ -7,5 +7,5 @@ use App\UI\Form\BaseForm;
 
 interface StandFormFactory
 {
-    public function create(?Stand $stand = null): StandForm;
+    public function create(?Stand $stand = null, string $cancelUrl = null): StandForm;
 }

@@ -4,6 +4,8 @@ namespace App\UI\Modules\Admin\Stand;
 
 use App\Domain\Stand\Stand;
 use App\Domain\Stand\StandFacade;
+use App\UI\Components\Admin\Stand\StandChooseMap;
+use App\UI\Components\Admin\Stand\StandChooseMapFactory;
 use App\UI\Components\Admin\Stand\StandForm;
 use App\UI\Components\Admin\Stand\StandFormFactory;
 use App\UI\Components\Admin\Stand\StandListGrid;
@@ -17,6 +19,7 @@ class StandPresenter extends BaseAdminPresenter
     private StandListGridFactory $standListGridFactory;
     private StandListMapFactory $standListMapFactory;
     private StandFormFactory $standFormFactory;
+    private StandChooseMapFactory $standChooseMapFactory;
     private StandFacade $standFacade;
 
     private ?Stand $stand = null;
@@ -25,12 +28,14 @@ class StandPresenter extends BaseAdminPresenter
         StandListGridFactory $standListGridFactory,
         StandListMapFactory  $standListMapFactory,
         StandFormFactory     $standFormFactory,
+        StandChooseMapFactory $standChooseMapFactory,
         StandFacade   $standFacade,
     )
     {
         $this->standListGridFactory = $standListGridFactory;
         $this->standListMapFactory = $standListMapFactory;
         $this->standFormFactory = $standFormFactory;
+        $this->standChooseMapFactory = $standChooseMapFactory;
         $this->standFacade = $standFacade;
     }
 
@@ -58,6 +63,16 @@ class StandPresenter extends BaseAdminPresenter
 
     public function createComponentStandForm(): StandForm
     {
-        return $this->standFormFactory->create($this->stand);
+        $form = $this->standFormFactory->create($this->stand, $this->link(':list'));
+        $form['form']->onSuccess[] = function()
+        {
+            $this->redirect(':list');
+        };
+        return $form;
+    }
+
+    public function createComponentStandChooseMap(): StandChooseMap
+    {
+        return $this->standChooseMapFactory->create($this->stand);
     }
 }

@@ -11,25 +11,28 @@ use Nette\Utils\ArrayHash;
 class StandForm extends BaseComponent
 {
     private StandFacade $standFacade;
+    private ?string $cancelUrl;
     private ?Stand $stand;
 
     public function __construct(
         StandFacade $standFacade,
-        ?Stand             $stand,
+        ?Stand      $stand,
+        string      $cancelUrl = null,
     )
     {
         $this->standFacade = $standFacade;
         $this->stand = $stand;
+        $this->cancelUrl = $cancelUrl;
     }
 
     public function render(mixed $params = null): void
     {
-        if($this->stand)
+        if ($this->stand)
         {
             $this['form']->setDefaults([
-                'name' => $this->stand->getName(),
-                'latitude' => $this->stand->getLocation()->getLatitude(),
-                'longtitude' => $this->stand->getLocation()->getLongitude(),
+                'name'      => $this->stand->getName(),
+                'latitude'  => $this->stand->getLocation()->getLatitude(),
+                'longitude' => $this->stand->getLocation()->getLongitude(),
             ]);
         }
 
@@ -41,13 +44,21 @@ class StandForm extends BaseComponent
         $form = new BaseForm();
 
         $form->addText('name', 'Název')
-        ->setRequired();
+            ->setRequired()
+        ;
         $form->addFloat('latitude', 'Zeměpisná šířka')
-        ->setRequired();
-        $form->addFloat('longtitude', 'Zeměpisná délka')
-        ->setRequired();
+            ->setRequired()
+        ;
+        $form->addFloat('longitude', 'Zeměpisná délka')
+            ->setRequired()
+        ;
 
         $form->addSubmit('send', 'Uložit');
+
+        if ($this->cancelUrl)
+        {
+            $form->addCancelButton($this->cancelUrl);
+        }
 
         $form->onSuccess[] = [$this, 'formSucceeded'];
 
@@ -58,9 +69,10 @@ class StandForm extends BaseComponent
     {
         try
         {
-            $this->standFacade->save($this->stand, $values['name'], $values['latitude'], $values['longtitude']);
+            $this->standFacade->save($this->stand, $values['name'], $values['latitude'], $values['longitude']);
             $this->flashSuccess('Stojan úspěšně uložen.');
-        } catch (\Exception $e)
+        }
+        catch (\Exception $e)
         {
             $this->flashError('Při ukládání se vyskytla chyba.');
         }

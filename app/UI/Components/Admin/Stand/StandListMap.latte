@@ -13,13 +13,23 @@
         }).addTo(map);
 
         map.setView([49.7474242, 13.3773194], 12)
+
+        // Definice ukazatelů
+        var bikeStandIcon = L.icon({
+            iconUrl: {$basePath . '/assets/base/img/map/marker/bike_stand.png'},
+            iconSize: [64, 64],
+            iconAnchor: [32, 62]
+        })
+
         // Zde přidáš kód pro získání bodů z databáze a jejich zobrazení na mapě
         // Můžeš využít PHP pro komunikaci s databází, např. pomocí PDO nebo jiného frameworku
 
         // Příklad: Zobrazení jednoho bodu na mapě
         {foreach $stands as $stand}
         {varType App\Domain\Stand\Stand $stand}
-        L.marker([{$stand->getLocation()->getLatitude()|noescape}, {$stand->getLocation()->getLongitude()|noescape}]).addTo(map).bindPopup({$stand->getName()});
+        L.marker([{$stand->getLocation()->getLatitude()|noescape}, {$stand->getLocation()->getLongitude()|noescape}], {l}icon: bikeStandIcon{r})
+            .addTo(map)
+            .bindPopup({$stand->getName()});
         {/foreach}
 
     </script>

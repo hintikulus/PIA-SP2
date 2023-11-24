@@ -16,9 +16,9 @@ class UserListGrid extends BaseComponent
     private Translator $translator;
 
     public function __construct(
-        UserFacade $userFacade,
+        UserFacade   $userFacade,
         QueryBuilderManager $queryBuilderManager,
-        Translator $translator,
+        Translator          $translator,
     )
     {
         $this->userFacade = $userFacade;

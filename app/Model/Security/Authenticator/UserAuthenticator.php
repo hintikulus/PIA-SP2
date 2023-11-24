@@ -3,9 +3,7 @@
 namespace App\Model\Security\Authenticator;
 
 use App\Domain\User\User;
-use App\Domain\User\UserFacade;
 use App\Domain\User\UserQuery;
-use App\Model\Database\EntityManagerDecorator;
 use App\Model\Database\QueryManager;
 use App\Model\Exception\Runtime\AuthenticationException;
 use App\Model\Security\Passwords;

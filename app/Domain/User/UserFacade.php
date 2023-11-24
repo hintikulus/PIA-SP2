@@ -2,44 +2,27 @@
 
 namespace App\Domain\User;
 
-use App\Model\Database\EntityManagerDecorator;
-use App\Model\Security\Passwords;
-use Doctrine\ORM\Query;
-use Doctrine\ORM\QueryBuilder;
-use Mockery\Generator\StringManipulation\Pass\Pass;
-
-class UserFacade
+interface UserFacade
 {
-    private EntityManagerDecorator $em;
-    private Passwords $passwords;
+    /**
+     * Method fetch User entity of given identifier
+     * @param string $id
+     * @return User|null
+     */
+    public function get(string $id): ?User;
 
-    public function __construct(
-        EntityManagerDecorator $em,
-        Passwords $passwords,
-    )
-    {
-        $this->em = $em;
-        $this->passwords = $passwords;
-    }
+    /**
+     * Method returns all fetched User entities in array
+     * @return array<User>
+     */
+    public function getAll(): array;
 
-    public function createUserFromArray(array $data)
-    {
-        $user = new User($data['name'], $data['email'], $data['password']);
+    /**
+     * Creates user entity from given data array
+     * @param array<mixed> $data
+     * @return User
+     */
+    public function createUserFromArray(array $data): User;
 
-        $this->em->persist($user);
-        $this->em->flush();
-    }
-
-    public function getAllQueryBuilder(): QueryBuilder
-    {
-        return $this->em
-            ->getUserRepository()
-            ->getAllQueryBuilder();
-
-    }
-
-    public function getAll(): array
-    {
-        return $this->em->getUserRepository()->findAll();
-    }
+    public function createUser(string $name, string $email, string $password): User;
 }

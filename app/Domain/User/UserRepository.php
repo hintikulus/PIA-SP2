@@ -16,7 +16,7 @@ class UserRepository extends AbstractRepository
 
 	public function findOneByEmail(string $email): ?User
 	{
-		return $this->findOneBy(['email' => $email]);
+		return $this->findOneBy(['emailAddress' => $email]);
 	}
 
     public function getAllQueryBuilder()

@@ -32,11 +32,13 @@ services:
 
 	# Domain =================
 	- App\Domain\User\CreateUserFacade
-	- App\Domain\User\UserFacade
+	- App\Domain\User\DefaultUserFacade
 	- App\Domain\Stand\DefaultStandFacade
+	- App\Domain\Bike\DefaultBikeFacade
 
 	# Components =============
 	- App\UI\Components\Front\Sign\SignInFormFactory
+	- App\UI\Components\Front\Sign\SignUpFormFactory
 	- App\UI\Components\Admin\User\UserListGridFactory
 	- App\UI\Components\Admin\Stand\StandListGridFactory
 	- App\UI\Components\Admin\Stand\StandFormFactory

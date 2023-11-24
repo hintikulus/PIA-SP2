@@ -2,3 +2,13 @@
 {
     float: right
 }
+
+.navbar-nav .nav-item .nav-link .icon svg
+{
+    color: #3A416F;
+}
+
+.navbar-nav .nav-item .nav-link.active .icon svg
+{
+    color: #fff;
+}

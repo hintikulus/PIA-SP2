@@ -18,7 +18,7 @@ class BikeQuery extends AbstractQuery
     {
         $this->ons[] = function(QueryBuilder $qb): QueryBuilder {
             $qb->select('b')
-                ->from(Bike::class, 's')
+                ->from(Bike::class, 'b')
             ;
 
             return $qb;

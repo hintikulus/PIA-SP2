@@ -1,0 +1,33 @@
+{block #title}Seznam kol{/block}
+
+{block #content}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-6 d-flex align-items-center">
+                            <h6 class="mb-0">Seznam kol</h6>
+                        </div>
+                        <div class="col-6 text-end">
+                            <a class="btn bg-gradient-primary mb-0" n:href=":add"><i class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Přidat kolo</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    {control bikeListGrid}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Mapa kol</span>
+                </div>
+                <div class="card-body p-0">
+                    {*}{control standListMap}{/*}
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}

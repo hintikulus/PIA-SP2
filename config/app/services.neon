@@ -42,6 +42,7 @@ services:
 	- App\UI\Components\Admin\Stand\StandFormFactory
 	- App\UI\Components\Admin\Stand\StandListMapFactory
 	- App\UI\Components\Admin\Stand\StandChooseMapFactory
+	- App\UI\Components\Admin\Bike\BikeListGridFactory
 
 	# Console ================
 	- App\Console\HelloCommand

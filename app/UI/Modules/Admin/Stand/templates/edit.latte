@@ -38,7 +38,6 @@
     map.on('click', function(e) {
         if(marker)
             map.removeLayer(marker);
-        console.log(e.latlng); // e is an event object (MouseEvent in this case)
         marker = L.marker(e.latlng).addTo(map);
         $('#frm-standForm-form-latitude').attr('value', e.latlng.lat);
         $('#frm-standForm-form-longitude').attr('value', e.latlng.lng);

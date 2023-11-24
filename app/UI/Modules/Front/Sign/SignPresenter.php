@@ -2,8 +2,8 @@
 
 namespace App\UI\Modules\Front\Sign;
 
-use App\UI\Components\Admin\Sign\SignInForm;
-use App\UI\Components\Admin\Sign\SignInFormFactory;
+use App\UI\Components\Front\Sign\SignInForm;
+use App\UI\Components\Front\Sign\SignInFormFactory;
 use App\UI\Modules\Front\BaseFrontPresenter;
 
 class SignPresenter extends BaseFrontPresenter

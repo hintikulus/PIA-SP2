@@ -1,9 +1,8 @@
 <?php
 
-namespace App\UI\Components\Admin\Sign;
+namespace App\UI\Components\Front\Sign;
 
 use App\Model\Exception\Runtime\AuthenticationException;
-use App\Model\Security\Authenticator\UserAuthenticator;
 use App\UI\Components\Base\BaseComponent;
 use App\UI\Form\BaseForm;
 use Contributte\Translation\Translator;

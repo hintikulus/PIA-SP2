@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UI\Components\Admin\Sign;
+namespace App\UI\Components\Front\Sign;
 
 interface SignInFormFactory
 {

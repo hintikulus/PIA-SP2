@@ -36,7 +36,7 @@ services:
 	- App\Domain\Stand\DefaultStandFacade
 
 	# Components =============
-	- App\UI\Components\Admin\Sign\SignInFormFactory
+	- App\UI\Components\Front\Sign\SignInFormFactory
 	- App\UI\Components\Admin\User\UserListGridFactory
 	- App\UI\Components\Admin\Stand\StandListGridFactory
 	- App\UI\Components\Admin\Stand\StandFormFactory

@@ -2,6 +2,7 @@
 
 namespace App\Model\Database;
 
+use App\Domain\Bike\BikeRepository;
 use App\Domain\Stand\Stand;
 use App\Domain\Stand\StandRepository;
 use App\Domain\User\User;
@@ -20,5 +21,10 @@ trait TRepositories
     public function getStandRepository(): StandRepository
     {
         return $this->getRepository(Stand::class);
+    }
+
+    public function getBikeRepository(): BikeRepository
+    {
+        return $this->getRepository(Bike::class);
     }
 }

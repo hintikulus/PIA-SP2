@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Domain\Stand;
+namespace App\Domain\Bike;
 
+use App\Domain\Stand\Stand;
 use App\Model\Database\Query\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
 
-class StandQuery extends AbstractQuery
+class BikeQuery extends AbstractQuery
 {
     public static function getAll(): self
     {
@@ -15,11 +16,13 @@ class StandQuery extends AbstractQuery
 
     public function setup(): void
     {
-        $this->ons[] = function (QueryBuilder $qb): QueryBuilder {
-            $qb->select('s')
-                ->from(Stand::class, 's');
+        $this->ons[] = function(QueryBuilder $qb): QueryBuilder {
+            $qb->select('b')
+                ->from(Bike::class, 's')
+            ;
 
             return $qb;
         };
     }
+
 }

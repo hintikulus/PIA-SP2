@@ -46,3 +46,6 @@ migrate m:
 
 mig-create mc:
 	cd "${DIR_DOCKER}" && docker exec -it "${PHP_CONTAINER_NAME}" bash -c "NETTE_DEBUG=1 bin/console migrations:generate"
+
+proxy-gen pg:
+	cd "${DIR_DOCKER}" && docker exec -it "${PHP_CONTAINER_NAME}" bash -c "NETTE_DEBUG=1 bin/console orm:generate-proxies"

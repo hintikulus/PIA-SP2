@@ -2,8 +2,11 @@
 
 namespace App\Domain\Stand;
 
+use App\Domain\Bike\Bike;
 use App\Domain\Location\Location;
+use App\Model\Database\Entity\AbstractEntity;
 use App\Model\Database\Entity\TUuid;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -11,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="`stand`")
  * @ORM\HasLifecycleCallbacks
  */
-class Stand
+class Stand extends AbstractEntity
 {
     use TUuid;
 
@@ -20,6 +23,12 @@ class Stand
 
     /** @ORM\Column(type="location", nullable=FALSE, unique=false) */
     private Location $location;
+
+    /**
+     *  @var Collection<int, Bike>
+     *  @ORM\OneToMany(targetEntity="App\Domain\Bike\Bike", mappedBy="stand")
+     */
+    private Collection $bikes;
 
     public function __construct(string $name, Location $location)
     {

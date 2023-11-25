@@ -16,9 +16,9 @@
 	<link href="{$basePath}/assets/admin/css/nucleo-icons.css" rel="stylesheet" />
 	<link href="{$basePath}/assets/admin/css/nucleo-svg.css" rel="stylesheet" />
 	<!-- Font Awesome Icons -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" />
 	<!-- CSS Files -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" />
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script> -->
 	<link id="pagestyle" href="{$basePath}/assets/admin/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
 
 	<link href="{$basePath}/assets/base/css/toastr/toastr.min.css" rel="stylesheet"/>
@@ -67,7 +67,7 @@
 						<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
 							<i class="fa-solid fa-house"></i>
 						</div>
-						<span class="nav-link-text ms-1">Úvod</span>
+						<span class="nav-link-text ms-1">{_admin.homePresenter.action_default.nav_link}</span>
 					</a>
 				</li>
 
@@ -76,7 +76,7 @@
 						<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
 							<i class="fa-solid fa-users"></i>
 						</div>
-						<span class="nav-link-text ms-1">Uživatelé</span>
+						<span class="nav-link-text ms-1">{_admin.userPresenter.action_list.nav_link}</span>
 					</a>
 				</li>
 
@@ -85,7 +85,7 @@
 						<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
 							<i class="fa-solid fa-square-parking"></i>
 						</div>
-						<span class="nav-link-text ms-1">Stojany</span>
+						<span class="nav-link-text ms-1">{_admin.standPresenter.action_list.nav_link}</span>
 					</a>
 				</li>
 
@@ -94,7 +94,7 @@
 						<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
 							<i class="fa-solid fa-bicycle"></i>
 						</div>
-						<span class="nav-link-text ms-1">Kola</span>
+						<span class="nav-link-text ms-1">{_admin.bikePresenter.action_list.nav_link}</span>
 					</a>
 				</li>
 

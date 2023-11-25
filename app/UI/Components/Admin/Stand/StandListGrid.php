@@ -18,7 +18,7 @@ class StandListGrid extends BaseComponent
     private Translator $translator;
 
     public function __construct(
-        StandFacade  $standFacade,
+        StandFacade         $standFacade,
         QueryBuilderManager $queryBuilderManager,
         Translator          $translator,
     )
@@ -30,20 +30,22 @@ class StandListGrid extends BaseComponent
 
     public function createComponentGrid(): BaseGrid
     {
+        $translator = $this->translator->createPrefixedTranslator('admin.standListGrid');
         $grid = new BaseGrid();
         $grid->setTranslator($this->translator);
 
         $grid->setDataSource($this->queryBuilderManager->getQueryBuilder(StandQuery::getAll()));
 
-        $grid->addColumnText('name', 'Název');
-        $grid->addColumnText('location', 'Lokace')
-            ->setRenderer(function(Stand $stand)
-            {
-               return $stand->getLocation()->toString();
-            });
+        $grid->addColumnText('name', $translator->translate('column_name'));
+        $grid->addColumnText('location', $translator->translate('column_location'))
+            ->setRenderer(function(Stand $stand) {
+                return $stand->getLocation()->toString();
+            })
+        ;
 
-        $grid->addAction('edit', 'Upravit', 'Stand:edit')
-        ->setClass('btn btn-sm bg-gradient-secondary mb-0');
+        $grid->addAction('edit', $translator->translate('action_edit'), 'Stand:edit')
+            ->setClass('btn btn-sm bg-gradient-secondary mb-0')
+        ;
         return $grid;
     }
 }

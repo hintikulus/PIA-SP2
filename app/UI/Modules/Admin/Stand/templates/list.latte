@@ -1,4 +1,4 @@
-{block #title}Seznam stojanů{/block}
+{block #title}{_admin.standPresenter.action_list.title}{/block}
 
 {block #content}
 <div class="row">
@@ -7,10 +7,10 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-6 d-flex align-items-center">
-                        <h6 class="mb-0">Seznam stojanů</h6>
+                        <h6 class="mb-0">{_admin.standPresenter.action_list.standListCard.title}</h6>
                     </div>
                     <div class="col-6 text-end">
-                        <a class="btn bg-gradient-primary mb-0" n:href=":add"><i class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Přidat stojan</a>
+                        <a class="btn bg-gradient-primary mb-0" n:href=":add"><i class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp{_admin.standPresenter.action_list.standListCard.link_add}</a>
                     </div>
                 </div>
             </div>
@@ -22,7 +22,11 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-header">
-                <span class="card-title">Mapa stojanů</span>
+                <div class="row">
+                    <div class="col-6 d-flex align-items-center">
+                        <h6 class="mb-0">{_admin.standPresenter.action_list.standMapCard.title}</h6>
+                    </div>
+                </div>
             </div>
             <div class="card-body p-0">
                 {control standListMap}

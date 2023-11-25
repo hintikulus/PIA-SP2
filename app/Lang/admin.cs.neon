@@ -1,2 +1,51 @@
 lang:
     code_short: cs
+
+userPresenter:
+    action_list:
+        title: 'Seznam uživatelů'
+        nav_link: 'Uživatelé'
+
+homePresenter:
+    action_default:
+        title: 'Úvod'
+        nav_link: 'Úvod'
+        card_available_bikes_count_label: 'Dostupných kol'
+        card_stands_count_label: 'Odkládacích stojanů'
+        card_rides_count_label: 'Uskutečněných jízd'
+
+bikePresenter:
+    action_list:
+        title: 'Seznam kol'
+        nav_link: 'Kola'
+        bikeListCard:
+            title: 'Seznam kol'
+            link_add: 'Přidat kolo'
+        bikeMapCard:
+            title: 'Mapa kol'
+
+standPresenter:
+    action_list:
+        title: 'Seznam stojanů'
+        nav_link: 'Stojany'
+        standListCard:
+            title: 'Seznam stojanů'
+            link_add: 'Přidat stojan'
+        standMapCard:
+            title: 'Mapa stojanů'
+
+userListGrid:
+    column_id: 'ID'
+    column_name: 'Jméno a příjmení'
+    column_email: 'E-mail'
+    column_role: 'Role'
+    column_lastlogin: 'Posl. přihlášení'
+
+standListGrid:
+    column_name: 'Název'
+    column_location: 'Lokace'
+    action_edit: 'Upravit'
+
+standListMap:
+    popup_name: 'Název: '
+    popup_action_edit: 'Upravit'

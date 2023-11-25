@@ -38,7 +38,7 @@ contributte.translation:
 	locales:
 		whitelist: [en, cs]
 		default: cs
-		fallback: [cs]
+		fallback: [en]
 	dirs:
 		- %appDir%/Lang
 	returnOriginalMessage: true # to not translate undefined messages, default is true

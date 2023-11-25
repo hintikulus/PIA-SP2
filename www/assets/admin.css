@@ -3,12 +3,26 @@
     float: right
 }
 
-.navbar-nav .nav-item .nav-link .icon svg
+.navbar-vertical .navbar-nav .nav-item .nav-link .icon i
 {
     color: #3A416F;
 }
 
-.navbar-nav .nav-item .nav-link.active .icon svg
+.navbar-vertical .navbar-nav .nav-item .nav-link.active .icon i
 {
     color: #fff;
+}
+
+.nav-icon
+{
+
+}
+
+.nav-link .icon i
+{
+    height: 1em;
+    font-size: 1em;
+    overflow: visible;
+    vertical-align: -.125em;
+    opacity: 1;
 }

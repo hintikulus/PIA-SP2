@@ -28,14 +28,15 @@ class UserListGrid extends BaseComponent
 
     public function createComponentGrid(): BaseGrid
     {
+        $translator = $this->translator->createPrefixedTranslator('admin.userListGrid');
         $grid = new BaseGrid();
         $grid->setTranslator($this->translator);
         $grid->setDataSource($this->queryBuilderManager->getQueryBuilder(UserQuery::getAll()));
-        $grid->addColumnText('id', 'ID');
-        $grid->addColumnText('name', 'name');
-        $grid->addColumnText('emailAddress', 'E-mail');
-        $grid->addColumnText('role', 'Role');
-        $grid->addColumnDateTime('lastlogin', 'Posl. přihlášení');
+
+        $grid->addColumnText('name', $translator->translate('column_name'));
+        $grid->addColumnText('email', $translator->translate('column_email'), 'emailAddress');
+        $grid->addColumnText('role', $translator->translate('column_role'));
+        $grid->addColumnDateTime('lastlogin', $translator->translate('column_lastlogin'));
 
         return $grid;
     }

@@ -15,7 +15,12 @@ final class HomePresenter extends BaseAdminPresenter
 
     public function actionDefault()
     {
+        $this->template->bikeCount = 100;
+        $this->template->standCount = 20;
+        $this->template->ridesDone = 1256;
     }
+
+
 	protected function createComponentOrderForm(): Form
 	{
 		$form = new Form();

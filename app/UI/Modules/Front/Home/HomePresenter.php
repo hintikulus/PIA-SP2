@@ -14,6 +14,13 @@ final class HomePresenter extends BaseFrontPresenter
         $this->userFacade = $userFacade;
     }
 
+    public function actionDefault(): void
+    {
+        $this->template->bikeCount = 100;
+        $this->template->standCount = 20;
+        $this->template->ridesDone = 1256;
+    }
+
     public function handleCreateUser()
     {
         $this->userFacade->createUserFromArray([

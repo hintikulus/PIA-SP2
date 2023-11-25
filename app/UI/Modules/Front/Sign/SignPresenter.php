@@ -2,6 +2,8 @@
 
 namespace App\UI\Modules\Front\Sign;
 
+use App\UI\Components\Front\Sign\GoogleButton\GoogleButton;
+use App\UI\Components\Front\Sign\GoogleButton\GoogleButtonFactory;
 use App\UI\Components\Front\Sign\SignInForm;
 use App\UI\Components\Front\Sign\SignInFormFactory;
 use App\UI\Components\Front\Sign\SignUpForm;
@@ -12,14 +14,28 @@ class SignPresenter extends BaseFrontPresenter
 {
     private SignInFormFactory $signInFormFactory;
     private SignUpFormFactory $signUpFormFactory;
+    private GoogleButtonFactory $googleButtonFactory;
 
     public function __construct(
         SignInFormFactory $signInFormFactory,
         SignUpFormFactory $signUpFormFactory,
+        GoogleButtonFactory $googleButtonFactory,
     )
     {
         $this->signInFormFactory = $signInFormFactory;
         $this->signUpFormFactory = $signUpFormFactory;
+        $this->googleButtonFactory = $googleButtonFactory;
+        parent::__construct();
+    }
+
+    public function actionGoogleAuthenticate(): void
+    {
+        $this['googleButton']->authenticate($this->presenter->link('//:Front:Sign:googleAuthorize'));
+    }
+
+    public function actionGoogleAuthorize(): void
+    {
+        $this['googleButton']->authorize();
     }
 
     public function actionIn(): void
@@ -66,5 +82,10 @@ class SignPresenter extends BaseFrontPresenter
             $this->redirect(':Admin:Home:');
         };
         return $form;
+    }
+
+    protected function createComponentGoogleButton(): GoogleButton
+    {
+        return $this->googleButtonFactory->create();
     }
 }

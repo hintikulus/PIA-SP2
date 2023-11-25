@@ -38,6 +38,11 @@ class DefaultUserFacade implements UserFacade
         return $this->em->getUserRepository()->findAll();
     }
 
+    public function getByEmail(string $email): ?User
+    {
+        return $this->em->getUserRepository()->findOneByEmail($email);
+    }
+
     public function get(string $id): ?User
     {
         return $this->em->getUserRepository()->find($id);

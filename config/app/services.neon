@@ -46,6 +46,7 @@ services:
 	- App\UI\Components\Admin\Stand\StandChooseMapFactory
 	- App\UI\Components\Admin\Bike\BikeListGridFactory
 
+	- App\UI\Components\Front\Sign\GoogleButton\GoogleButtonFactory
 	# Console ================
 	- App\Console\HelloCommand
 

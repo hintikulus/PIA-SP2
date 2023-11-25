@@ -15,6 +15,12 @@ services:
 tracy:
 	showBar: true
 
+google:
+    clientId: '...'
+    clientSecret: '...'
+    options:
+        # optionally additional options passed to GoogleProvider
+
 # For 0.0.0.0 instead of localhost
 # php -S 0.0.0.0:8000 -t www
 #	session:

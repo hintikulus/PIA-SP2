@@ -4,6 +4,7 @@ namespace App\UI\Form;
 
 use App\Model\App;
 use Nette\Application\UI\Form;
+use Nette\Forms\Controls\DateTimeControl;
 use Nette\Forms\Controls\TextInput;
 
 class BaseForm extends Form
@@ -37,21 +38,4 @@ class BaseForm extends Form
         $input->addRule(self::URL, 'Text musí být odkaz!');
         return $input;
     }
-
-    public function addDate(string $name, string $label = null, ?int $cols = null, ?int $maxLength = null): TextInput
-    {
-        $input = $this->addText($name, $label, $cols, $maxLength);
-        $input->setHtmlType('date');
-        //$input->setHtmlAttribute('max', App::DATE_PICKER_MAX_VALUE);
-        return $input;
-    }
-
-    public function addDatetime(string $name, string $label = null, ?int $cols = null, ?int $maxLength = null): TextInput
-    {
-        $input = $this->addText($name, $label, $cols, $maxLength);
-        $input->setHtmlType('datetime-local');
-        $input->setHtmlAttribute('max', App::DATETIME_PICKER_MAX_VALUE);
-        return $input;
-    }
-
 }

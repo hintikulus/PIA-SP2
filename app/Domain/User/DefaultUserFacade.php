@@ -26,7 +26,8 @@ class DefaultUserFacade implements UserFacade
 
     public function createUserFromArray(array $data): User
     {
-        $user = new User($data['name'], $data['email'], $data['password']);
+        $user = new User($data['name'], $data['email']);
+        $user->setPasswordHash($data['password']);
 
         $this->em->persist($user);
         $this->em->flush($user);
@@ -60,6 +61,37 @@ class DefaultUserFacade implements UserFacade
 
         $user = new User($name, $email, $this->passwords->hash($password));
 
+        $this->em->persist($user);
+        $this->em->flush($user);
+        $this->em->commit();
+
+        return $user;
+    }
+
+    public function getByGoogleId(string $googleId): ?User
+    {
+        return $this->em->getUserRepository()->findOneBy(['googleId' => $googleId]);
+    }
+
+    public function createUserWithGoogle(string $name, string $email, string $googleId): ?User
+    {
+        $this->em->beginTransaction();
+
+        $user = $this->getByGoogleId($googleId);
+        if($user !== null)
+        {
+            throw new AuthenticationException();
+        }
+
+        $user = $this->getByEmail($email);
+        if($user !== null)
+        {
+            throw new AuthenticationException();
+        }
+
+        $user = new User($name, $email);
+        $user->setGoogleId($googleId);
+        
         $this->em->persist($user);
         $this->em->flush($user);
         $this->em->commit();

@@ -4,13 +4,14 @@ namespace App\UI\Components\Front\Sign\GoogleButton;
 
 use App\Domain\User\UserFacade;
 use App\Model\Exception\Runtime\AuthenticationException;
+use App\UI\Components\Base\BaseComponent;
 use Contributte\OAuth2Client\Flow\Google\GoogleAuthCodeFlow;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Provider\GoogleUser;
 use Nette\Application\UI\Control;
 use Nette\Security\User;
 
-class GoogleButton extends Control
+class GoogleButton extends BaseComponent
 {
     private GoogleAuthCodeFlow $flow;
     private UserFacade $userFacade;
@@ -40,21 +41,21 @@ class GoogleButton extends Control
             $parameters = $parameters ?? $this->getPresenter()->getHttpRequest()->getQuery();
             $accessToken = $this->flow->getAccessToken($parameters);
         } catch (IdentityProviderException $e) {
-            // TODO - Identity provider failure, cannot get information about user
-            throw new AuthenticationException();
+            $this->flashError('Vyskytla se chyba při zpracování požadavku.');
+            $this->presenter->redirect(':in');
         }
 
         /** @var GoogleUser $owner */
         $owner = $this->flow->getProvider()->getResourceOwner($accessToken);
-        bdump($owner);
         $user = $this->userFacade->getByEmail($owner->getEmail());
         if($user === null)
         {
-            throw new AuthenticationException();
+            $user = $this->userFacade->createUserWithGoogle($owner->getName(), $owner->getEmail(), $owner->getId());
         }
 
         $this->user->login($user->toIdentity());
-        // TODO - try sign in user with it's email ($owner->getEmail())
+        $this->flashSuccess('Úspěšně přihlášen');
+        $this->presenter->redirect(':Admin:Home:');
     }
 
 }

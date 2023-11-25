@@ -24,6 +24,13 @@ interface UserFacade
     public function getByEmail(string $email): ?User;
 
     /**
+     * Method returns user of given Google identifier
+     * @param string $googleId
+     * @return User|null
+     */
+    public function getByGoogleId(string $googleId): ?User;
+
+    /**
      * Creates user entity from given data array
      * @param array<mixed> $data
      * @return User
@@ -38,4 +45,7 @@ interface UserFacade
      * @return User
      */
     public function createUser(string $name, string $email, string $password): User;
+
+
+    public function createUserWithGoogle(string $name, string $email, string $googleId): ?User;
 }

@@ -10,25 +10,22 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20231012185543 extends AbstractMigration
+final class Version20231125030540 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Propojení s google';
     }
 
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('
-        CREATE TABLE `user` (
-  `id` CHAR(36) NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
-  `email_address` VARCHAR(255) NOT NULL,
-  `password_hash` VARCHAR(255),
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
-        ');
+        $this->addSql("
+        ALTER TABLE `user` 
+ADD COLUMN `google_id` VARCHAR(45) NULL AFTER `last_login`,
+ADD UNIQUE INDEX `google_id_UNIQUE` (`google_id` ASC);
+;
+        ");
     }
 
     public function down(Schema $schema): void

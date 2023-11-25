@@ -27,8 +27,8 @@ class User extends AbstractEntity
     /** @ORM\Column(type="string", length=255, nullable=FALSE, unique=false) */
     private string $emailAddress;
 
-    /** @ORM\Column(type="string", length=255, nullable=FALSE, unique=false) */
-    private string $passwordHash;
+    /** @ORM\Column(type="string", length=255, nullable=TRUE, unique=false) */
+    private ?string $passwordHash;
 
     /** @ORM\Column(type="string", length=45, nullable=FALSE, unique=false) */
     private string $role = 'regular';
@@ -36,11 +36,13 @@ class User extends AbstractEntity
     /** @ORM\Column(type="datetime", nullable=TRUE, unique=false) */
     private ?DateTime $lastLogin;
 
-    public function __construct(string $name, string $emailAddress, string $passwordHash)
+    /** @ORM\Column(type="string", nullable=TRUE, unique=true) */
+    private ?string $googleId;
+
+    public function __construct(string $name, string $emailAddress)
     {
         $this->name = $name;
         $this->emailAddress = $emailAddress;
-        $this->passwordHash = $passwordHash;
     }
 
     public function getName(): string
@@ -53,9 +55,14 @@ class User extends AbstractEntity
         return $this->emailAddress;
     }
 
-    public function getPasswordHash(): string
+    public function getPasswordHash(): ?string
     {
         return $this->passwordHash;
+    }
+
+    public function setPasswordHash(string $password): void
+    {
+        $this->passwordHash = $password;
     }
 
     public function getRole(): string
@@ -82,6 +89,16 @@ class User extends AbstractEntity
 	{
 		return 'https://www.gravatar.com/avatar/' . md5($this->emailAddress);
 	}
+
+    public function getGoogleId(): ?string
+    {
+        return $this->googleId;
+    }
+
+    public function setGoogleId(?string $googleId): void
+    {
+        $this->googleId = $googleId;
+    }
 
 	public function toIdentity(): Identity
 	{

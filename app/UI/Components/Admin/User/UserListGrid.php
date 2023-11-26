@@ -49,11 +49,11 @@ class UserListGrid extends BaseComponent
 
             switch ($user->getRole())
             {
-                case 'regular':
+                case User::ROLE_REGULAR:
                     return $html->setAttribute('class', 'badge bg-gradient-secondary');
-                case 'serviceman':
+                case User::ROLE_SERVICEMAN:
                     return $html->setAttribute('class', 'badge bg-gradient-warning');
-                case 'admin':
+                case User::ROLE_ADMIN:
                     return $html->setAttribute('class', 'badge bg-gradient-primary');
                 default:
                     return $html->setAttribute('class', 'badge bg-gradient-default');

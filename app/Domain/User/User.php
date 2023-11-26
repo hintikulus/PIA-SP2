@@ -19,6 +19,15 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class User extends AbstractEntity
 {
+    public const ROLE_REGULAR = 'regular';
+    public const ROLE_SERVICEMAN = 'serviceman';
+    public const ROLE_ADMIN = 'admin';
+    public const ROLES = [
+        self::ROLE_REGULAR => self::ROLE_REGULAR,
+        self::ROLE_SERVICEMAN => self::ROLE_SERVICEMAN,
+        self::ROLE_ADMIN => self::ROLE_ADMIN,
+    ];
+
     use TUuid;
 
     /** @ORM\Column(type="string", length=255, nullable=FALSE, unique=false) */
@@ -31,7 +40,7 @@ class User extends AbstractEntity
     private ?string $passwordHash;
 
     /** @ORM\Column(type="string", length=45, nullable=FALSE, unique=false) */
-    private string $role = 'regular';
+    private string $role = self::ROLE_REGULAR;
 
     /** @ORM\Column(type="datetime", nullable=TRUE, unique=false) */
     private ?DateTime $lastLogin;
@@ -82,6 +91,11 @@ class User extends AbstractEntity
 
     public function setRole(string $role): void
     {
+        if(!isset(self::ROLES[$role]))
+        {
+            throw new InvalidArgumentException();
+        }
+
         $this->role = $role;
     }
 
@@ -112,7 +126,7 @@ class User extends AbstractEntity
 
 	public function toIdentity(): Identity
 	{
-		return new Identity($this->getId()->toString(), ['regular'], [
+		return new Identity($this->getId()->toString(), [$this->getRole()], [
 			'email' => $this->emailAddress,
 			'name' => $this->name,
 			'gravatar' => $this->getGravatar(),

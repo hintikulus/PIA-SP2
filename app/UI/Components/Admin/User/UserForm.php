@@ -43,7 +43,7 @@ class UserForm extends BaseComponent
         else
         {
             $this['form']->setDefaults([
-                'role' => 'regular',
+                'role' => User::ROLE_REGULAR,
             ]);
         }
 
@@ -66,9 +66,9 @@ class UserForm extends BaseComponent
         $form->addPassword('password', $translator->translate('input_password'));
 
         $form->addRadioList('role', $translator->translate('input_role'), [
-                'regular'    => $translator->translate('option_role.regular'),
-                'serviceman' => $translator->translate('option_role.serviceman'),
-                'admin'      => $translator->translate('option_role.admin'),
+                User::ROLE_REGULAR    => $translator->translate('option_role.' . User::ROLE_REGULAR),
+                User::ROLE_SERVICEMAN => $translator->translate('option_role.' . User::ROLE_SERVICEMAN),
+                User::ROLE_ADMIN      => $translator->translate('option_role.' . User::ROLE_ADMIN),
             ]
         );
 

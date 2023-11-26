@@ -50,9 +50,19 @@ class User extends AbstractEntity
         return $this->name;
     }
 
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
     public function getEmailAddress(): string
     {
         return $this->emailAddress;
+    }
+
+    public function setEmailAddress(string $email): void
+    {
+        $this->emailAddress = $email;
     }
 
     public function getPasswordHash(): ?string

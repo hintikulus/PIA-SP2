@@ -3,6 +3,7 @@
 namespace App\Model\Security\Authenticator;
 
 use App\Domain\User\User;
+use App\Domain\User\UserFacade;
 use App\Domain\User\UserQuery;
 use App\Model\Database\QueryManager;
 use App\Model\Exception\Runtime\AuthenticationException;
@@ -14,8 +15,8 @@ final class UserAuthenticator implements Authenticator
 {
 
 	public function __construct(
-		private QueryManager $qm,
-		private Passwords $passwords
+		private UserFacade $userFacade,
+		private Passwords $passwords,
 	)
 	{
 	}
@@ -26,7 +27,7 @@ final class UserAuthenticator implements Authenticator
 	public function authenticate(string $username, string $password): IIdentity
 	{
 		/** @var User|null $user */
-		$user = $this->qm->findOne(UserQuery::ofEmail($username));
+        $user = $this->userFacade->getByEmail($username);
 
 		if ($user === null) {
 			throw new AuthenticationException('The username is incorrect.', self::IDENTITY_NOT_FOUND);
@@ -34,6 +35,7 @@ final class UserAuthenticator implements Authenticator
 			throw new AuthenticationException('The password is incorrect.', self::INVALID_CREDENTIAL);
 		}
 
+        $this->userFacade->updateLastLoginDatetime($user);
 		return $this->createIdentity($user);
 	}
 

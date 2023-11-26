@@ -52,6 +52,7 @@ class GoogleButton extends BaseComponent
         {
             $user = $this->userFacade->createUserWithGoogle($owner->getName(), $owner->getEmail(), $owner->getId());
         }
+        $this->userFacade->updateLastLoginDatetime($user);
 
         $this->user->login($user->toIdentity());
         $this->flashSuccess('Úspěšně přihlášen');

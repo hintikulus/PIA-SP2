@@ -53,7 +53,7 @@ class DefaultUserFacade implements UserFacade
     {
         $this->em->beginTransaction();
         $user = $this->em->getUserRepository()->findOneByEmail($email);
-        if($user !== null)
+        if ($user !== null)
         {
             $this->em->rollback();
             throw new AuthenticationException();
@@ -78,24 +78,69 @@ class DefaultUserFacade implements UserFacade
         $this->em->beginTransaction();
 
         $user = $this->getByGoogleId($googleId);
-        if($user !== null)
+        if ($user !== null)
         {
             throw new AuthenticationException();
         }
 
         $user = $this->getByEmail($email);
-        if($user !== null)
+        if ($user !== null)
         {
             throw new AuthenticationException();
         }
 
         $user = new User($name, $email);
         $user->setGoogleId($googleId);
-        
+
         $this->em->persist($user);
         $this->em->flush($user);
         $this->em->commit();
 
         return $user;
+    }
+
+    public function saveUser(?User $user, string $name, ?string $password, string $email, string $role): User
+    {
+        $this->em->beginTransaction();
+
+        $userTmp = $this->em->getUserRepository()->findOneByEmail($email);
+
+        if ($userTmp !== null && $userTmp !== $user)
+        {
+            $this->em->rollback();
+            throw new AuthenticationException();
+        }
+
+        if ($user === null)
+        {
+            $user = new User($name, $email);
+            if($password !== null)
+            {
+                $user->setPasswordHash($this->passwords->hash($password));
+            }
+            $user->setRole($role);
+            $this->em->persist($user);
+        }
+        else
+        {
+            $user->setName($name);
+            $user->setEmailAddress($email);
+            if($password !== null)
+            {
+                $user->setPasswordHash($this->passwords->hash($password));
+            }
+            $user->setRole($role);
+        }
+
+        $this->em->flush($user);
+        $this->em->commit();
+
+        return $user;
+    }
+
+    public function updateLastLoginDatetime(User $user): void
+    {
+        $user->updateLastLogin();
+        $this->em->flush($user);
     }
 }

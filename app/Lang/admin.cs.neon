@@ -5,6 +5,17 @@ userPresenter:
     action_list:
         title: 'Seznam uživatelů'
         nav_link: 'Uživatelé'
+        userListCard:
+            title: 'Seznam uživatelů'
+            link_add: 'Přidat uživatele'
+    action_add:
+        title: 'Přidat uživatele'
+        userFormCard:
+            title: 'Přidat uživatele'
+    action_edit:
+        title: 'Upravit uživatele'
+        userFormCard:
+            title: 'Upravit uživatele'
 
 homePresenter:
     action_default:
@@ -23,6 +34,10 @@ bikePresenter:
             link_add: 'Přidat kolo'
         bikeMapCard:
             title: 'Mapa kol'
+    action_add:
+        title: 'Přidat kolo'
+    action_edit:
+        title: 'Upravit kolo'
 
 standPresenter:
     action_list:
@@ -33,13 +48,21 @@ standPresenter:
             link_add: 'Přidat stojan'
         standMapCard:
             title: 'Mapa stojanů'
+    action_add:
+        title: 'Přidat stojan'
+    action_edit:
+        title: 'Upravit stojan'
 
 userListGrid:
     column_id: 'ID'
     column_name: 'Jméno a příjmení'
+    filter_name: 'Jméno a příjmení'
     column_email: 'E-mail'
+    filter_email: 'E-mail'
     column_role: 'Role'
+    filter_role: 'Role'
     column_lastlogin: 'Posl. přihlášení'
+    action_edit: 'Upravit'
 
 standListGrid:
     column_name: 'Název'
@@ -49,3 +72,12 @@ standListGrid:
 standListMap:
     popup_name: 'Název: '
     popup_action_edit: 'Upravit'
+
+userForm:
+    input_name: 'Jméno a příjmení'
+    input_email: 'E-mail'
+    input_role: 'Role'
+    option_role:
+        regular: 'Běžný uživatel'
+        serviceman: 'Servisní pracovník'
+        admin: 'Administrátor'

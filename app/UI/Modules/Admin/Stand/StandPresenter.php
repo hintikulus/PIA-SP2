@@ -45,7 +45,7 @@ class StandPresenter extends BaseAdminPresenter
 
         if($stand === null)
         {
-            $this->error('Stojan nenalezen', 404);
+            $this->error('Stand entity not found.', 404);
         }
 
         $this->stand = $stand;

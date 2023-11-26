@@ -1,0 +1,31 @@
+{snippet userForm}
+    <form n:name="form" class="form">
+        <div n:foreach="$form->errors as $error" class="alert alert-danger text-white" role="alert">
+            {$error}
+        </div>
+        <div class="form-group">
+            {label name /}
+            {input name class => "form-control"}
+        </div>
+        <div class="form-group">
+            {label email /}
+            {input email class => "form-control"}
+        </div>
+        <div class="form-group">
+            {label role /}
+
+            {foreach $form[role]->getItems() as $key => $label}
+                <div class="form-check mb-0 ms-2">
+                    <input class="form-check-input" n:name="role:$key">
+                    <label class="custom-control-label" n:name="role:$key">{$label}</label>
+                </div>
+            {/foreach}
+        </div>
+        <div class="form-group">
+            {input send class => "btn bg-gradient-primary mb-0"}
+            {if isset($form->getComponents()['cancel'])}
+                {input cancel class => "btn bg-gradient-default mb-0 float-right"}
+            {/if}
+        </div>
+    </form>
+{/snippet}

@@ -1,1 +1,6 @@
 appName: 'BikesToGo'
+
+role:
+    regular: 'Běžný uživatel'
+    serviceman: 'Servisní pracovník'
+    admin: 'Administrátor'

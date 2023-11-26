@@ -48,4 +48,8 @@ interface UserFacade
 
 
     public function createUserWithGoogle(string $name, string $email, string $googleId): ?User;
+
+    public function saveUser(?User $user, string $name, ?string $password, string $email, string $role): User;
+
+    public function updateLastLoginDatetime(User $user): void;
 }

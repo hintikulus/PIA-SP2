@@ -10,7 +10,7 @@
                         <h6 class="mb-0">{_admin.standPresenter.action_list.standListCard.title}</h6>
                     </div>
                     <div class="col-6 text-end">
-                        <a class="btn bg-gradient-primary mb-0" n:href=":add"><i class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp{_admin.standPresenter.action_list.standListCard.link_add}</a>
+                        <a n:if="$_user->isAllowed('Admin:Stand:list')" class="btn bg-gradient-primary mb-0" n:href=":add"><i class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp{_admin.standPresenter.action_list.standListCard.link_add}</a>
                     </div>
                 </div>
             </div>

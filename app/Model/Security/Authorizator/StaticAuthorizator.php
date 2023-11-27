@@ -34,15 +34,41 @@ final class StaticAuthorizator extends Permission
 	 */
 	protected function addResources(): void
 	{
-		$this->addResource('Admin:Home');
-	}
+        $this->addResource('Regular');
+
+        $this->addResource('Admin:Home', 'Regular');
+        $this->addResource('Admin:Home:default', 'Admin:Home');
+
+
+        $this->addResource('Service');
+
+
+        $this->addResource('Administration');
+
+        $this->addResource('Admin:User', 'Administration');
+        $this->addResource('Admin:User:list', 'Admin:User');
+        $this->addResource('Admin:User:add', 'Admin:User');
+        $this->addResource('Admin:User:edit', 'Admin:User');
+
+        $this->addResource('Admin:Stand', 'Administration');
+        $this->addResource('Admin:Stand:list', 'Admin:Stand');
+        $this->addResource('Admin:Stand:add', 'Admin:Stand');
+        $this->addResource('Admin:Stand:edit', 'Admin:Stand');
+
+        $this->addResource('Admin:Bike', 'Administration');
+        $this->addResource('Admin:Bike:list', 'Admin:Bike');
+        $this->addResource('Admin:Bike:add', 'Admin:Bike');
+        $this->addResource('Admin:Bike:edit', 'Admin:Bike');
+    }
 
 	/**
 	 * Setup ACL
 	 */
 	protected function addPermissions(): void
 	{
-        $this->allow(self::ALL, self::ALL);
+        $this->allow(User::ROLE_REGULAR, 'Regular');
+        $this->allow(User::ROLE_SERVICEMAN, 'Service');
+        $this->allow(User::ROLE_ADMIN, 'Administration');
 	}
 
 }

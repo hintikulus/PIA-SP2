@@ -3,6 +3,7 @@
 namespace App\Domain\User;
 
 use App\Model\Database\EntityManagerDecorator;
+use App\Model\Exception\Logic\UserNotFoundException;
 use App\Model\Exception\Runtime\AuthenticationException;
 use App\Model\Security\Passwords;
 use Doctrine\ORM\Query;
@@ -56,7 +57,7 @@ class DefaultUserFacade implements UserFacade
         if ($user !== null)
         {
             $this->em->rollback();
-            throw new AuthenticationException();
+            throw new UserNotFoundException($email);
         }
 
         $user = new User($name, $email, $this->passwords->hash($password));
@@ -80,13 +81,13 @@ class DefaultUserFacade implements UserFacade
         $user = $this->getByGoogleId($googleId);
         if ($user !== null)
         {
-            throw new AuthenticationException();
+            throw new UserNotFoundException($googleId);
         }
 
         $user = $this->getByEmail($email);
         if ($user !== null)
         {
-            throw new AuthenticationException();
+            throw new UserNotFoundException($email);
         }
 
         $user = new User($name, $email);
@@ -108,7 +109,7 @@ class DefaultUserFacade implements UserFacade
         if ($userTmp !== null && $userTmp !== $user)
         {
             $this->em->rollback();
-            throw new AuthenticationException();
+            throw new UserNotFoundException();
         }
 
         if ($user === null)

@@ -4,6 +4,7 @@ namespace App\UI\Components\Admin\User;
 
 use App\Domain\User\User;
 use App\Domain\User\UserFacade;
+use App\Model\Exception\Logic\UserNotFoundException;
 use App\Model\Exception\Runtime\AuthenticationException;
 use App\UI\Components\Base\BaseComponent;
 use App\UI\Form\BaseForm;
@@ -98,7 +99,7 @@ class UserForm extends BaseComponent
             $this->userFacade->saveUser($this->user, $transformedValues['name'], $transformedValues['password'], $transformedValues['email'], $transformedValues['role']);
             $this->flashSuccess('Uložení proběhlo úspěšně.');
         }
-        catch (AuthenticationException $e)
+        catch (UserNotFoundException $e)
         {
             $form->addError('Emailová adresa je obsazena.');
         }

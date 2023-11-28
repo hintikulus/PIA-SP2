@@ -4,6 +4,7 @@ namespace App\UI\Modules\Admin\Stand;
 
 use App\Domain\Stand\Stand;
 use App\Domain\Stand\StandFacade;
+use App\Model\Exception\Logic\StandNotFoundException;
 use App\UI\Components\Admin\Stand\StandChooseMap;
 use App\UI\Components\Admin\Stand\StandChooseMapFactory;
 use App\UI\Components\Admin\Stand\StandForm;
@@ -45,7 +46,7 @@ class StandPresenter extends BaseAdminPresenter
 
         if($stand === null)
         {
-            $this->error('Stand entity not found.', 404);
+            throw new StandNotFoundException($id);
         }
 
         $this->stand = $stand;

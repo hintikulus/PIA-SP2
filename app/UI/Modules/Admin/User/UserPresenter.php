@@ -4,6 +4,7 @@ namespace App\UI\Modules\Admin\User;
 
 use App\Domain\User\User;
 use App\Domain\User\UserFacade;
+use App\Model\Exception\Logic\UserNotFoundException;
 use App\UI\Components\Admin\User\UserForm;
 use App\UI\Components\Admin\User\UserFormFactory;
 use App\UI\Components\Admin\User\UserListGrid;
@@ -36,7 +37,7 @@ class UserPresenter extends BaseAdminPresenter
 
         if($user === null)
         {
-            $this->error('User entity not found.', 404);
+            throw new UserNotFoundException($id);
         }
 
         $this->userEntity = $user;

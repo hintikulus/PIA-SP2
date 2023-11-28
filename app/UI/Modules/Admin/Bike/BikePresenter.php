@@ -4,6 +4,7 @@ namespace App\UI\Modules\Admin\Bike;
 
 use App\Domain\Bike\Bike;
 use App\Domain\Bike\BikeFacade;
+use App\Model\Exception\Logic\BikeNotFoundException;
 use App\UI\Components\Admin\Bike\BikeChooseStandMap;
 use App\UI\Components\Admin\Bike\BikeChooseStandMapFactory;
 use App\UI\Components\Admin\Bike\BikeForm;
@@ -55,7 +56,7 @@ class BikePresenter extends BaseAdminPresenter
 
         if($bike === null)
         {
-            $this->error('Stand entity not found.', 404);
+            throw new BikeNotFoundException($id);
         }
 
         $this->bike = $bike;
@@ -63,7 +64,14 @@ class BikePresenter extends BaseAdminPresenter
 
     public function actionService(string $id)
     {
-        
+        $bike = $this->bikeFacade->get($id);
+
+        if($bike === null)
+        {
+            throw new BikeNotFoundException($id);
+        }
+
+        $this->bike = $bike;
     }
 
     public function createComponentBikeListGrid(): BikeListGrid
@@ -98,5 +106,19 @@ class BikePresenter extends BaseAdminPresenter
     public function createComponentBikeDueForServiceListMap(): BikeDueForServiceListMap
     {
         return $this->bikeDueForServiceListMapFactory->create();
+    }
+
+    public function handleMakeBikeService(string $id): void
+    {
+        $bike = $this->bikeFacade->get($id);
+
+        if($bike === null)
+        {
+            throw new BikeNotFoundException($id);
+        }
+
+        $this->bikeFacade->makeService($bike);
+        $this->flashSuccess('Servis kola byl úspěšně dokončen.');
+        $this->redirect(':dueForService');
     }
 }

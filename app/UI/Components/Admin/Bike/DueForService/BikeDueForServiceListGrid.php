@@ -39,6 +39,9 @@ class BikeDueForServiceListGrid extends BaseComponent
 
         $grid->addColumnText('stand', $translator->translate('column_stand'), 'stand.name');
 
+        $grid->addAction('service', $translator->translate('action_service'), 'Bike:service')
+            ->setClass('btn btn-sm bg-gradient-secondary mb-0');
+
         return $grid;
     }
 }

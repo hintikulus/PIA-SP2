@@ -102,3 +102,4 @@ bikeChooseStandMap:
 bikeDueForServiceListGrid:
     column_last_service_datetime: 'Poslední kontrola'
     column_stand: 'Stojan'
+    action_service: 'Servisovat'

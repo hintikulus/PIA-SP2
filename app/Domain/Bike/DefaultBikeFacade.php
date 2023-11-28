@@ -69,4 +69,10 @@ class DefaultBikeFacade implements BikeFacade
     {
         return $this->em->getBikeRepository()->findAll();
     }
+
+    public function makeService(Bike $bike): void
+    {
+        $bike->setLastServiceTimestamp(new \DateTime());
+        $this->em->flush($bike);
+    }
 }

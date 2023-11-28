@@ -17,4 +17,6 @@ interface BikeFacade
     public function getAll(): array;
 
     public function save(?Bike $bike, ?string $stand_id, ?\DateTime $last_service_datetime): Bike;
+
+    public function makeService(Bike $bike): void;
 }

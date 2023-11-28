@@ -92,7 +92,7 @@ class BikeForm extends BaseComponent
     {
         $transformedValues = [
             'stand_id'              => $values['stand_id'] ? : null,
-            'last_service_datetime' => isset($values['last_service_datetime']) ? new \DateTime($values['last_service_datetime']) : null,
+            'last_service_datetime' => isset($values['last_service_datetime']) ? new \DateTime($values['last_service_datetime']->format(App::DATETIME_PICKER_FORMAT)) : null,
         ];
 
         return $transformedValues;

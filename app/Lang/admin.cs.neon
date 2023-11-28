@@ -68,6 +68,11 @@ standPresenter:
     action_edit:
         title: 'Upravit stojan'
 
+myRidesPresenter:
+    action_default:
+        title: 'Moje jízdy'
+        nav_link: 'Moje jízdy'
+
 userListGrid:
     column_id: 'ID'
     column_name: 'Jméno a příjmení'

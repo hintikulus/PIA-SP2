@@ -74,12 +74,12 @@
                         </a>
                     </li>
 
-                    <li class="nav-item" n:if="$_user->isAllowed('Admin:User:list')">
-                        <a n:class="nav-link, $presenter->isLinkCurrent('User:list') ? active" href="#">
+                    <li class="nav-item" n:if="$_user->isAllowed('Admin:MyRides:default')">
+                        <a n:class="nav-link, $presenter->isLinkCurrent('MyRides:') ? active" n:href="MyRides:">
                             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="fa-solid fa-route"></i>
                             </div>
-                            <span class="nav-link-text ms-1">Moje jízdy</span>
+                            <span class="nav-link-text ms-1">{_admin.myRidesPresenter.action_default.nav_link}</span>
                         </a>
                     </li>
                 {/if}

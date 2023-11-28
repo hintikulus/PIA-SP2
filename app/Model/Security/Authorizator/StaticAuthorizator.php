@@ -39,6 +39,9 @@ final class StaticAuthorizator extends Permission
         $this->addResource('Admin:Home', 'Regular');
         $this->addResource('Admin:Home:default', 'Admin:Home');
 
+        $this->addResource('Admin:UserSettings', 'Regular');
+        $this->addResource('Admin:UserSettings:default', 'Admin:UserSettings');
+
         $this->addResource('Admin:MyRides', 'Regular');
         $this->addResource('Admin:MyRides:default', 'Admin:MyRides');
 

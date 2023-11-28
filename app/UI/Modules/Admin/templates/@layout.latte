@@ -156,7 +156,7 @@
     </aside>
 {/block}
 {block #topNav}
-    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl position-sticky blur shadow-blur mt-4 left-auto top-1 z-index-sticky" id="navbarBlur"
          navbar-scroll="true">
         <div class="container-fluid py-1 px-3">
             <nav aria-label="breadcrumb">
@@ -193,7 +193,7 @@
                         </a>
                     </li>
                     <li class="nav-item px-3 d-flex align-items-center">
-                        <a href="javascript:;" class="nav-link text-body p-0">
+                        <a n:href="UserSettings:" class="nav-link text-body p-0">
                             <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
                         </a>
                     </li>
@@ -272,7 +272,7 @@
     </footer>
 {/block}
 {block #fixedPlugin}
-
+{*}
     <div class="fixed-plugin">
         <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
             <i class="fa fa-cog py-2"> </i>
@@ -357,6 +357,7 @@
             </div>
         </div>
     </div>
+    {/*}
 {/block}
 
 {block #footerScripts}

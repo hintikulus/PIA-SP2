@@ -73,6 +73,10 @@ myRidesPresenter:
         title: 'Moje jízdy'
         nav_link: 'Moje jízdy'
 
+userSettingsPresenter:
+    action_default:
+        title: 'Nastavení účtu'
+
 userListGrid:
     column_id: 'ID'
     column_name: 'Jméno a příjmení'

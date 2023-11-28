@@ -45,5 +45,9 @@
 
     map.setView([{$viewLocation->getLatitudeFloat()}, {$viewLocation->getLongitudeFloat()}], {$viewZoom});
 
+    var attribution = map.attributionControl;
+    attribution.setPrefix('');
+
+    console.log(map);
 
 </script>

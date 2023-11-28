@@ -39,6 +39,7 @@ class BaseForm extends Form
         return $input;
     }
 
+    /*
     public function addDate(string $name, string $label = null, ?int $cols = null, ?int $maxLength = null): TextInput
     {
         $input = $this->addText($name, $label, $cols, $maxLength);
@@ -46,7 +47,9 @@ class BaseForm extends Form
         //$input->setHtmlAttribute('max', App::DATE_PICKER_MAX_VALUE);
         return $input;
     }
+    */
 
+    /*
     public function addDatetime(string $name, string $label = null, ?int $cols = null, ?int $maxLength = null): TextInput
     {
         $input = $this->addText($name, $label, $cols, $maxLength);
@@ -54,4 +57,5 @@ class BaseForm extends Form
         $input->setHtmlAttribute('max', App::DATETIME_PICKER_MAX_VALUE);
         return $input;
     }
+    */
 }

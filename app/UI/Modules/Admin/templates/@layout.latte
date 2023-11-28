@@ -89,8 +89,8 @@
                         <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Údržba</h6>
                     </li>
 
-                    <li class="nav-item" n:if="$_user->isAllowed('Admin:User:list')">
-                        <a n:class="nav-link, $presenter->isLinkCurrent('User:list') ? active" href="#">
+                    <li class="nav-item" n:if="$_user->isAllowed('Admin:Bike:dueForService')">
+                        <a n:class="nav-link, $presenter->isLinkCurrent('Bike:dueForService') ? active" n:href="Bike:dueForService">
                             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="fa-solid fa-screwdriver-wrench"></i>
                             </div>

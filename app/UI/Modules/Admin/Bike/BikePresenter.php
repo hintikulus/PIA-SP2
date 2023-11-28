@@ -12,6 +12,10 @@ use App\UI\Components\Admin\Bike\BikeListGrid;
 use App\UI\Components\Admin\Bike\BikeListGridFactory;
 use App\UI\Components\Admin\Bike\BikeListMap;
 use App\UI\Components\Admin\Bike\BikeListMapFactory;
+use App\UI\Components\Admin\Bike\DueForService\BikeDueForServiceListGrid;
+use App\UI\Components\Admin\Bike\DueForService\BikeDueForServiceListGridFactory;
+use App\UI\Components\Admin\Bike\DueForService\BikeDueForServiceListMap;
+use App\UI\Components\Admin\Bike\DueForService\BikeDueForServiceListMapFactory;
 use App\UI\Modules\Admin\BaseAdminPresenter;
 
 class BikePresenter extends BaseAdminPresenter
@@ -21,6 +25,9 @@ class BikePresenter extends BaseAdminPresenter
     private BikeListGridFactory $bikeListGridFactory;
     private BikeListMapFactory $bikeListMapFactory;
     private BikeFormFactory $bikeFormFactory;
+    private BikeDueForServiceListGridFactory $bikeDueForServiceListGridFactory;
+    private BikeDueForServiceListMapFactory $bikeDueForServiceListMapFactory;
+
     private ?Bike $bike = null;
 
     public function __construct(
@@ -29,6 +36,8 @@ class BikePresenter extends BaseAdminPresenter
         BikeChooseStandMapFactory $bikeChooseStandMapFactory,
         BikeFormFactory           $bikeFormFactory,
         BikeListMapFactory $bikeListMapFactory,
+        BikeDueForServiceListGridFactory $bikeDueForServiceListGridFactory,
+        BikeDueForServiceListMapFactory $bikeDueForServiceListMapFactory,
     )
     {
         $this->bikeFacade = $bikeFacade;
@@ -36,6 +45,8 @@ class BikePresenter extends BaseAdminPresenter
         $this->bikeChooseStandMapFactory = $bikeChooseStandMapFactory;
         $this->bikeFormFactory = $bikeFormFactory;
         $this->bikeListMapFactory = $bikeListMapFactory;
+        $this->bikeDueForServiceListGridFactory = $bikeDueForServiceListGridFactory;
+        $this->bikeDueForServiceListMapFactory = $bikeDueForServiceListMapFactory;
     }
 
     public function actionEdit(string $id)
@@ -48,6 +59,11 @@ class BikePresenter extends BaseAdminPresenter
         }
 
         $this->bike = $bike;
+    }
+
+    public function actionService(string $id)
+    {
+        
     }
 
     public function createComponentBikeListGrid(): BikeListGrid
@@ -72,5 +88,15 @@ class BikePresenter extends BaseAdminPresenter
             $this->redirect(':list');
         };
         return $form;
+    }
+
+    public function createComponentBikeDueForServiceListGrid(): BikeDueForServiceListGrid
+    {
+        return $this->bikeDueForServiceListGridFactory->create();
+    }
+
+    public function createComponentBikeDueForServiceListMap(): BikeDueForServiceListMap
+    {
+        return $this->bikeDueForServiceListMapFactory->create();
     }
 }

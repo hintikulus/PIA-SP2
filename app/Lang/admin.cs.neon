@@ -38,6 +38,14 @@ bikePresenter:
         title: 'Přidat kolo'
     action_edit:
         title: 'Upravit kolo'
+    action_dueForService:
+        title: 'Kola k servisu'
+        bikeListCard:
+            title: 'Seznam kol'
+            link_add: 'Přidat kolo'
+        bikeMapCard:
+            title: 'Mapa kol'
+
 
 standPresenter:
     action_list:
@@ -90,3 +98,7 @@ bikeForm:
 bikeChooseStandMap:
     popup_name: 'Název: '
     popup_action_choose_stand: 'Zvolit stojan'
+
+bikeDueForServiceListGrid:
+    column_last_service_datetime: 'Poslední kontrola'
+    column_stand: 'Stojan'

@@ -2,6 +2,7 @@
 
 namespace App\UI\Components\Front\Sign;
 
+use App\Model\Exception\Logic\UserNotFoundException;
 use App\Model\Exception\Runtime\AuthenticationException;
 use App\UI\Components\Base\BaseComponent;
 use App\UI\Form\BaseForm;
@@ -51,7 +52,7 @@ class SignInForm extends BaseComponent
         {
             $this->user->login($values['email'], $values['password']);
         }
-        catch (AuthenticationException $e)
+        catch (AuthenticationException|UserNotFoundException $e)
         {
             $this->flashWarning('Autentizace selhala.');
             $form->addError('Autentizace selhala.');

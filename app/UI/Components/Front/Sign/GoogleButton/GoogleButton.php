@@ -3,6 +3,7 @@
 namespace App\UI\Components\Front\Sign\GoogleButton;
 
 use App\Domain\User\UserFacade;
+use App\Model\Exception\Logic\UserNotFoundException;
 use App\Model\Exception\Runtime\AuthenticationException;
 use App\UI\Components\Base\BaseComponent;
 use Contributte\OAuth2Client\Flow\Google\GoogleAuthCodeFlow;
@@ -19,8 +20,8 @@ class GoogleButton extends BaseComponent
 
     public function __construct(
         GoogleAuthCodeFlow $flow,
-        UserFacade $userFacade,
-        User $user,
+        UserFacade         $userFacade,
+        User               $user,
     )
     {
         $this->flow = $flow;
@@ -37,23 +38,37 @@ class GoogleButton extends BaseComponent
 
     public function authorize(array $parameters = null): void
     {
-        try {
+        try
+        {
             $parameters = $parameters ?? $this->getPresenter()->getHttpRequest()->getQuery();
             $accessToken = $this->flow->getAccessToken($parameters);
-        } catch (IdentityProviderException $e) {
+        }
+        catch (IdentityProviderException $e)
+        {
             $this->flashError('Vyskytla se chyba při zpracování požadavku.');
             $this->presenter->redirect(':in');
         }
 
         /** @var GoogleUser $owner */
         $owner = $this->flow->getProvider()->getResourceOwner($accessToken);
-        $user = $this->userFacade->getByEmail($owner->getEmail());
-        if($user === null)
-        {
-            $user = $this->userFacade->createUserWithGoogle($owner->getName(), $owner->getEmail(), $owner->getId());
-        }
-        $this->userFacade->updateLastLoginDatetime($user);
 
+        try
+        {
+            $user = $this->userFacade->getByEmail($owner->getEmail());
+            if ($user === null)
+            {
+                $user = $this->userFacade->createUserWithGoogle($owner->getName(), $owner->getEmail(), $owner->getId());
+            }
+            $this->userFacade->updateLastLoginDatetime($user);
+        }
+        catch (UserNotFoundException)
+        {
+            $this->flashError('Uživatel nenalezen.');
+        }
+        catch (\Exception)
+        {
+            $this->flashError('Vyskytla se chyba.');
+        }
         $this->user->login($user->toIdentity());
         $this->flashSuccess('Úspěšně přihlášen');
         $this->presenter->redirect(':Admin:Home:');

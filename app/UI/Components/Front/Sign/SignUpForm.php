@@ -3,6 +3,7 @@
 namespace App\UI\Components\Front\Sign;
 
 use App\Domain\User\UserFacade;
+use App\Model\Exception\Logic\UserNotFoundException;
 use App\Model\Exception\Runtime\AuthenticationException;
 use App\UI\Components\Base\BaseComponent;
 use App\UI\Form\BaseForm;
@@ -64,7 +65,7 @@ class SignUpForm extends BaseComponent
         try {
             $this->userFacade->createUser($values['name'], $values['email'], $values['password1']);
             $this->flashSuccess('Registrace proběhla úspěšně.');
-        } catch (AuthenticationException $e)
+        } catch (UserNotFoundException $e)
         {
             $form->addError('Na Vámi zadanou emailovou adresu již evidujeme registrovaný účet, použijte prosím jinou nebo se zkuste přihlásit.');
         } catch (\Exception $e)

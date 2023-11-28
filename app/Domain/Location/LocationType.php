@@ -15,8 +15,13 @@ class LocationType extends Type
         return $platform->getStringTypeDeclarationSQL($fieldDeclaration);
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform): Location
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?Location
     {
+        if($value === null)
+        {
+            return null;
+        }
+
         $values = explode(';', $value);
         return new Location($values[0], $values[1]);
     }

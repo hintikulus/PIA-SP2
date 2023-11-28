@@ -2,23 +2,75 @@
 
 namespace App\UI\Modules\Admin\Bike;
 
+use App\Domain\Bike\Bike;
+use App\Domain\Bike\BikeFacade;
+use App\UI\Components\Admin\Bike\BikeChooseStandMap;
+use App\UI\Components\Admin\Bike\BikeChooseStandMapFactory;
+use App\UI\Components\Admin\Bike\BikeForm;
+use App\UI\Components\Admin\Bike\BikeFormFactory;
 use App\UI\Components\Admin\Bike\BikeListGrid;
 use App\UI\Components\Admin\Bike\BikeListGridFactory;
+use App\UI\Components\Admin\Bike\BikeListMap;
+use App\UI\Components\Admin\Bike\BikeListMapFactory;
 use App\UI\Modules\Admin\BaseAdminPresenter;
 
 class BikePresenter extends BaseAdminPresenter
 {
+    private BikeFacade $bikeFacade;
+    private BikeChooseStandMapFactory $bikeChooseStandMapFactory;
     private BikeListGridFactory $bikeListGridFactory;
+    private BikeListMapFactory $bikeListMapFactory;
+    private BikeFormFactory $bikeFormFactory;
+    private ?Bike $bike = null;
 
     public function __construct(
-        BikeListGridFactory $bikeListGridFactory,
+        BikeFacade $bikeFacade,
+        BikeListGridFactory       $bikeListGridFactory,
+        BikeChooseStandMapFactory $bikeChooseStandMapFactory,
+        BikeFormFactory           $bikeFormFactory,
+        BikeListMapFactory $bikeListMapFactory,
     )
     {
+        $this->bikeFacade = $bikeFacade;
         $this->bikeListGridFactory = $bikeListGridFactory;
+        $this->bikeChooseStandMapFactory = $bikeChooseStandMapFactory;
+        $this->bikeFormFactory = $bikeFormFactory;
+        $this->bikeListMapFactory = $bikeListMapFactory;
+    }
+
+    public function actionEdit(string $id)
+    {
+        $bike = $this->bikeFacade->get($id);
+
+        if($bike === null)
+        {
+            $this->error('Stand entity not found.', 404);
+        }
+
+        $this->bike = $bike;
     }
 
     public function createComponentBikeListGrid(): BikeListGrid
     {
         return $this->bikeListGridFactory->create();
+    }
+
+    public function createComponentBikeChooseStandMap(): BikeChooseStandMap
+    {
+        return $this->bikeChooseStandMapFactory->create();
+    }
+
+    public function createComponentBikeListMap(): BikeListMap
+    {
+        return $this->bikeListMapFactory->create();
+    }
+
+    public function createComponentBikeForm(): BikeForm
+    {
+        $form = $this->bikeFormFactory->create($this->bike, $this->link(':list'));
+        $form['form']->onSuccess[] = function() {
+            $this->redirect(':list');
+        };
+        return $form;
     }
 }

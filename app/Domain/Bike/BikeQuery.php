@@ -11,6 +11,12 @@ class BikeQuery extends AbstractQuery
     public static function getAll(): self
     {
         $self = new self();
+        $self->ons[] = function(QueryBuilder $qb): QueryBuilder {
+            $qb->addSelect('s');
+            $qb->leftJoin('b.stand', 's');
+            return $qb;
+        };
+
         return $self;
     }
 

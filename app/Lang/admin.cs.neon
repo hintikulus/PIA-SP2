@@ -81,3 +81,12 @@ userForm:
         regular: 'Běžný uživatel'
         serviceman: 'Servisní pracovník'
         admin: 'Administrátor'
+
+bikeForm:
+    input_stand_title: 'Stojan (vyberte na mapě)'
+    input_stand_id: 'Stojan ID'
+    input_last_service_datetime: 'Poslední kontrola údržby'
+
+bikeChooseStandMap:
+    popup_name: 'Název: '
+    popup_action_choose_stand: 'Zvolit stojan'

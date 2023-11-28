@@ -20,6 +20,12 @@ class BaseMap extends Map
             function(Presenter $presenter): void {
                 $this->addMarkerType('stand')
                     ->setIcon($this->presenter->template->basePath . '/assets/base/img/map/marker/bike_stand.png', [48, 48], [24, 46]);
+                $this->addMarkerType('bike')
+                    ->setIcon($this->presenter->template->basePath . '/assets/base/img/map/marker/bike_stand.png', [48, 48], [24, 46]);
+                $this->addMarkerType('bike_ride')
+                    ->setIcon($this->presenter->template->basePath . '/assets/base/img/map/marker/bike_stand.png', [48, 48], [24, 46]);
+                $this->addMarkerType('bike_service')
+                    ->setIcon($this->presenter->template->basePath . '/assets/base/img/map/marker/bike_stand.png', [48, 48], [24, 46]);
             }
         );
     }

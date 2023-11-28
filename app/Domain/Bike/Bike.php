@@ -79,4 +79,21 @@ class Bike extends AbstractEntity
     {
         $this->stand = $stand;
     }
+
+    public function isInStand(): bool
+    {
+        return $this->stand !== null;
+    }
+
+    public function getNextServiceDatetime(): \DateTime
+    {
+        return (clone $this->lastServiceTimestamp)->modify('+ 6 months');
+    }
+
+    public function isDueForService(): bool
+    {
+        $now = new \DateTime();
+        $nextService = $this->getNextServiceDatetime();
+        return $now > $nextService;
+    }
 }

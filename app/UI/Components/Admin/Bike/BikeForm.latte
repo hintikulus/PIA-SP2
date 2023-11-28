@@ -1,0 +1,24 @@
+{snippet bikeForm}
+    <form n:name="form" class="form">
+        <div class="form-group">
+            {label stand_title /}
+            {input stand_title class => "form-control"}
+        </div>
+        <div class="form-group d-none">
+            {label stand_id /}
+            {input stand_id class => "form-control"}
+        </div>
+        {if isset($form->getComponents()['last_service_datetime'])}
+            <div class="form-group">
+                {label last_service_datetime /}
+                {input last_service_datetime class => "form-control"}
+            </div>
+        {/if}
+        <div class="form-group">
+            {input send class => "btn bg-gradient-primary mb-0"}
+            {if isset($form->getComponents()['cancel'])}
+                {input cancel class => "btn bg-gradient-default mb-0 float-right"}
+            {/if}
+        </div>
+    </form>
+{/snippet}

@@ -6,16 +6,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
-class AbstractQuery implements Queryable
+abstract class AbstractQuery implements Queryable
 {
 
 	/** @var array<(callable(QueryBuilder):QueryBuilder)> */
 	protected array $ons = [];
 
-	public function setup(): void
-	{
-		// Can be defined in child.
-	}
+	public abstract function setup(): void;
 
 	public function doQuery(EntityManagerInterface $em): Query
 	{
@@ -27,6 +24,8 @@ class AbstractQuery implements Queryable
     {
         $qb = $em->createQueryBuilder();
         $this->setup();
+        $this->ons = array_reverse($this->ons);
+
         foreach ($this->ons as $on)
         {
             $qb = $on($qb);

@@ -2,6 +2,7 @@
 
 namespace App\Model\Database;
 
+use App\Domain\Bike\Bike;
 use App\Domain\Bike\BikeRepository;
 use App\Domain\Stand\Stand;
 use App\Domain\Stand\StandRepository;

@@ -2,7 +2,7 @@
 
 namespace App\Domain\Bike;
 
-use App\Domain\Stand\Stand;
+use App\Domain\Bike\Bike;
 use App\Model\Database\Repository\AbstractRepository;
 
 /**

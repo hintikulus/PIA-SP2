@@ -4,9 +4,14 @@ namespace App\UI\Modules\Admin;
 
 use App\Model\App;
 use App\UI\Modules\Base\SecuredPresenter;
+use Contributte\Translation\PrefixedTranslator;
 
 abstract class BaseAdminPresenter extends SecuredPresenter
 {
+    public function startup()
+    {
+        parent::startup();
+    }
 
     public function checkRequirements($element): void
     {

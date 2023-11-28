@@ -40,12 +40,19 @@ bikePresenter:
         title: 'Upravit kolo'
     action_dueForService:
         title: 'Kola k servisu'
+        nav_link: 'Kola k servisu'
         bikeListCard:
             title: 'Seznam kol'
             link_add: 'Přidat kolo'
         bikeMapCard:
             title: 'Mapa kol'
-
+    action_service:
+        title: 'Servis kola'
+        bikeServiceCard:
+            title: 'Servis kola'
+            button_service: 'Provést servis teď'
+    signal_makeBikeService:
+        flash_success: 'Servis kola byl úspěšně dokončen.'
 
 standPresenter:
     action_list:

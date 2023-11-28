@@ -10,9 +10,10 @@ use App\UI\Control\TFlashMessage;
 use App\UI\Control\TModuleUtils;
 use Contributte\Application\UI\Presenter\StructuredTemplates;
 use Contributte\Translation\LocalesResolvers\Session;
+use Contributte\Translation\PrefixedTranslator;
+use Contributte\Translation\Translator;
 use Nette\Application\UI\Presenter;
 use Nette\ComponentModel\IComponent;
-use Nette\Localization\ITranslator;
 
 /**
  * @property-read TemplateProperty $template
@@ -21,14 +22,20 @@ use Nette\Localization\ITranslator;
 abstract class BasePresenter extends Presenter
 {
 
-    /** @var ITranslator @inject */
-    public $translator;
+    /** @var Translator @inject */
+    public Translator $translator;
+
+    public PrefixedTranslator $presenterTranslator;
 
     /** @var Session @inject */
     public $translatorSessionResolver;
     public function startup()
     {
         $this->template->appVersion = '0.1';
+
+        $name = explode(':', $this->getName());
+        $this->presenterTranslator = $this->translator->createPrefixedTranslator(strtolower($name[0]) . '.' . lcfirst($name[1] . 'Presenter'));
+
         parent::startup();
     }
 

@@ -118,7 +118,7 @@ class BikePresenter extends BaseAdminPresenter
         }
 
         $this->bikeFacade->makeService($bike);
-        $this->flashSuccess('Servis kola byl úspěšně dokončen.');
+        $this->flashSuccess($this->presenterTranslator->translate('signal_makeBikeService.flash_success'));
         $this->redirect(':dueForService');
     }
 }

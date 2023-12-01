@@ -1,7 +1,7 @@
 # Extension > Contributte
 #
 extensions:
-	contributte.console: Contributte\Console\DI\ConsoleExtension(%consoleMode%)
+	console: Contributte\Console\DI\ConsoleExtension(%consoleMode%)
 	contributte.console.extra: Contributte\Console\Extra\DI\ConsoleBridgesExtension(%consoleMode%)
 	contributte.events: Contributte\EventDispatcher\DI\EventDispatcherExtension
 	contributte.events2nette: Contributte\Events\Extra\DI\EventBridgesExtension
@@ -9,11 +9,10 @@ extensions:
 	contributte.mailing: Contributte\Mailing\DI\MailingExtension
 	contributte.post: Contributte\Mail\DI\MailExtension
 	contributte.translation: Contributte\Translation\DI\TranslationExtension
-	google: Contributte\OAuth2Client\DI\GoogleAuthExtension
 
-contributte.console:
+console:
 	url: http://localhost/
-	lazy: true
+	lazy: false
 
 contributte.mailing:
 	template:

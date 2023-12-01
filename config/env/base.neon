@@ -7,6 +7,8 @@ includes:
 	# Extensions
 	- ../ext/contributte.neon
 	- ../ext/nettrine.neon
+	- ../ext/oauth.neon
+	- ../ext/websockets.neon
 
 php:
 	date.timezone: Europe/Prague

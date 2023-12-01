@@ -1,0 +1,17 @@
+extensions:
+    webSockets: IPub\WebSockets\DI\WebSocketsExtension
+    webSocketsMessage: IPub\WebSocketsWAMP\DI\WebSocketsWAMPExtension
+
+# WebSockets server
+webSockets:
+    storage:
+        clients:
+            driver: @clients.driver.memory
+            ttl:    0
+
+    server:
+        httpHost:   localhost
+        port:       8080
+        address:    0.0.0.0
+    #routes: []
+    #mapping: []

@@ -13,7 +13,7 @@ parameters:
 services:
 	#- App\Model\Mail\SMTPMailer
 
-google:
+oauth.google:
 	clientId: '814022855059-dmokj3ofgov4i2cad2lmkj3usqcds8tv.apps.googleusercontent.com'
 	clientSecret: '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'
 	options:

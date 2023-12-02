@@ -60,18 +60,21 @@ class GoogleButton extends BaseComponent
                 $user = $this->userFacade->createUserWithGoogle($owner->getName(), $owner->getEmail(), $owner->getId());
             }
             $this->userFacade->updateLastLoginDatetime($user);
+            $this->user->login($user->toIdentity());
         }
         catch (UserNotFoundException)
         {
             $this->flashError('Uživatel nenalezen.');
+            return;
         }
-        catch (\Exception)
+        catch (\Exception $e)
         {
             $this->flashError('Vyskytla se chyba.');
+            return;
         }
-        $this->user->login($user->toIdentity());
+
         $this->flashSuccess('Úspěšně přihlášen');
-        $this->presenter->redirect(':Admin:Home:');
+        $this->presenter->redirect(':Front:Sign:in');
     }
 
 }

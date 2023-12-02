@@ -7,6 +7,7 @@ services:
       - ./../:/var/www/html
     ports:
       - "${PORT_APACHE}:80"   # http
+      - "${PORT_WEBSOCKET}:8080"
     links:
       - database
     depends_on:

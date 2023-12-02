@@ -592,12 +592,15 @@
         var socketSession;
 
         $(function () {
-            socketsConnection = IPub.WebSockets.WAMP.initialize('wss://127.0.0.1:40006/');
+            socketsConnection = IPub.WebSockets.WAMP.initialize('ws://127.0.0.1:40006/');
             socketsConnection.on('socket/connect', function (session) {
+                    console.log('Připojeno');
                     socketSession = session;
+
                     socketSession.subscribe('/test/general', function (topic, event) {
                         alert('Přijal jsem zprávu ze serveru!');
                     });
+
                 },
                 function (code, reason, detail) {
                     console.log('chyba pripojeni');
@@ -609,6 +612,7 @@
                 // Callback který se zavola při ukončení spojení se serverem
                 // např. při reloadu stránky nebo když spojení ukončí samotný server
                 console.log('socket disconected');
+                console.log(error);
             });
 
             $('#websocket-button').click(function() {

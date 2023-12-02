@@ -49,3 +49,6 @@ mig-create mc:
 
 proxy-gen pg:
 	cd "${DIR_DOCKER}" && docker exec -it "${PHP_CONTAINER_NAME}" bash -c "NETTE_DEBUG=1 bin/console orm:generate-proxies"
+
+websocket-start ws:
+	cd "${DIR_DOCKER}" && docker exec -it "${PHP_CONTAINER_NAME}" bash -c "NETTE_DEBUG=1 bin/console ipub:websockets:start"

@@ -4,17 +4,12 @@ extensions:
 
 # WebSockets server
 webSockets:
-    storage:
-        clients:
-            driver: @clients.driver.memory
-            ttl:    0
-
     server:
         httpHost:   localhost
         port:       8080
         address:    0.0.0.0
     routes:
-        '/test' : 'Test:'
+        '/test/<room>' : 'Test:'
     #routes: []
     mapping:
         *: App\UI\Modules\WebSocket\*Controller

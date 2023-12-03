@@ -1,7 +1,7 @@
 extensions:
     webSockets: IPub\WebSockets\DI\WebSocketsExtension
     webSocketsMessage: IPub\WebSocketsWAMP\DI\WebSocketsWAMPExtension
-    #webSocketsSession: IPub\WebSocketsSession\DI\WebSocketsSessionExtension
+    webSocketsSession: IPub\WebSocketsSession\DI\WebSocketsSessionExtension
 
 # WebSockets server
 webSockets:

@@ -1,0 +1,7 @@
+extensions:
+    redis: Contributte\Redis\DI\RedisExtension
+
+redis:
+    debug: %debugMode%
+
+    clientFactory: Predis\Client

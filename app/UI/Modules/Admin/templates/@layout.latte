@@ -592,7 +592,7 @@
         var socketSession;
 
         $(function () {
-            socketsConnection = IPub.WebSockets.WAMP.initialize('ws://127.0.0.1:40006/');
+            socketsConnection = IPub.WebSockets.WAMP.initialize('ws://127.0.0.1:50006/');
             socketsConnection.on('socket/connect', function (session) {
                     console.log('Připojeno');
                     socketSession = session;

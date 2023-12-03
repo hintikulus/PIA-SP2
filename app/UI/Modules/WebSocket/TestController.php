@@ -32,8 +32,7 @@ class TestController extends BaseWebSocketController
 
         // Pošleme všem, vyjma toho kdo zprávu poslal
         $topic->broadcast(Json::encode($outgoing), [$client->getId()]);
-
-
         var_dump($client->getId());
+        var_dump($this->user?->isLoggedIn());
     }
 }

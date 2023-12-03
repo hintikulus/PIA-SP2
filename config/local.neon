@@ -20,7 +20,8 @@ oauth.google:
 		# optionally additional options passed to GoogleProvider
 
 redis:
-    default:
-        uri: tcp://redis
-        options: []
-        session: true
+    connection:
+        default:
+            uri: tcp://redis
+            options: []
+            sessions: true

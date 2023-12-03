@@ -21,6 +21,12 @@ google:
     options:
         # optionally additional options passed to GoogleProvider
 
+redis:
+    default:
+        uri: tcp://redis
+        options: []
+        session: true
+
 # For 0.0.0.0 instead of localhost
 # php -S 0.0.0.0:8000 -t www
 #	session:

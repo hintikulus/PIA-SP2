@@ -46,7 +46,8 @@
     "contributte/oauth2-client": "^0.3.2",
     "league/oauth2-google": "^4.0",
     "ipub/websockets": "^1.6.2",
-    "ipub/websockets-wamp": "^1.4.1"
+    "ipub/websockets-wamp": "^1.4.1",
+    "ipub/websockets-zmq": "^v1.2.0"
   },
   "require-dev": {
     "contributte/qa": "^0.3",

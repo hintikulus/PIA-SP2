@@ -35,6 +35,7 @@ services:
 	- App\Domain\User\DefaultUserFacade
 	- App\Domain\Stand\DefaultStandFacade
 	- App\Domain\Bike\DefaultBikeFacade
+	- App\Domain\Ride\DefaultRideFacade
 
 	# Components =============
 	- App\UI\Components\Front\Sign\SignInFormFactory

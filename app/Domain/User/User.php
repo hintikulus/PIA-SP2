@@ -2,6 +2,7 @@
 
 namespace App\Domain\User;
 
+use App\Domain\Ride\Ride;
 use App\Model\Database\Entity\AbstractEntity;
 use App\Model\Database\Entity\TCreatedAt;
 use App\Model\Database\Entity\TId;
@@ -11,6 +12,7 @@ use App\Model\Exception\Logic\InvalidArgumentException;
 use App\Model\Security\Identity;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Collection\Collection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Domain\User\UserRepository")
@@ -47,6 +49,12 @@ class User extends AbstractEntity
 
     /** @ORM\Column(type="string", nullable=TRUE, unique=true) */
     private ?string $googleId;
+
+    /**
+     * @var Collection<int, Ride>
+     * @ORM\OneToMany(targetEntity="App\Domain\Ride\Ride", mappedBy="user"
+     */
+    private Collection $rides;
 
     public function __construct(string $name, string $emailAddress)
     {

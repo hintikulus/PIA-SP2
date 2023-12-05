@@ -3,10 +3,12 @@
 namespace App\Domain\Bike;
 
 use App\Domain\Location\Location;
+use App\Domain\Ride\Ride;
 use App\Domain\Stand\Stand;
 use App\Model\Database\Entity\AbstractEntity;
 use App\Model\Database\Entity\TUuid;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Collection\Collection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Domain\Bike\BikeRepository")
@@ -29,6 +31,12 @@ class Bike extends AbstractEntity
      * @ORM\JoinColumn(name="stand_id", referencedColumnName="id")
      */
     private ?Stand $stand;
+
+    /**
+     * @var Collection<int, Ride>
+     * @ORM\OneToMany(targetEntity="App\Domain\Ride\Ride", mappedBy="user"
+     */
+    private Collection $rides;
 
     public function __construct(Location|Stand $location)
     {

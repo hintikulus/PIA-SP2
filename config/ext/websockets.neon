@@ -2,6 +2,7 @@ extensions:
     webSockets: IPub\WebSockets\DI\WebSocketsExtension
     webSocketsMessage: IPub\WebSocketsWAMP\DI\WebSocketsWAMPExtension
     #webSocketsSession: IPub\WebSocketsSession\DI\WebSocketsSessionExtension
+    WebSocketsZMQ: IPub\WebSocketsZMQ\DI\WebSocketsZMQExtension
 
 # WebSockets server
 webSockets:
@@ -14,3 +15,9 @@ webSockets:
     #routes: []
     mapping:
         *: App\UI\Modules\WebSocket\*Controller
+
+#WebSocketsZMQ:
+#        host: '127.0.0.1'
+#        port: 5555
+#        persistent: true
+#        protocol: 'tcp'

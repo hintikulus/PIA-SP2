@@ -2,6 +2,7 @@
 
 namespace App\UI\Modules\WebSocket;
 
+use App\Model\App;
 use IPub\WebSocketsWAMP\Entities\Clients\IClient;
 use IPub\WebSocketsWAMP\Entities\Topics\ITopic;
 use Nette\Security\User;
@@ -20,6 +21,8 @@ class TestController extends BaseWebSocketController
      */
     public function actionPublish(array $event, IClient $client, ITopic $topic)
     {
+        var_dump('test');
+        bdump('test');
         $outgoing = new \stdClass();
         $outgoing->time = (new \DateTime())->format('Y-m-d H:i:s');
         $outgoing->from = $client->getId();
@@ -34,5 +37,23 @@ class TestController extends BaseWebSocketController
         $topic->broadcast(Json::encode($outgoing), [$client->getId()]);
         var_dump($client->getId());
         var_dump($this->user?->isLoggedIn());
+    }
+
+    public function actionTest(array $data, ITopic $topic)
+    {
+        bdump($topic);
+        $topic->broadcast($data);
+    }
+
+    public function actionPush(array $data, ITopic $topic)
+    {
+        $now = new \DateTime();
+        $message = new \stdClass();
+        $message->time = $now->format(App::DATETIME_PICKER_FORMAT);
+        $message->content = 'zprava';
+        $message->type = 'system';
+
+        $topic->broadcast(Json::encode($message));
+
     }
 }

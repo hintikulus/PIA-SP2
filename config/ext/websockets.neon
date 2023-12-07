@@ -12,6 +12,7 @@ webSockets:
         address:    0.0.0.0
     routes:
         '/test/<room>' : 'Test:'
+        '/bike/<state>' : 'Bike:'
     #routes: []
     mapping:
         *: App\UI\Modules\WebSocket\*Controller

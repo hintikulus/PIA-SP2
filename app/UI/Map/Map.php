@@ -102,9 +102,9 @@ class Map extends Control
         return $markerType;
     }
 
-    public function addMarker(Location $location, ?string $label, ?string $markerType = null): Marker
+    public function addMarker(Location $location, ?string $label, ?string $markerType = null, string $type = null): Marker
     {
-        $marker = new Marker($location, $label, $markerType);
+        $marker = new Marker($location, $label, $markerType, $type);
         $this->markers[] = $marker;
         return $marker;
     }

@@ -53,6 +53,8 @@ services:
 	- App\UI\Components\Admin\Bike\DueForService\BikeDueForServiceListGridFactory
 	- App\UI\Components\Admin\Bike\DueForService\BikeDueForServiceListMapFactory
 
+	- App\UI\Components\Front\RideableBikesAndStandMap\RideableBikesAndStandMapFactory
+
 	- App\UI\Components\Front\Sign\GoogleButton\GoogleButtonFactory
 	# Console ================
 	- App\Console\HelloCommand

@@ -2,6 +2,7 @@
 
 namespace App\UI\Modules\WebSocket;
 
+use App\Domain\Bike\BikeFacade;
 use App\Model\App;
 use IPub\WebSocketsWAMP\Entities\Clients\IClient;
 use IPub\WebSocketsWAMP\Entities\Topics\ITopic;
@@ -12,7 +13,6 @@ use Tracy\ILogger;
 
 class TestController extends BaseWebSocketController
 {
-
     /**
      * Akce která se zavolá když JS klient zavolá publish metodu.
      *

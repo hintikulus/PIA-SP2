@@ -52,7 +52,6 @@
         marker_{$marker->getMarkerType()|noescape}{r}{/if}).addTo(map)
         {if $marker->getPopup() !== null}.bindPopup({$marker->getPopup()->toHtml()}){/if};
 
-    {do bdump($marker)}
         if(map_{$control->getFullName()|replace: ['-' => '_']|noescape}_markers[{$marker->getType()}] === undefined)
         {
             map_{$control->getFullName()|replace: ['-' => '_']|noescape}_markers[{$marker->getType()}] = {};

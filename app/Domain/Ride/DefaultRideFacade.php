@@ -23,14 +23,22 @@ class DefaultRideFacade implements RideFacade
         return $this->em->getRideRepository()->find($id);
     }
 
-    public function startRide(User $user, Bike $bike, Stand $startStand): Ride
+    public function startRide(User $user, Bike $bike): Ride
     {
         $this->em->beginTransaction();
 
-        $ride = new Ride($user, $bike, $startStand);
-        $this->em->persist($ride);
-        $this->em->flush($ride);
+        try
+        {
+            $ride = $bike->startRide($user);
+        }
+        catch (\Exception $e)
+        {
+            $this->em->rollback();
+            throw $e;
+        }
 
+        $this->em->persist($ride);
+        $this->em->flush();
         $this->em->commit();
 
         return $ride;

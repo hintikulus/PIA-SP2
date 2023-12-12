@@ -5,10 +5,11 @@ namespace App\Domain\Bike;
 use App\Domain\Location\Location;
 use App\Domain\Ride\Ride;
 use App\Domain\Stand\Stand;
+use App\Domain\User\User;
 use App\Model\Database\Entity\AbstractEntity;
 use App\Model\Database\Entity\TUuid;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Ramsey\Collection\Collection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Domain\Bike\BikeRepository")
@@ -34,7 +35,7 @@ class Bike extends AbstractEntity
 
     /**
      * @var Collection<int, Ride>
-     * @ORM\OneToMany(targetEntity="App\Domain\Ride\Ride", mappedBy="user"
+     * @ORM\OneToMany(targetEntity="App\Domain\Ride\Ride", mappedBy="user")
      */
     private Collection $rides;
 
@@ -103,5 +104,22 @@ class Bike extends AbstractEntity
         $now = new \DateTime();
         $nextService = $this->getNextServiceDatetime();
         return $now > $nextService;
+    }
+
+    public function startRide(User $user): Ride
+    {
+        if(!$this->isInStand())
+        {
+            throw new \Exception('Bike is in ride');
+        }
+
+        if($this->isDueForService())
+        {
+            throw new \Exception('Bike is due for service');
+        }
+
+        $ride = new Ride($user, $this, $this->stand);
+        $this->setStand(null);
+        return $ride;
     }
 }

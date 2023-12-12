@@ -56,7 +56,7 @@ class Ride extends AbstractEntity
     /**
      * @var Stand
      * @ORM\ManyToOne(targetEntity="App\Domain\Stand\Stand")
-     * @ORM\Column(name="start_stand_id", nullable=false, unique=false)
+     * @ORM\JoinColumn(name="start_stand_id", referencedColumnName="id")
      */
     private Stand $startStand;
 
@@ -68,7 +68,8 @@ class Ride extends AbstractEntity
 
     /**
      * @var Stand|null
-     * @ORM\Column(name="end_stand_id", nullable=true, unique=false)
+     * @ORM\ManyToOne(targetEntity="App\Domain\Stand\Stand")
+     * @ORM\JoinColumn(name="end_stand_id", referencedColumnName="id")
      */
     private ?Stand $endStand = null;
 

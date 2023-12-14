@@ -72,6 +72,18 @@ myRidesPresenter:
     action_default:
         title: 'Moje jízdy'
         nav_link: 'Moje jízdy'
+        userRideListCard:
+            title: 'Moje jízdy'
+        usersActiveRideCard:
+            title: 'Jsi v aktivní jízdě'
+            subtext: 'Prohlédni si podobnosti své jízdy.'
+            detail_link: 'Podrobnosti'
+
+ridePresenter:
+    action_detail:
+        title: 'Podrobnosti jízdy'
+        rideDetailsCard:
+            title: 'Podrobnosti jízdy'
 
 userSettingsPresenter:
     action_default:
@@ -132,3 +144,11 @@ rideableBikesAndStandMap:
     popup_bike_state_in_ride: 'V jízdě'
     popup_bike_state_parked: 'Zaparkováno'
     popup_action_start_ride: 'Zahájit jízdu'
+
+userRideListGrid:
+    column_start_timestamp: 'Zahájení'
+    column_start_stand: 'Výchozí místo'
+    column_end_timestamp: 'Ukončení'
+    column_end_stand: 'Cílové místo'
+    column_status: 'Status'
+    action_detail: 'Podrobnosti'

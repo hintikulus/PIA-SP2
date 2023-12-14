@@ -1,6 +1,41 @@
+{varType ?App\Domain\Ride\Ride $usersActiveRide}
+
 {block #title}{_admin.myRidesPresenter.action_default.title}{/block}
 
 {block #content}
+{if $usersActiveRide !== null}
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card card-background shadow-none card-background-mask-primary" id="sidenavCard">
+                <div class="full-background" style="background-image: url('{$basePath}/assets/admin/img/curved-images/curved1.jpg')"></div>
+                <div class="card-body text-start p-3 w-100">
+                    <div class="icon icon-shape icon-sm bg-white shadow text-center mb-3 d-flex align-items-center justify-content-center border-radius-md">
+                        <i class="fa-solid fa-bicycle text-dark text-gradient text-lg top-0" aria-hidden="true"></i>
+                    </div>
+                    <div class="docs-info">
+                        <h6 class="text-white up mb-0">{_admin.myRidesPresenter.action_default.usersActiveRideCard.title}</h6>
+                        <p class="text-xs font-weight-bold">{_admin.myRidesPresenter.action_default.usersActiveRideCard.subtext}</p>
+                        <a n:href="Ride:detail $usersActiveRide->getId()->toString()" class="btn btn-white btn-sm mb-0">{_admin.myRidesPresenter.action_default.usersActiveRideCard.detail_link}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{/if}
 <div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-6 d-flex align-items-center">
+                        <h6 class="mb-0">{_admin.myRidesPresenter.action_default.userRideListCard.title}</h6>
+                    </div>
+                </div>
+            </div>
 
+            <div class="card-body p-0">
+                {control userRideListGrid}
+            </div>
+        </div>
+    </div>
 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Domain\User;
 
+use App\Domain\Ride\Ride;
 use App\Model\Database\EntityManagerDecorator;
 use App\Model\Exception\Logic\UserNotFoundException;
 use App\Model\Exception\Runtime\AuthenticationException;

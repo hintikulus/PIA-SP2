@@ -43,4 +43,14 @@ class DefaultRideFacade implements RideFacade
 
         return $ride;
     }
+
+    public function isUserInRide(User $user): bool
+    {
+        return $this->getUsersActiveRide($user) !== null;
+    }
+
+    public function getUsersActiveRide(User $user): ?Ride
+    {
+        return $this->em->getRideRepository()->findOneBy(['user' => $user, 'state' => Ride::STATE_STARTED]);
+    }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Domain\Bike;
 
+use App\Domain\Location\Location;
+
 interface BikeFacade
 {
     /**
@@ -19,4 +21,11 @@ interface BikeFacade
     public function save(?Bike $bike, ?string $stand_id, ?\DateTime $last_service_datetime): Bike;
 
     public function makeService(Bike $bike): void;
+
+    public function updateLocation(Bike $bike, Location $location): void;
+
+    /**
+     * @return array<Bike>
+     */
+    public function getRideableBikes(): array;
 }

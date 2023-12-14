@@ -10,5 +10,9 @@ interface RideFacade
 {
     public function get(string $id): ?Ride;
 
-    public function startRide(User $user, Bike $bikeId, Stand $startStandId): Ride;
+    public function startRide(User $user, Bike $bike): Ride;
+
+    public function isUserInRide(User $user): bool;
+
+    public function getUsersActiveRide(User $user): ?Ride;
 }

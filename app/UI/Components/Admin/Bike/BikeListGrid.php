@@ -32,20 +32,20 @@ class BikeListGrid extends BaseComponent
         $grid->setTranslator($this->translator);
         $grid->setDataSource($this->queryBuilderManager->getQueryBuilder(BikeQuery::getAll()));
 
-        $grid->addColumnText('stand', 'Stojan', 'stand.name');
+        $grid->addColumnText('stand', $translator->translate('column_stand'), 'stand.name');
 
-        $grid->addColumnDateTime('last_service_datetime', 'Poslední kontrola', 'last_service_timestamp')
+        $grid->addColumnDateTime('last_service_datetime', $translator->translate('column_last_service_datetime'), 'last_service_timestamp')
             ->setFormat(App::DATETIME_FORMAT)
         ;
 
-        $grid->addColumnDateTime('next_service_datetime', 'Nejbližší další kontrola', 'last_service_timestamp')
+        $grid->addColumnDateTime('next_service_datetime', $translator->translate('column_next_service_datetime'), 'last_service_timestamp')
             ->setRenderer(function(Bike $bike)
             {
                 return $bike->getNextServiceDatetime()->format(App::DATETIME_FORMAT);
             })
         ;
 
-        $grid->addColumnText('status', 'Stav')->setRenderer(function(Bike $bike) {
+        $grid->addColumnText('status', $translator->translate('column_status'))->setRenderer(function(Bike $bike) {
 
             $iconClass = '';
             $colorClass = '';

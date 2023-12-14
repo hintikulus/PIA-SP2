@@ -1,0 +1,2 @@
+extensions:
+    oauth.google: Contributte\OAuth2Client\DI\GoogleAuthExtension

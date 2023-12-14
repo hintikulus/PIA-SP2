@@ -67,6 +67,9 @@ final class StaticAuthorizator extends Permission
         $this->addResource('Admin:Bike:dueForService', 'Admin:Bike');
         $this->addResource('Admin:Bike:service', 'Admin:Bike');
 
+        $this->addResource('Admin:Ride', 'Administration');
+        $this->addResource('Admin:Ride:detail', 'Admin:Ride');
+
     }
 
 	/**

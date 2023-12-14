@@ -72,6 +72,18 @@ myRidesPresenter:
     action_default:
         title: 'Moje jízdy'
         nav_link: 'Moje jízdy'
+        userRideListCard:
+            title: 'Moje jízdy'
+        usersActiveRideCard:
+            title: 'Jsi v aktivní jízdě'
+            subtext: 'Prohlédni si podobnosti své jízdy.'
+            detail_link: 'Podrobnosti'
+
+ridePresenter:
+    action_detail:
+        title: 'Podrobnosti jízdy'
+        rideDetailsCard:
+            title: 'Podrobnosti jízdy'
 
 userSettingsPresenter:
     action_default:
@@ -97,6 +109,13 @@ standListMap:
     popup_name: 'Název: '
     popup_action_edit: 'Upravit'
 
+bikeListGrid:
+    column_stand: 'Stojan'
+    column_last_service_datetime: 'Poslední kontrola'
+    column_next_service_datetime: 'Nejbližší další kontrola'
+    column_status: 'Stav'
+    action_edit: 'Upravit'
+
 userForm:
     input_name: 'Jméno a příjmení'
     input_email: 'E-mail'
@@ -119,3 +138,17 @@ bikeDueForServiceListGrid:
     column_last_service_datetime: 'Poslední kontrola'
     column_stand: 'Stojan'
     action_service: 'Servisovat'
+
+rideableBikesAndStandMap:
+    popup_bike_state: 'Status: '
+    popup_bike_state_in_ride: 'V jízdě'
+    popup_bike_state_parked: 'Zaparkováno'
+    popup_action_start_ride: 'Zahájit jízdu'
+
+userRideListGrid:
+    column_start_timestamp: 'Zahájení'
+    column_start_stand: 'Výchozí místo'
+    column_end_timestamp: 'Ukončení'
+    column_end_stand: 'Cílové místo'
+    column_status: 'Status'
+    action_detail: 'Podrobnosti'

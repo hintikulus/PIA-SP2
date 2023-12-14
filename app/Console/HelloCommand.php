@@ -10,7 +10,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand(name: self::NAME)]
 class HelloCommand extends Command
 {
-
 	public const NAME = 'hello';
 
 	protected function configure(): void
@@ -21,7 +20,7 @@ class HelloCommand extends Command
 
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
-		$output->write('Hello world!');
+		$output->write('Hello world');
 
 		return 0;
 	}

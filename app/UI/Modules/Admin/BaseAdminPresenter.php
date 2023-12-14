@@ -5,9 +5,14 @@ namespace App\UI\Modules\Admin;
 use App\Model\App;
 use App\UI\Modules\Base\SecuredPresenter;
 use Contributte\Translation\PrefixedTranslator;
+use IPub\WebSocketsZMQ\Pusher\Pusher;
 
 abstract class BaseAdminPresenter extends SecuredPresenter
 {
+
+    /** @var Pusher @inject */
+    public Pusher $zmqPusher;
+
     public function startup()
     {
         parent::startup();
@@ -39,6 +44,11 @@ abstract class BaseAdminPresenter extends SecuredPresenter
             $this->flashError('You cannot access this with user role');
             $this->redirect('Front:Home');
         }
+    }
+
+    public function handleTest(): void
+    {
+        $this->zmqPusher->push(['test' => 'test'], 'Test:', ['room' => 'general']);
     }
 
 }

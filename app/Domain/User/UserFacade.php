@@ -2,6 +2,8 @@
 
 namespace App\Domain\User;
 
+use App\Domain\Ride\Ride;
+
 interface UserFacade
 {
     /**

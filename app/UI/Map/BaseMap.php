@@ -20,12 +20,16 @@ class BaseMap extends Map
             function(Presenter $presenter): void {
                 $this->addMarkerType('stand')
                     ->setIcon($this->presenter->template->basePath . '/assets/base/img/map/marker/stand.png', [48, 48], [24, 46]);
+                $this->addMarkerType('stand_green')
+                    ->setIcon($this->presenter->template->basePath . '/assets/base/img/map/marker/stand_green.png', [48, 48], [24, 46]);
+                $this->addMarkerType('stand_red')
+                    ->setIcon($this->presenter->template->basePath . '/assets/base/img/map/marker/stand_red.png', [48, 48], [24, 46]);
                 $this->addMarkerType('bike')
-                    ->setIcon($this->presenter->template->basePath . '/assets/base/img/map/marker/bike_stand.png', [48, 48], [24, 24]);
+                    ->setIcon($this->presenter->template->basePath . '/assets/base/img/map/marker/bike_stand.png', [32, 32], [16, 16]);
                 $this->addMarkerType('bike_ride')
-                    ->setIcon($this->presenter->template->basePath . '/assets/base/img/map/marker/bike_ride.png', [48, 48], [24, 24]);
+                    ->setIcon($this->presenter->template->basePath . '/assets/base/img/map/marker/bike_ride.png', [32, 32], [16, 16]);
                 $this->addMarkerType('bike_service')
-                    ->setIcon($this->presenter->template->basePath . '/assets/base/img/map/marker/bike_service.png', [48, 48], [24, 24]);
+                    ->setIcon($this->presenter->template->basePath . '/assets/base/img/map/marker/bike_service.png', [32, 32], [16, 16]);
             }
         );
     }

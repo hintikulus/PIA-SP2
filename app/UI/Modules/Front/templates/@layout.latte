@@ -19,7 +19,8 @@
 
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <link href="{$basePath}/assets/front/css/nucleo-svg.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="{$basePath}/assets/admin/leaflet/leaflet.css">
     <!-- CSS Files -->
     <link id="pagestyle" href="{$basePath}/assets/front/css/soft-design-system.css?v=1.0.9" rel="stylesheet"/>
 
@@ -28,7 +29,18 @@
     <link rel="stylesheet" href="{$basePath}/assets/front/css/datepicker/bootstrap-datepicker.css?={$appVersion}">
     <script src="{$basePath}/assets/front/js/jquery/jquery.min.js?={$appVersion}"></script>
     <script src="{$basePath}/assets/front/js/netteforms/netteForms.js?={$appVersion}"></script>
+    <script src="{$basePath}/assets/admin/leaflet/leaflet.js"></script>
+    <script src="{$basePath}/assets/base/js/websockets/autobahn.js"></script>
+    <script src="{$basePath}/assets/base/js/websockets/ipub.websockets.wamp.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/nette.ajax.js@2.3.0/nette.ajax.js"></script>
+    <script>
+        var socketsConnection;
+
+        $(function()
+        {
+            socketsConnection = IPub.WebSockets.WAMP.initialize('ws://127.0.0.1:50006/');
+        })
+    </script>
     <!-- Nepcha Analytics (nepcha.com) -->
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
@@ -1763,7 +1775,6 @@
             toastr.{$flash->type|noescape}({$flash->message});
         </script>
     {/snippet}
-
 
     <script>
         document.addEventListener(

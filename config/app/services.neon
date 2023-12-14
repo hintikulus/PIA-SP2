@@ -52,6 +52,10 @@ services:
 	- App\UI\Components\Admin\Bike\BikeListMapFactory
 	- App\UI\Components\Admin\Bike\DueForService\BikeDueForServiceListGridFactory
 	- App\UI\Components\Admin\Bike\DueForService\BikeDueForServiceListMapFactory
+	- App\UI\Components\Admin\Ride\UserRideListGridFactory
+	- App\UI\Components\Admin\Ride\RideProgressMapFactory
+
+	- App\UI\Components\Front\RideableBikesAndStandMap\RideableBikesAndStandMapFactory
 
 	- App\UI\Components\Front\Sign\GoogleButton\GoogleButtonFactory
 	# Console ================

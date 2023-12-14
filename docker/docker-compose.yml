@@ -2,15 +2,21 @@ version: '3.8'
 services:
   php-apache-environment:
     container_name: "${COMPOSE_PROJECT_NAME}_apache"
-    image: thecodingmachine/php:8.2-v4-apache
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
       - ./../:/var/www/html
     ports:
       - "${PORT_APACHE}:80"   # http
+      - "${PORT_WEBSOCKET}:8080"
+      - "${PORT_WEBSOCKET_ZMQ}:5555"
     links:
       - database
+      - redis
     depends_on:
       - database
+      - redis
     env_file:
       - php.env
 
@@ -36,3 +42,11 @@ services:
       - "${PORT_PHP_MY_ADMIN}:8080"
     environment:
       PMA_HOST: database
+
+  redis:
+    image: redis:latest
+    container_name: "${COMPOSE_PROJECT_NAME}_redis"
+    ports:
+      - "${PORT_REDIS}:6379"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes

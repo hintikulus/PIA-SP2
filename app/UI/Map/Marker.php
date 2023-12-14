@@ -11,12 +11,14 @@ class Marker
     private ?string $label;
     private ?string $markerType;
     private ?Html $popup = null;
+    private ?string $type;
 
-    public function __construct(Location $location, ?string $label, ?string $markerType = null)
+    public function __construct(Location $location, ?string $label, ?string $markerType = null, string $type = null)
     {
         $this->location = $location;
         $this->label = $label;
         $this->markerType = $markerType;
+        $this->type = $type;
     }
 
     public function getLocation(): Location
@@ -53,5 +55,10 @@ class Marker
     public function getPopup(): ?Html
     {
         return $this->popup;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
     }
 }

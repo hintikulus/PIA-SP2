@@ -21,8 +21,8 @@ class Ride extends AbstractEntity
     public const STATE_COMPLETED = 2;
 
     public const STATES = [
-        self::STATE_STARTED => self::STATE_STARTED,
-        self::STATE_COMPLETED => self::STATE_COMPLETED,
+        self::STATE_STARTED => 'started',
+        self::STATE_COMPLETED => 'completed',
     ];
 
     use TUuid;
@@ -35,7 +35,7 @@ class Ride extends AbstractEntity
     private User $user;
 
     /**
-     * @var User
+     * @var Bike
      * @ORM\ManyToOne(targetEntity="App\Domain\Bike\Bike", inversedBy="rides")
      * @ORM\JoinColumn(name="bike_id", referencedColumnName="id")
      */
@@ -56,7 +56,7 @@ class Ride extends AbstractEntity
     /**
      * @var Stand
      * @ORM\ManyToOne(targetEntity="App\Domain\Stand\Stand")
-     * @ORM\Column(name="start_stand_id", nullable=false, unique=false)
+     * @ORM\JoinColumn(name="start_stand_id", referencedColumnName="id")
      */
     private Stand $startStand;
 
@@ -68,7 +68,8 @@ class Ride extends AbstractEntity
 
     /**
      * @var Stand|null
-     * @ORM\Column(name="end_stand_id", nullable=true, unique=false)
+     * @ORM\ManyToOne(targetEntity="App\Domain\Stand\Stand")
+     * @ORM\JoinColumn(name="end_stand_id", referencedColumnName="id")
      */
     private ?Stand $endStand = null;
 

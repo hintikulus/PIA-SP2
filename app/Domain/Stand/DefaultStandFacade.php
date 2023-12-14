@@ -4,6 +4,7 @@ namespace App\Domain\Stand;
 
 use App\Domain\Location\Location;
 use App\Model\Database\EntityManagerDecorator;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\QueryBuilder;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\LogicalOperatorSpacingSniff;
 

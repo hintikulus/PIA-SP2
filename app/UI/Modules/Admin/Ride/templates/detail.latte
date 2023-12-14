@@ -1,0 +1,78 @@
+{varType App\Domain\Ride\Ride $ride}
+
+{block #title}{_admin.ridePresenter.action_detail.title}{/block}
+
+{block #content}
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-6 d-flex align-items-center">
+                        <h6 class="mb-0">{_admin.ridePresenter.action_detail.rideDetailsCard.title}</h6>
+                    </div>
+                </div>
+            </div>
+            {do bdump($ride)}
+            <div class="card-body">
+                <ul class="list-unstyled mx-auto">
+                    <li class="d-flex">
+                        <p class="mb-0">Začátek</p>
+                        <span class="text-secondary ms-auto">{$ride->getStartTimestamp()->format(App\Model\App::DATETIME_FORMAT)}</span>
+                    </li>
+                    <li>
+                        <hr class="horizontal dark">
+                    </li>
+                    <li class="d-flex">
+                        <p class="mb-0">Začátek</p>
+                        <span class="text-secondary ms-auto">{$ride->getStartStand()->getName()}</span>
+                    </li>
+                    <li>
+                        <hr class="horizontal dark">
+                    </li>
+                    {if $ride->getEndTimestamp() !== null}
+                        <li class="d-flex">
+                            <p class="mb-0">Konec</p>
+                            <span class="text-secondary ms-auto">{$ride->getEndTimestamp()->format(App\Model\App::DATETIME_FORMAT)}</span>
+                        </li>
+                        <li>
+                            <hr class="horizontal dark">
+                        </li>
+                    {/if}
+                    {if $ride->getEndStand() !== null}
+                        <li class="d-flex">
+                            <p class="mb-0">Konec</p>
+                            <span class="text-secondary ms-auto">{$ride->getEndStand()->getName()}</span>
+                        </li>
+                        <li>
+                            <hr class="horizontal dark">
+                        </li>
+                    {/if}
+                    <li class="d-flex">
+                        <p class="mb-0">Status</p>
+                        {switch $ride->getState()}
+                            {case App\Domain\Ride\Ride::STATE_STARTED}
+                            <span class="badge badge-primary bg-gradient-primary ms-auto">{App\Domain\Ride\Ride::STATES[$ride->getState()]}</span>
+                        {case App\Domain\Ride\Ride::STATE_COMPLETED}
+                            <span class="badge badge-primary bg-gradient-success ms-auto">{App\Domain\Ride\Ride::STATES[$ride->getState()]}</span>
+                        {/switch}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-6 d-flex align-items-center">
+                        <h6 class="mb-0">{_admin.ridePresenter.action_detail.rideDetailsCard.title}</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                {control rideProgressMap}
+            </div>
+        </div>
+    </div>
+</div>

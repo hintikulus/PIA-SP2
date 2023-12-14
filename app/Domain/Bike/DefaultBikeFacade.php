@@ -2,17 +2,22 @@
 
 namespace App\Domain\Bike;
 
+use App\Domain\Location\Location;
 use App\Model\Database\EntityManagerDecorator;
+use App\Model\Database\QueryManager;
 
 class DefaultBikeFacade implements BikeFacade
 {
     private EntityManagerDecorator $em;
+    private QueryManager $queryManager;
 
     public function __construct(
         EntityManagerDecorator $entityManagerDecorator,
+        QueryManager $queryManager,
     )
     {
         $this->em = $entityManagerDecorator;
+        $this->queryManager = $queryManager;
     }
 
     public function get(string $id): ?Bike
@@ -73,6 +78,17 @@ class DefaultBikeFacade implements BikeFacade
     public function makeService(Bike $bike): void
     {
         $bike->setLastServiceTimestamp(new \DateTime());
+        $this->em->flush($bike);
+    }
+
+    public function getRideableBikes(): array
+    {
+        return $this->queryManager->findAll(BikeQuery::getRideable());
+    }
+
+    public function updateLocation(Bike $bike, Location $location): void
+    {
+        $bike->setLocation($location);
         $this->em->flush($bike);
     }
 }

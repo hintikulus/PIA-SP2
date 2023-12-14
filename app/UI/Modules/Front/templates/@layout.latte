@@ -1777,12 +1777,10 @@
     {/snippet}
 
     <script>
-        document.addEventListener(
-            'DOMContentLoaded',
-            () => {
-                naja.initialize();
-            }
-        );
+        $(document).ready(function ()
+        {
+            naja.initialize();
+        })
 
         naja.addEventListener('success', function (event) {
             requestIdleCallback(function () {

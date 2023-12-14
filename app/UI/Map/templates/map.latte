@@ -9,62 +9,77 @@
 <div id="map-{$control->getFullName()}" class="map map-{$control->getFullName()}" style="height: 600px;"></div>
 
 <script>
-    // Inicializace mapy
-    var map = L.map({= 'map-' . $control->getFullName()});
-    var map_{$control->getFullName()|replace: ['-' => '_']|noescape} = map;
-    let map_{$control->getFullName()|replace: ['-' => '_']|noescape}_markers = {};
+    $(document).ready(function () {
 
-    // Přidání dlaždic
-    L.tileLayer({$tileLayerUrl}, {
-        minZoom: {$zoomRange['min']},
-        maxZoom: {$zoomRange['max']}
-    }).addTo(map);
+        // Inicializace mapy
+        var map = L.map({= 'map-' . $control->getFullName()});
+        var map_{$control->getFullName()|replace: ['-' => '_']|noescape} = map;
+        let map_{$control->getFullName()|replace: ['-' => '_']|noescape}_markers = {};
 
-    // Definice ukazatelů
-    {foreach $markerTypes as $markerType}
-    {varType App\UI\Map\MarkerType $markerType}
-    var marker_{$markerType->getName()|noescape} = L.icon(
-            {if $markerType->getIconUrl() !== null}
-            {l}
-        iconUrl
+        // Přidání dlaždic
+        L.tileLayer({$tileLayerUrl}, {
+            minZoom: {$zoomRange['min']},
+            maxZoom: {$zoomRange['max']}
+        }).addTo(map);
+
+        // Definice ukazatelů
+        {foreach $markerTypes as $markerType}
+        {varType App\UI\Map\MarkerType $markerType}
+        var marker_{$markerType->getName()|noescape} = L.icon(
+                {if $markerType->getIconUrl() !== null}
+                {l}
+            iconUrl
     : {$markerType->getIconUrl()}
-    {if $markerType->getIconSize() !== null}
+        {if $markerType->getIconSize() !== null}
     ,
-    iconSize: [{$markerType->getIconSize()[0]}, {$markerType->getIconSize()[1]}]
-            {/if}
-            {if $markerType->getIconAnchor() != null}
-        , iconAnchor
+        iconSize: [{$markerType->getIconSize()[0]}, {$markerType->getIconSize()[1]}]
+                {/if}
+                {if $markerType->getIconAnchor() != null}
+            , iconAnchor
     :
-    [{$markerType->getIconAnchor()[0]}, {$markerType->getIconAnchor()[1]}]
-    {/if}
-    {r}
-    {/if}
+        [{$markerType->getIconAnchor()[0]}, {$markerType->getIconAnchor()[1]}]
+        {/if}
+        {r}
+        {/if}
     )
-    ;
+        ;
 
-    {/foreach}
+        {/foreach}
 
-    {foreach $markers as $marker}
+        {foreach $markers as $marker}
         {varType App\UI\Map\Marker $marker}
 
         var marker = L.marker([{$marker->getLocation()->getLatitude()}, {$marker->getLocation()->getLongitude()}], {if $marker->getMarkerType() !== null}{l}icon
-        :
-        marker_{$marker->getMarkerType()|noescape}{r}{/if}).addTo(map)
+    :
+        marker_{$marker->getMarkerType()|noescape}{r}{/if}).
+        addTo(map)
         {if $marker->getPopup() !== null}.bindPopup({$marker->getPopup()->toHtml()}){/if};
 
-        if(map_{$control->getFullName()|replace: ['-' => '_']|noescape}_markers[{$marker->getType()}] === undefined)
-        {
+        if (map_{$control->getFullName()|replace: ['-' => '_']|noescape}_markers[{$marker->getType()}] === undefined) {
             map_{$control->getFullName()|replace: ['-' => '_']|noescape}_markers[{$marker->getType()}] = {};
         }
 
         map_{$control->getFullName()|replace: ['-' => '_']|noescape}_markers[{$marker->getType()}][{$marker->getLabel()}] = marker;
-    {/foreach}
+        {/foreach}
 
-    map.setView([{$viewLocation->getLatitudeFloat()}, {$viewLocation->getLongitudeFloat()}], {$viewZoom});
+        map.setView([{$viewLocation->getLatitudeFloat()}, {$viewLocation->getLongitudeFloat()}], {$viewZoom});
 
-    var attribution = map.attributionControl;
-    attribution.setPrefix('');
+        // Zprovoznění AJAX odkazů v popupech
+        map.on('popupopen', function (e) {
+            // Získání odkazu v popupu
+            var link = $(e.popup.getContent()).find('.ajax');
 
-    console.log(map);
+            var links = $('.leaflet-popup-content a.ajax');
 
+            links.each(function(index, value) {
+                naja.uiHandler.bindUI(value);
+               console.log(value);
+            });
+        });
+
+        var attribution = map.attributionControl;
+        attribution.setPrefix('');
+
+        console.log(map);
+    });
 </script>

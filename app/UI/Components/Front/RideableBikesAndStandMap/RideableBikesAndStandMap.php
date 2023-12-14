@@ -66,7 +66,7 @@ class RideableBikesAndStandMap extends BaseComponent
                     $popupStartRideLink = Html::el(
                         'a',
                         [
-                            'class' => 'ajax btn btn-sm bg-gradient-primary mb-0 mt-2 stand-choose ajax',
+                            'class' => 'btn btn-sm bg-gradient-primary mb-0 mt-2 stand-choose',
                             'href'  => $this->link('startRide!', ['bikeId' => $bike->getId()->toString()])
                         ]
                     )
@@ -86,11 +86,11 @@ class RideableBikesAndStandMap extends BaseComponent
     {
         $bike = $this->bikeFacade->get($bikeId);
         if($bike === null)
-            throw new BikeNotFoundException($bikeId);
+        throw new BikeNotFoundException($bikeId);
 
         $user = $this->userFacade->get($this->presenter->user->getId());
         if($user === null)
-            throw new UserNotFoundException($this->presenter->user->getId());
+        throw new UserNotFoundException($this->presenter->user->getId());
 
         $ride = $this->rideFacade->startRide($user, $bike);
         $this->flashSuccess('Jízda byla zahájena');

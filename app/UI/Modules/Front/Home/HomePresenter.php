@@ -47,6 +47,7 @@ final class HomePresenter extends BaseFrontPresenter
 
     public function handleRandomizeBikeLocation(string $bikeId)
     {
+        $bikeId = '018c5da2-e90f-7317-9d87-d1959d8bf50b';
         $bike = $this->bikeFacade->get($bikeId);
 
         if ($bike === null)

@@ -10,7 +10,6 @@ services:
     ports:
       - "${PORT_APACHE}:80"   # http
       - "${PORT_WEBSOCKET}:8080"
-      - "${PORT_WEBSOCKET_ZMQ}:5555"
     links:
       - database
       - redis

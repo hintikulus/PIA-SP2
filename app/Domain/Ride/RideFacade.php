@@ -15,4 +15,6 @@ interface RideFacade
     public function isUserInRide(User $user): bool;
 
     public function getUsersActiveRide(User $user): ?Ride;
+
+    public function endRide(Ride $ride, Stand $stand): void;
 }

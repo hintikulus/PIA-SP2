@@ -122,6 +122,7 @@ class Ride extends AbstractEntity
         $this->state = self::STATE_COMPLETED;
         $this->endTimestamp = new \DateTime();
         $this->endStand = $endStand;
+        $this->bike->setStand($endStand);
     }
 
     public function isStarted(): bool

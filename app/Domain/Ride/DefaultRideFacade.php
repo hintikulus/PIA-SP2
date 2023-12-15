@@ -5,7 +5,9 @@ namespace App\Domain\Ride;
 use App\Domain\Bike\Bike;
 use App\Domain\Stand\Stand;
 use App\Domain\User\User;
+use App\Model\App;
 use App\Model\Database\EntityManagerDecorator;
+use App\Model\Exception\LogicException;
 
 class DefaultRideFacade implements RideFacade
 {
@@ -52,5 +54,24 @@ class DefaultRideFacade implements RideFacade
     public function getUsersActiveRide(User $user): ?Ride
     {
         return $this->em->getRideRepository()->findOneBy(['user' => $user, 'state' => Ride::STATE_STARTED]);
+    }
+
+    public function endRide(Ride $ride, Stand $stand): void
+    {
+        if ($ride->getState() !== Ride::STATE_STARTED)
+        {
+            throw new LogicException('Bad State');
+        }
+
+        $distance = $ride->getBike()->getLocation()->distance($stand->getLocation());
+        bdump($distance);
+
+        if ($distance > App::BIKE_DISTANCE_DELIVERY)
+        {
+            throw new LogicException('Bike is too far');
+        }
+
+        $ride->complete($stand);
+        $this->em->flush();
     }
 }

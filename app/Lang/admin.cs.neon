@@ -74,6 +74,7 @@ myRidesPresenter:
         nav_link: 'Moje jízdy'
         userRideListCard:
             title: 'Moje jízdy'
+            link_start: 'Zahájit novou jízdu'
         usersActiveRideCard:
             title: 'Jsi v aktivní jízdě'
             subtext: 'Prohlédni si podobnosti své jízdy.'
@@ -152,3 +153,7 @@ userRideListGrid:
     column_end_stand: 'Cílové místo'
     column_status: 'Status'
     action_detail: 'Podrobnosti'
+
+rideProgressMap:
+    popup_stand_name: 'Název: '
+    popup_action_end_ride: 'Ukončit jízdu'

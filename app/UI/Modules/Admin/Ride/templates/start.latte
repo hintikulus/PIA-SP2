@@ -1,0 +1,21 @@
+{varType App\Domain\Ride\Ride $ride}
+
+{block #title}{_admin.ridePresenter.action_start.title}{/block}
+
+{block #content}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-6 d-flex align-items-center">
+                        <h6 class="mb-0">{_admin.ridePresenter.action_start.rideableBikesAndStandCard.title}</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                {control rideableBikesAndStandMap}
+            </div>
+        </div>
+    </div>
+</div>

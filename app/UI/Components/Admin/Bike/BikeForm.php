@@ -76,7 +76,6 @@ class BikeForm extends BaseComponent
     public function formSucceeded(BaseForm $form, ArrayHash $values)
     {
         $transformedValues = $this->transformValues($values);
-        bdump($transformedValues);
         try
         {
             $this->bikeFacade->save($this->bike, $transformedValues['stand_id'], $transformedValues['last_service_datetime'] ?? null);

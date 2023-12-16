@@ -70,7 +70,6 @@ class SignUpForm extends BaseComponent
             $form->addError('Na Vámi zadanou emailovou adresu již evidujeme registrovaný účet, použijte prosím jinou nebo se zkuste přihlásit.');
         } catch (\Exception $e)
         {
-            bdump($e);
             $form->addError('Při registraci se vyskytla chyba. Zkuste to prosím znovu.');
         }
     }

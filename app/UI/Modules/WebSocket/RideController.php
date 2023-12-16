@@ -29,7 +29,6 @@ class RideController extends BaseWebSocketController
     public function actionPublish(array $event, IClient $client, ITopic $topic)
     {
         var_dump('test');
-        bdump('test');
 
         $type = $event['type'];
         $location = new Location($event['location']['lat'], $event['location']['lng']);

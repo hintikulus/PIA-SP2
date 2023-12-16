@@ -64,7 +64,6 @@ class DefaultRideFacade implements RideFacade
         }
 
         $distance = $ride->getBike()->getLocation()->distance($stand->getLocation());
-        bdump($distance);
 
         if ($distance > App::BIKE_DISTANCE_DELIVERY)
         {

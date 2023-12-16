@@ -22,7 +22,6 @@ class TestController extends BaseWebSocketController
     public function actionPublish(array $event, IClient $client, ITopic $topic)
     {
         var_dump('test');
-        bdump('test');
         $outgoing = new \stdClass();
         $outgoing->time = (new \DateTime())->format('Y-m-d H:i:s');
         $outgoing->from = $client->getId();
@@ -41,7 +40,6 @@ class TestController extends BaseWebSocketController
 
     public function actionTest(array $data, ITopic $topic)
     {
-        bdump($topic);
         $topic->broadcast($data);
     }
 

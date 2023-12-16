@@ -589,48 +589,6 @@
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
     </script>
-
-    <script>
-        var socketsConnection;
-        var socketSession;
-
-        $(function () {
-
-            console.log(socketsConnection);
-            socketsConnection.on('socket/connect', function (session) {
-                    console.log('Připojeno');
-                    socketSession = session;
-
-                    socketSession.subscribe('/test/general', function (topic, event) {
-                        alert('Přijal jsem zprávu ze serveru!');
-                    });
-
-                },
-                function (code, reason, detail) {
-                    console.log('chyba pripojeni');
-                });
-
-
-            socketsConnection.on('socket/disconnect', function (error) {
-                // Callback který se zavola při ukončení spojení se serverem
-                // např. při reloadu stránky nebo když spojení ukončí samotný server
-                console.log('socket disconected');
-                console.log(error);
-            });
-
-            $('#websocket-button').click(function () {
-                console.log('klik');
-
-                var data = {
-                    'message': 'hello'
-                };
-
-                socketSession.publish('/test/general', data);
-                console.log('poslano');
-            });
-        });
-
-    </script>
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->

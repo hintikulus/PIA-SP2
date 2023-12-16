@@ -25,5 +25,5 @@ interface StandFacade
      * @param $longtitude
      * @return void
      */
-    public function save(?Stand $stand, string $name, $latitude, $longtitude): void;
+    public function save(?Stand $stand, string $name, string|float $latitude, string|float $longtitude): void;
 }

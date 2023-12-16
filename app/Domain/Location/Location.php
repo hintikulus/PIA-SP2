@@ -7,10 +7,10 @@ class Location
     private string $longitude;
     private string $latitude;
 
-    public function __construct(string $latitude, string $longitude)
+    public function __construct(string|float $latitude, string|float $longitude)
     {
-        $this->latitude = $latitude;
-        $this->longitude = $longitude;
+        $this->latitude = strval($latitude);
+        $this->longitude = strval($longitude);
     }
 
     public function getLongitude(): string

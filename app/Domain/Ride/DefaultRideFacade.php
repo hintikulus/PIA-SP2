@@ -29,6 +29,11 @@ class DefaultRideFacade implements RideFacade
     {
         $this->em->beginTransaction();
 
+        if ($this->isUserInRide($user))
+        {
+            throw new LogicException();
+        }
+
         try
         {
             $ride = $bike->startRide($user);

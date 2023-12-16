@@ -35,15 +35,17 @@ class UserRideListGrid extends BaseComponent
 
         $grid->setDataSource($this->queryBuilderManager->getQueryBuilder(RideQuery::getByUser($this->user)));
 
-        $grid->addColumnDateTime('start_timestamp', $translator->translate('column_start_timestamp'))
+        $grid->addColumnDateTime('start_timestamp', $translator->translate('column_start_timestamp'), 'startTimestamp')
             ->setFormat(App::DATETIME_FORMAT)
+            ->setSortable()
         ;
 
         $grid->addColumnText('start_stand', $translator->translate('column_start_stand'), 'start_stand.name');
 
-        $grid->addColumnDateTime('end_timestamp', $translator->translate('column_end_timestamp'))
+        $grid->addColumnDateTime('end_timestamp', $translator->translate('column_end_timestamp'), 'endTimestamp')
             ->setFormat(App::DATETIME_FORMAT)
             ->setReplacement(['' => 'N/A'])
+            ->setSortable();
         ;
 
         $grid->addColumnText('end_stand', $translator->translate('column_end_stand'), 'end_stand.name')
@@ -52,6 +54,8 @@ class UserRideListGrid extends BaseComponent
 
         $grid->addAction('detail', $translator->translate('action_detail'), ':Admin:Ride:detail')
             ->setClass('btn btn-sm bg-gradient-secondary mb-0');
+
+        $grid->setDefaultSort(['start_timestamp' => 'DESC']);
 
         return $grid;
     }

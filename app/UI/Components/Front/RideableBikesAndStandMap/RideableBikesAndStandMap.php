@@ -23,10 +23,10 @@ class RideableBikesAndStandMap extends BaseComponent
     private Translator $translator;
 
     public function __construct(
-        UserFacade $userFacade,
+        UserFacade  $userFacade,
         BikeFacade  $bikeFacade,
         StandFacade $standFacade,
-        RideFacade $rideFacade,
+        RideFacade  $rideFacade,
         Translator  $translator,
     )
     {
@@ -42,7 +42,6 @@ class RideableBikesAndStandMap extends BaseComponent
         $translator = $this->translator->createPrefixedTranslator('admin.rideableBikesAndStandMap');
         $map = new BaseMap();
 
-        $showPopup = $this->presenter->user->isLoggedIn();
 
         foreach ($this->standFacade->getAll() as $stand)
         {
@@ -59,7 +58,7 @@ class RideableBikesAndStandMap extends BaseComponent
 
             $popup = Html::el('div', ['class' => 'text-center'])->addHtml($popupName)->addHtml(Html::el('br'));
 
-            if ($this->presenter->user->isLoggedIn())
+            if ($this->canUserTakeRide())
             {
                 if ($bike->isInStand() && !$bike->isDueForService())
                 {
@@ -85,15 +84,33 @@ class RideableBikesAndStandMap extends BaseComponent
     public function handleStartRide(string $bikeId): void
     {
         $bike = $this->bikeFacade->get($bikeId);
-        if($bike === null)
-        throw new BikeNotFoundException($bikeId);
+        if ($bike === null)
+            throw new BikeNotFoundException($bikeId);
 
         $user = $this->userFacade->get($this->presenter->user->getId());
-        if($user === null)
-        throw new UserNotFoundException($this->presenter->user->getId());
+        if ($user === null)
+            throw new UserNotFoundException($this->presenter->user->getId());
 
         $ride = $this->rideFacade->startRide($user, $bike);
         $this->flashSuccess('Jízda byla zahájena');
         $this->presenter->redirect(':Admin:Ride:detail', ['id' => $ride->getId()->toString()]);
+    }
+
+    private function canUserTakeRide(): bool
+    {
+        if (!$this->presenter->user->isLoggedIn())
+        {
+            return false;
+        }
+
+        $userId = $this->presenter->user->getId();
+        $user = $this->userFacade->get($userId);
+
+        if ($user === null)
+        {
+            throw new UserNotFoundException($userId);
+        }
+
+        return !$this->rideFacade->isUserInRide($user);
     }
 }

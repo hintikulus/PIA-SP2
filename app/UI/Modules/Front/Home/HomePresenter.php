@@ -15,17 +15,12 @@ use Random\Randomizer;
 
 final class HomePresenter extends BaseFrontPresenter
 {
-    private UserFacade $userFacade;
     private RideableBikesAndStandMapFactory $rideableBikesAndStandMapFactory;
 
     public function __construct(
-        UserFacade                      $userFacade,
-        private BikeFacade              $bikeFacade,
-        private Pusher                  $zmgPusher,
         RideableBikesAndStandMapFactory $rideableBikesAndStandMapFactory,
     )
     {
-        $this->userFacade = $userFacade;
         $this->rideableBikesAndStandMapFactory = $rideableBikesAndStandMapFactory;
     }
 
@@ -36,49 +31,8 @@ final class HomePresenter extends BaseFrontPresenter
         $this->template->ridesDone = 1256;
     }
 
-    public function handleCreateUser()
-    {
-        $this->userFacade->createUserFromArray([
-            'name'     => 'Test',
-            'email'    => 'test@test.cz',
-            'password' => 'password',
-        ]);
-    }
-
-    public function handleRandomizeBikeLocation(string $bikeId)
-    {
-        $bikeId = '018c5da2-e90f-7317-9d87-d1959d8bf50b';
-        $bike = $this->bikeFacade->get($bikeId);
-
-        if ($bike === null)
-        {
-            throw new BikeNotFoundException($bikeId);
-        }
-
-        $newLocation = $bike->getLocation();
-
-        $newLocation = new Location(
-            strval($this->rand_float(49.72010000, 49.76539999)),
-            strval($this->rand_float(13.35070000, 13.39199999))
-        );
-
-        $this->bikeFacade->updateLocation($bike, $newLocation);
-
-        $this->zmgPusher->push([
-            'bike_id'  => $bike->getId()->toString(),
-            'location' => $bike->getLocation()
-        ], 'Bike:', [
-            'state' => 'stand',
-        ]);
-    }
-
     public function createComponentRideableBikesAndStandMap(): RideableBikesAndStandMap
     {
         return $this->rideableBikesAndStandMapFactory->create();
-    }
-
-    private function rand_float(float $minValue, float $maxValue): float
-    {
-        return $minValue + mt_rand() / mt_getrandmax() * ($maxValue - $minValue);
     }
 }

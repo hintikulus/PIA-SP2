@@ -61,7 +61,8 @@ class DefaultUserFacade implements UserFacade
             throw new UserNotFoundException($email);
         }
 
-        $user = new User($name, $email, $this->passwords->hash($password));
+        $user = new User($name, $email);
+        $user->setPasswordHash($this->passwords->hash($password));
 
         $this->em->persist($user);
         $this->em->flush($user);

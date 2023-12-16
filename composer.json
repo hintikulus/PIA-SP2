@@ -31,6 +31,7 @@
     "contributte/security": "^0.4.0",
     "contributte/utils": "^0.6.0",
     "contributte/tracy": "^0.6.0",
+    "contributte/api-router": "^v5.0.0",
     "contributte/pdf": "^7.0.0",
 
     "nettrine/annotations": "^0.7.0",

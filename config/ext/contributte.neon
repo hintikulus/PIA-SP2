@@ -9,6 +9,7 @@ extensions:
 	contributte.mailing: Contributte\Mailing\DI\MailingExtension
 	contributte.post: Contributte\Mail\DI\MailExtension
 	contributte.translation: Contributte\Translation\DI\TranslationExtension
+	contributte.apiRouter: Contributte\ApiRouter\DI\ApiRouterExtension
 
 console:
 	url: http://localhost/

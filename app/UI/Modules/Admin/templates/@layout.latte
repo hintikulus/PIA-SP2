@@ -39,7 +39,7 @@
 
         $(function()
         {
-            socketsConnection = IPub.WebSockets.WAMP.initialize('ws://127.0.0.1:50006/');
+            socketsConnection = IPub.WebSockets.WAMP.initialize({$webSocketAddress});
         })
     </script>
     <script>

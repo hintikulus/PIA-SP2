@@ -36,8 +36,16 @@ bikePresenter:
             title: 'Mapa kol'
     action_add:
         title: 'Přidat kolo'
+        bikeFormCard:
+            title: 'Přidání kola'
+        chooseStandMapCard:
+            title: 'Mapa - Vyberte stojan pro stanovení lokace kola'
     action_edit:
         title: 'Upravit kolo'
+        bikeFormCard:
+            title: 'Úprava kola'
+        chooseStandMapCard:
+            title: 'Mapa - Vyberte stojan pro stanovení lokace kola'
     action_dueForService:
         title: 'Kola k servisu'
         nav_link: 'Kola k servisu'
@@ -85,6 +93,20 @@ ridePresenter:
         title: 'Podrobnosti jízdy'
         rideDetailsCard:
             title: 'Podrobnosti jízdy'
+            start_timestamp: 'Zahájení'
+            start_stand: 'Výchozí stojan'
+            end_timestamp: 'Ukončení'
+            end_stand: 'Cílový stojan'
+            state_title: 'Status'
+            state:
+                started: 'Probíhající'
+                completed: 'Dokončena'
+        rideDetailsMapCard:
+            title: 'Podrobnosti jízdy'
+    action_start:
+        title: 'Zahájení jízdy'
+        rideableBikesAndStandCard:
+            title: 'Zahájení jízdy - Zvolte jízdní kolo'
 
 userSettingsPresenter:
     action_default:

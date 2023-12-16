@@ -17,14 +17,14 @@
                 {snippet rideDetailsCard}
                     <ul class="list-unstyled mx-auto">
                         <li class="d-flex">
-                            <p class="mb-0">Začátek</p>
+                            <p class="mb-0">{_admin.ridePresenter.action_detail.rideDetailsCard.start_timestamp}</p>
                             <span class="text-secondary ms-auto">{$ride->getStartTimestamp()->format(App\Model\App::DATETIME_FORMAT)}</span>
                         </li>
                         <li>
                             <hr class="horizontal dark">
                         </li>
                         <li class="d-flex">
-                            <p class="mb-0">Začátek</p>
+                            <p class="mb-0">{_admin.ridePresenter.action_detail.rideDetailsCard.start_stand}</p>
                             <span class="text-secondary ms-auto">{$ride->getStartStand()->getName()}</span>
                         </li>
                         <li>
@@ -32,7 +32,7 @@
                         </li>
                         {if $ride->getEndTimestamp() !== null}
                             <li class="d-flex">
-                                <p class="mb-0">Konec</p>
+                                <p class="mb-0">{_admin.ridePresenter.action_detail.rideDetailsCard.end_timestamp}</p>
                                 <span class="text-secondary ms-auto">{$ride->getEndTimestamp()->format(App\Model\App::DATETIME_FORMAT)}</span>
                             </li>
                             <li>
@@ -41,7 +41,7 @@
                         {/if}
                         {if $ride->getEndStand() !== null}
                             <li class="d-flex">
-                                <p class="mb-0">Konec</p>
+                                <p class="mb-0">{_admin.ridePresenter.action_detail.rideDetailsCard.end_stand}</p>
                                 <span class="text-secondary ms-auto">{$ride->getEndStand()->getName()}</span>
                             </li>
                             <li>
@@ -49,12 +49,12 @@
                             </li>
                         {/if}
                         <li class="d-flex">
-                            <p class="mb-0">Status</p>
+                            <p class="mb-0">{_admin.ridePresenter.action_detail.rideDetailsCard.state_title}</p>
                             {switch $ride->getState()}
                                 {case App\Domain\Ride\Ride::STATE_STARTED}
-                                <span class="badge badge-primary bg-gradient-primary ms-auto">{App\Domain\Ride\Ride::STATES[$ride->getState()]}</span>
+                                <span class="badge badge-primary bg-gradient-primary ms-auto">{_'admin.ridePresenter.action_detail.rideDetailsCard.state.' . App\Domain\Ride\Ride::STATES[$ride->getState()]}</span>
                             {case App\Domain\Ride\Ride::STATE_COMPLETED}
-                                <span class="badge badge-primary bg-gradient-success ms-auto">{App\Domain\Ride\Ride::STATES[$ride->getState()]}</span>
+                                <span class="badge badge-primary bg-gradient-success ms-auto">{_'admin.ridePresenter.action_detail.rideDetailsCard.state.' . App\Domain\Ride\Ride::STATES[$ride->getState()]}</span>
                             {/switch}
                         </li>
                     </ul>
@@ -75,9 +75,9 @@
                 {snippet rideDetailsMapCard}
                     {switch $ride->getState()}
                         {case App\Domain\Ride\Ride::STATE_COMPLETED}
-                            {control rideDetailMap}
+                        {control rideDetailMap}
                         {case App\Domain\Ride\Ride::STATE_STARTED}
-                            {control rideProgressMap}
+                        {control rideProgressMap}
                     {/switch}
                 {/snippet}
             </div>

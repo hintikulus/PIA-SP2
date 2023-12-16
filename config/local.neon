@@ -7,8 +7,9 @@ parameters:
 		password: root_pristup_123
 
 	config:
-		testing:
-			enabled: true
+	    websocket.baseUrl: 'ws://127.0.0.1:50006/'
+	    testing:
+	        enabled: true
 
 services:
 	#- App\Model\Mail\SMTPMailer

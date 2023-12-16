@@ -29,7 +29,8 @@ class BikeQuery extends AbstractQuery
 
         $self->ons[] = function(QueryBuilder $qb): QueryBuilder {
             $qb->where('b.lastServiceTimestamp < :datetime');
-            $qb->setParameter('datetime', (new \DateTime())->modify('- 6 months'));
+            $qb->setParameter('datetime', (new \DateTime())->modify('- ' . App::SERVICE_TIME));
+            $qb->andWhere('b.stand IS NOT NULL');
             return $qb;
         };
 

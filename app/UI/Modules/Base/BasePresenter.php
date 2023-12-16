@@ -2,6 +2,7 @@
 
 namespace App\UI\Modules\Base;
 
+use App\Domain\Config\ConfigService;
 use App\Model\Latte\TemplateProperty;
 use App\Model\Security\SecurityUser;
 use App\Model\Utils\FlashMessage;
@@ -13,6 +14,7 @@ use Contributte\Translation\LocalesResolvers\Session;
 use Contributte\Translation\PrefixedTranslator;
 use Contributte\Translation\Translator;
 use Nette\Application\UI\Presenter;
+use Nette\Bootstrap\Configurator;
 use Nette\ComponentModel\IComponent;
 
 /**
@@ -21,6 +23,10 @@ use Nette\ComponentModel\IComponent;
  */
 abstract class BasePresenter extends Presenter
 {
+    /** @var ConfigService $configService @inject */
+    public ConfigService $configService;
+
+    public readonly string $webSocketAddress;
 
     /** @var Translator @inject */
     public Translator $translator;
@@ -32,6 +38,9 @@ abstract class BasePresenter extends Presenter
     public function startup()
     {
         $this->template->appVersion = '0.1';
+
+        $this->webSocketAddress = $this->configService->getWebSocketAddress();
+        $this->template->webSocketAddress = $this->webSocketAddress;
 
         $name = explode(':', $this->getName());
         $this->presenterTranslator = $this->translator->createPrefixedTranslator(strtolower($name[0]) . '.' . lcfirst($name[1] . 'Presenter'));

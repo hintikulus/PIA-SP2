@@ -37,6 +37,10 @@ services:
 	- App\Domain\Bike\DefaultBikeFacade
 	- App\Domain\Ride\DefaultRideFacade
 
+	- App\Domain\Config\DefaultConfigService
+
+	- App\Domain\Config\DefaultConfigManager(%config%)
+
 	# Components =============
 	- App\UI\Components\Front\Sign\SignInFormFactory
 	- App\UI\Components\Front\Sign\SignUpFormFactory

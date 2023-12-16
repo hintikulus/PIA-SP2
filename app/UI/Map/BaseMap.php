@@ -24,6 +24,8 @@ class BaseMap extends Map
                     ->setIcon($this->presenter->template->basePath . '/assets/base/img/map/marker/stand_green.png', [48, 48], [24, 46]);
                 $this->addMarkerType('stand_red')
                     ->setIcon($this->presenter->template->basePath . '/assets/base/img/map/marker/stand_red.png', [48, 48], [24, 46]);
+                $this->addMarkerType('stand_green_red')
+                    ->setIcon($this->presenter->template->basePath . '/assets/base/img/map/marker/stand_green_red.png', [48, 48], [24, 46]);
                 $this->addMarkerType('bike')
                     ->setIcon($this->presenter->template->basePath . '/assets/base/img/map/marker/bike_stand.png', [32, 32], [16, 16]);
                 $this->addMarkerType('bike_ride')

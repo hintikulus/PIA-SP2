@@ -30,13 +30,21 @@
 
     <script src="{$basePath}/assets/admin/js/jquery/jquery.min.js?={$appVersion}"></script>
     <script src="{$basePath}/assets/admin/js/netteforms/netteForms.js?={$appVersion}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/nette.ajax.js@2.3.0/nette.ajax.js"></script>
     <script src="{$basePath}/assets/admin/leaflet/leaflet.js"></script>
+    <script src="{$basePath}/assets/base/js/websockets/autobahn.js"></script>
+    <script src="{$basePath}/assets/base/js/websockets/ipub.websockets.wamp.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nette.ajax.js@2.3.0/nette.ajax.js"></script>
+    <script>
+        var socketsConnection;
+
+        $(function()
+        {
+            socketsConnection = IPub.WebSockets.WAMP.initialize('ws://127.0.0.1:50006/');
+        })
+    </script>
     <script>
         var maps = {};
     </script>
-    <script src="{$basePath}/assets/base/js/websockets/autobahn.js"></script>
-    <script src="{$basePath}/assets/base/js/websockets/ipub.websockets.wamp.js"></script>
 
     <!-- Nepcha Analytics (nepcha.com) -->
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
@@ -609,7 +617,8 @@
         var socketSession;
 
         $(function () {
-            socketsConnection = IPub.WebSockets.WAMP.initialize('ws://127.0.0.1:50006/');
+
+            console.log(socketsConnection);
             socketsConnection.on('socket/connect', function (session) {
                     console.log('Připojeno');
                     socketSession = session;
@@ -639,6 +648,7 @@
                 };
 
                 socketSession.publish('/test/general', data);
+                console.log('poslano');
             });
         });
 

@@ -1,12 +1,12 @@
 {control map}
 <script>
-    console.log(socketsConnection);
     var socketSession;
-    var map = window.map_rideableBikesAndStandMap_map;
-    var mapMarkers = map_rideableBikesAndStandMap_map_markers;
 
-    $(function () {
-        console.log(mapMarkers);
+    $(document).ready(function () {
+        var map = window.map_rideableBikesAndStandMap_map;
+        var mapMarkers = window.map_rideableBikesAndStandMap_map_markers;
+
+        console.log(window);
         socketsConnection.on('socket/connect', function (session) {
                 console.log('Připojeno');
                 socketSession = session;
@@ -14,8 +14,7 @@
                 socketSession.subscribe('/bike/stand', function (topic, event) {
                     let obj = JSON.parse(event);
 
-                    if(obj.type == 'bike_update')
-                    {
+                    if (obj.type == 'bike_update') {
                         let marker = mapMarkers['bike'][obj.content.bike_id];
                         marker.setLatLng(L.latLng(obj.content.location.lat, obj.content.location.long));
                     }
@@ -24,8 +23,8 @@
             },
             function (code, reason, detail) {
                 console.log('chyba pripojeni');
-                L.layerGroup()
-            });
+            }
+        );
 
 
         socketsConnection.on('socket/disconnect', function (error) {

@@ -9,12 +9,15 @@
 <div id="map-{$control->getFullName()}" class="map map-{$control->getFullName()}" style="height: 600px;"></div>
 
 <script>
+    var map_{$control->getFullName()|replace: ['-' => '_']|noescape};
+    var map_{$control->getFullName()|replace: ['-' => '_']|noescape}_markers;
+
     $(document).ready(function () {
 
         // Inicializace mapy
         var map = L.map({= 'map-' . $control->getFullName()});
-        var map_{$control->getFullName()|replace: ['-' => '_']|noescape} = map;
-        let map_{$control->getFullName()|replace: ['-' => '_']|noescape}_markers = {};
+        map_{$control->getFullName()|replace: ['-' => '_']|noescape} = map;
+        map_{$control->getFullName()|replace: ['-' => '_']|noescape}_markers = {};
 
         // Přidání dlaždic
         L.tileLayer({$tileLayerUrl}, {

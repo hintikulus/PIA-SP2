@@ -1,1 +1,56 @@
-{control map}
+{varType App\Domain\Ride\Ride $ride}
+
+{snippet rideProgressMap}
+    {control map}
+{/snippet}
+
+<script>
+    $(document).ready(() => {
+        var socketSession;
+
+        var map = window.map_rideProgressMap_map;
+        var mapMarkers = window.map_rideProgressMap_map_markers;
+        var marker;
+
+        socketsConnection.on('socket/connect', function (session) {
+                socketSession = session;
+
+                console.log('připojeno');
+
+                socketSession.subscribe('/ride/{$ride->getId()->toString()|noescape}', function (topic, event) {
+                    let obj = JSON.parse(event);
+
+                    if (obj.type == 'bike_update') {
+                        let marker = mapMarkers['bike'][obj.content.bike_id];
+                        console.log(mapMarkers);
+                        marker.setLatLng(L.latLng(obj.content.location.lat, obj.content.location.long));
+                    }
+                });
+
+            },
+            function (code, reason, detail) {
+                console.log('chyba pripojeni');
+            }
+        );
+
+
+        map.on('click', function (e) {
+            //if (marker)
+                //map.removeLayer(marker);
+            //marker = L.marker(e.latlng).addTo(map);
+
+            console.log(e.latlng);
+
+            var data = {
+                'type': 'bike_position_update',
+                'ride_id': {$ride->getId()->toString()},
+                'location': {
+                    'lat': e.latlng.lat,
+                    'lng': e.latlng.lng
+                }
+            };
+
+            socketSession.publish('/ride/details', data);
+        });
+    });
+</script>

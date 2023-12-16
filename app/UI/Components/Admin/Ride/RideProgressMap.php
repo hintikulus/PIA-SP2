@@ -21,7 +21,7 @@ class RideProgressMap extends BaseComponent
     private Ride $ride;
 
     /** @var array<callable> $onRideEnd */
-    private array $onRideEnd;
+    public array $onRideEnd = [];
 
     public function __construct(
         StandFacade $standFacade,
@@ -36,16 +36,20 @@ class RideProgressMap extends BaseComponent
         $this->ride = $ride;
     }
 
+    public function render(mixed $params = null): void
+    {
+        $this->template->ride = $this->ride;
+        parent::render($params);
+    }
+
     public function createComponentMap(): BaseMap
     {
         $translator = $this->translator->createPrefixedTranslator('admin.rideProgressMap');
         $map = new BaseMap();
 
-        $map->addMarker($this->ride->getBike()->getLocation(), 'bike', 'bike_ride', 'bike');
-
         foreach ($this->standFacade->getAll() as $stand)
         {
-            $marker = $map->addMarker($stand->getLocation(), 'stand', $stand !== $this->ride->getStartStand() ? 'stand' : 'stand_green', 'stand');
+            $marker = $map->addMarker($stand->getLocation(), $stand->getId()->toString(), $stand !== $this->ride->getStartStand() ? 'stand' : 'stand_green', 'stand');
 
             $popupName = Html::el('span');
             $popupName->addHtml(Html::el('b')->addText($translator->translate('popup_stand_name')));
@@ -67,6 +71,7 @@ class RideProgressMap extends BaseComponent
             $marker->setPopup($popup);
         }
 
+        $map->addMarker($this->ride->getBike()->getLocation(), $this->ride->getBike()->getId()->toString(), 'bike_ride', 'bike');
 
         return $map;
     }
@@ -90,6 +95,8 @@ class RideProgressMap extends BaseComponent
             $this->flashInfo($e->getMessage());
             return;
         }
-        $this->onRideEnd();
+
+        foreach ($this->onRideEnd as $handler)
+            $handler();
     }
 }

@@ -13,6 +13,8 @@ webSockets:
     routes:
         '/test/<room>' : 'Test:'
         '/bike/<state>' : 'Bike:'
+        '/ride/details' : 'RideDetail:'
+        '/ride/<ride>' : 'Ride:'
     #routes: []
     mapping:
         *: App\UI\Modules\WebSocket\*Controller

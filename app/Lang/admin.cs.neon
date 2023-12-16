@@ -157,3 +157,6 @@ userRideListGrid:
 rideProgressMap:
     popup_stand_name: 'Název: '
     popup_action_end_ride: 'Ukončit jízdu'
+
+rideDetailMap:
+    popup_stand_name: 'Název: '

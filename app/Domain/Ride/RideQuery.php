@@ -21,6 +21,14 @@ class RideQuery extends AbstractQuery
             $qb->andWhere('r.user = :user')
                 ->setParameter('user', $user->getId()->getBytes())
             ;
+            $qb->select('r');
+
+            $qb->leftJoin('r.startStand', 'ss')
+                ->addSelect('ss')
+            ;
+            $qb->leftJoin('r.endStand', 'es')
+                ->addSelect('es')
+            ;
 
             return $qb;
         };

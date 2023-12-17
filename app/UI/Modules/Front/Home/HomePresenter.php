@@ -2,15 +2,9 @@
 
 namespace App\UI\Modules\Front\Home;
 
-use App\Domain\Location\Location;
-use App\Domain\User\UserFacade;
-use App\Model\Exception\Logic\BikeNotFoundException;
 use App\UI\Components\Front\RideableBikesAndStandMap\RideableBikesAndStandMap;
 use App\UI\Components\Front\RideableBikesAndStandMap\RideableBikesAndStandMapFactory;
 use App\UI\Modules\Front\BaseFrontPresenter;
-use IPub\WebSocketsZMQ\Pusher\Pusher;
-use Nette\Utils\Random;
-use Random\Randomizer;
 
 final class HomePresenter extends BaseFrontPresenter
 {

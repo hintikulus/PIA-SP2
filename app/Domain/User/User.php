@@ -60,6 +60,7 @@ class User extends AbstractEntity
     {
         $this->name = $name;
         $this->emailAddress = $emailAddress;
+        $this->role = self::ROLE_REGULAR;
     }
 
     public function getName(): string

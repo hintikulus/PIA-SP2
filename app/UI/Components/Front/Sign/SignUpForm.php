@@ -2,7 +2,7 @@
 
 namespace App\UI\Components\Front\Sign;
 
-use App\Domain\User\UserFacade;
+use App\Domain\User\UserService;
 use App\Model\Exception\Logic\UserNotFoundException;
 use App\Model\Exception\Runtime\AuthenticationException;
 use App\UI\Components\Base\BaseComponent;
@@ -12,12 +12,12 @@ use Nette\Utils\ArrayHash;
 
 class SignUpForm extends BaseComponent
 {
-    private UserFacade $userFacade;
+    private UserService $userService;
     public function __construct(
-        UserFacade $userFacade,
+        UserService $userService,
     )
     {
-        $this->userFacade = $userFacade;
+        $this->userService = $userService;
     }
 
     public function createComponentForm(): BaseForm
@@ -63,7 +63,7 @@ class SignUpForm extends BaseComponent
     public function formSucceeded(BaseForm $form, ArrayHash $values): void
     {
         try {
-            $this->userFacade->createUser($values['name'], $values['email'], $values['password1']);
+            $this->userService->createUser($values['name'], $values['email'], $values['password1']);
             $this->flashSuccess('Registrace proběhla úspěšně.');
         } catch (UserNotFoundException $e)
         {

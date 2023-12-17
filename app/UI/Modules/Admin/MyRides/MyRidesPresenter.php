@@ -4,7 +4,7 @@ namespace App\UI\Modules\Admin\MyRides;
 
 use App\Domain\Ride\RideFacade;
 use App\Domain\User\User;
-use App\Domain\User\UserFacade;
+use App\Domain\User\UserService;
 use App\Model\Exception\Logic\UserNotFoundException;
 use App\UI\Components\Admin\Ride\UserRideListGrid;
 use App\UI\Components\Admin\Ride\UserRideListGridFactory;
@@ -13,29 +13,24 @@ use App\UI\Modules\Admin\BaseAdminPresenter;
 class MyRidesPresenter extends BaseAdminPresenter
 {
     private UserRideListGridFactory $rideListGridFactory;
-    private UserFacade $userFacade;
+    private UserService $userService;
     private RideFacade $rideFacade;
     private User $domainUser;
 
     public function __construct(
         UserRideListGridFactory $rideListGridFactory,
-        UserFacade $userFacade,
+        UserService $userService,
         RideFacade $rideFacade,
     )
     {
         $this->rideListGridFactory = $rideListGridFactory;
-        $this->userFacade = $userFacade;
+        $this->userService =$userService;
         $this->rideFacade = $rideFacade;
     }
 
     public function actionDefault()
     {
-        $user = $this->userFacade->get($this->user->getId());
-
-        if($user === null)
-        {
-            throw new UserNotFoundException($this->user->getId());
-        }
+        $user = $this->userService->getById($this->user->getId());
 
         $this->domainUser = $user;
 

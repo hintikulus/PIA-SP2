@@ -2,7 +2,7 @@
 
 namespace App\UI\Components\Front\Sign\GoogleButton;
 
-use App\Domain\User\UserFacade;
+use App\Domain\User\UserService;
 use App\Model\Exception\Logic\UserNotFoundException;
 use App\Model\Exception\Runtime\AuthenticationException;
 use App\UI\Components\Base\BaseComponent;
@@ -15,17 +15,17 @@ use Nette\Security\User;
 class GoogleButton extends BaseComponent
 {
     private GoogleAuthCodeFlow $flow;
-    private UserFacade $userFacade;
+    private UserService $userService;
     private User $user;
 
     public function __construct(
         GoogleAuthCodeFlow $flow,
-        UserFacade         $userFacade,
+        UserService $userService,
         User               $user,
     )
     {
         $this->flow = $flow;
-        $this->userFacade = $userFacade;
+        $this->userService = $userService;
         $this->user = $user;
     }
 
@@ -54,12 +54,12 @@ class GoogleButton extends BaseComponent
 
         try
         {
-            $user = $this->userFacade->getByEmail($owner->getEmail());
+            $user = $this->userService->findByEmail($owner->getEmail());
             if ($user === null)
             {
-                $user = $this->userFacade->createUserWithGoogle($owner->getName(), $owner->getEmail(), $owner->getId());
+                $user = $this->userService->createUser($owner->getName(), $owner->getEmail(), null, ['discord_id' => $owner->getId()]);
             }
-            $this->userFacade->updateLastLoginDatetime($user);
+            $this->userService->updateLastLoginDatetime($user);
             $this->user->login($user->toIdentity());
         }
         catch (UserNotFoundException)

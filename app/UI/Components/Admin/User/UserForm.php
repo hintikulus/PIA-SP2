@@ -3,7 +3,7 @@
 namespace App\UI\Components\Admin\User;
 
 use App\Domain\User\User;
-use App\Domain\User\UserFacade;
+use App\Domain\User\UserService;
 use App\Model\Exception\Logic\UserNotFoundException;
 use App\Model\Exception\Runtime\AuthenticationException;
 use App\UI\Components\Base\BaseComponent;
@@ -14,19 +14,19 @@ use Nette\Utils\ArrayHash;
 class UserForm extends BaseComponent
 {
     private Translator $translator;
-    private UserFacade $userFacade;
+    private UserService $userService;
     private ?User $user;
     private ?string $cancelUrl = null;
 
     public function __construct(
         Translator $translator,
-        UserFacade $userFacade,
+        UserService $userService,
         ?User      $user = null,
         ?string    $cancelUrl = null,
     )
     {
         $this->translator = $translator;
-        $this->userFacade = $userFacade;
+        $this->userService = $userService;
         $this->user = $user;
         $this->cancelUrl = $cancelUrl;
     }
@@ -60,9 +60,12 @@ class UserForm extends BaseComponent
             ->setRequired()
         ;
 
-        $form->addEmail('email', $translator->translate('input_email'))
-            ->setRequired()
-        ;
+        if(!$this->user)
+        {
+            $form->addEmail('email', $translator->translate('input_email'))
+                ->setRequired()
+            ;
+        }
 
         $form->addPassword('password', $translator->translate('input_password'));
 
@@ -96,7 +99,12 @@ class UserForm extends BaseComponent
 
         try
         {
-            $this->userFacade->saveUser($this->user, $transformedValues['name'], $transformedValues['password'], $transformedValues['email'], $transformedValues['role']);
+            if($this->user)
+            {
+                $this->userService->updateUser($this->user, $transformedValues['name'], $transformedValues['password'], $transformedValues['role']);
+            } else {
+                $this->userService->createUser($transformedValues['name'], $transformedValues['email'], $transformedValues['password']);
+            }
             $this->flashSuccess('Uložení proběhlo úspěšně.');
         }
         catch (UserNotFoundException $e)
@@ -114,7 +122,7 @@ class UserForm extends BaseComponent
         $transformedValues = [
             'name'     => $values['name'],
             'password' => !empty($values['password']) ? $values['password'] : null,
-            'email'    => $values['email'],
+            'email'    => $values['email'] ?? null,
             'role'     => $values['role'],
         ];
 

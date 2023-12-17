@@ -5,7 +5,7 @@ namespace App\UI\Components\Front\RideableBikesAndStandMap;
 use App\Domain\Bike\BikeService;
 use App\Domain\Ride\RideFacade;
 use App\Domain\Stand\StandService;
-use App\Domain\User\UserFacade;
+use App\Domain\User\UserService;
 use App\Model\Exception\Logic\UserNotFoundException;
 use App\Model\Utils\Html;
 use App\UI\Components\Base\BaseComponent;
@@ -15,21 +15,21 @@ use Contributte\Translation\Translator;
 
 class RideableBikesAndStandMap extends BaseComponent
 {
-    private UserFacade $userFacade;
+    private UserService $userService;
     private BikeService $bikeService;
     private StandService $standService;
     private RideFacade $rideFacade;
     private Translator $translator;
 
     public function __construct(
-        UserFacade  $userFacade,
+        UserService  $userService,
         BikeService $bikeService,
         StandService $standService,
         RideFacade  $rideFacade,
         Translator  $translator,
     )
     {
-        $this->userFacade = $userFacade;
+        $this->userService = $userService;
         $this->bikeService = $bikeService;
         $this->standService = $standService;
         $this->rideFacade = $rideFacade;
@@ -84,7 +84,7 @@ class RideableBikesAndStandMap extends BaseComponent
     {
         $bike = $this->bikeService->getById($bikeId);
 
-        $user = $this->userFacade->get($this->presenter->user->getId());
+        $user = $this->userService->getById($this->presenter->user->getId());
         if ($user === null)
             throw new UserNotFoundException($this->presenter->user->getId());
 
@@ -101,7 +101,7 @@ class RideableBikesAndStandMap extends BaseComponent
         }
 
         $userId = $this->presenter->user->getId();
-        $user = $this->userFacade->get($userId);
+        $user = $this->userService->getById($userId);
 
         if ($user === null)
         {

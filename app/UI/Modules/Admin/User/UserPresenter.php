@@ -3,7 +3,7 @@
 namespace App\UI\Modules\Admin\User;
 
 use App\Domain\User\User;
-use App\Domain\User\UserFacade;
+use App\Domain\User\UserService;
 use App\Model\Exception\Logic\UserNotFoundException;
 use App\UI\Components\Admin\User\UserForm;
 use App\UI\Components\Admin\User\UserFormFactory;
@@ -16,31 +16,24 @@ class UserPresenter extends BaseAdminPresenter
     private UserListGridFactory $userListGridFactory;
     private UserFormFactory $userFormFactory;
 
-    private UserFacade $userFacade;
+    private UserService $userService;
 
     private ?User $userEntity = null;
 
     public function __construct(
         UserListGridFactory $userListGridFactory,
         UserFormFactory     $userFormFactory,
-        UserFacade $userFacade,
+        UserService $userService,
     )
     {
         $this->userListGridFactory = $userListGridFactory;
         $this->userFormFactory = $userFormFactory;
-        $this->userFacade = $userFacade;
+        $this->userService = $userService;
     }
 
     public function actionEdit(string $id): void
     {
-        $user = $this->userFacade->get($id);
-
-        if($user === null)
-        {
-            throw new UserNotFoundException($id);
-        }
-
-        $this->userEntity = $user;
+        $this->userEntity = $this->userService->getById($id);
     }
 
 

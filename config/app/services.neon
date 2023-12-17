@@ -37,8 +37,9 @@ services:
 	- App\Domain\Stand\DefaultStandService
 	- App\Domain\Stand\DefaultStandManager
 
-	- App\Domain\User\CreateUserFacade
-	- App\Domain\User\DefaultUserFacade
+	- App\Domain\User\DefaultUserService
+	- App\Domain\User\DefaultUserManager
+
 	- App\Domain\Ride\DefaultRideFacade
 
 	- App\Domain\Config\DefaultConfigService

@@ -3,7 +3,7 @@
 namespace App\UI\Components\Admin\User;
 
 use App\Domain\User\User;
-use App\Domain\User\UserFacade;
+use App\Domain\User\UserService;
 use App\Domain\User\UserQuery;
 use App\Model\App;
 use App\Model\Database\QueryBuilderManager;
@@ -14,17 +14,17 @@ use Contributte\Translation\Translator;
 
 class UserListGrid extends BaseComponent
 {
-    private UserFacade $userFacade;
+    private UserService $userService;
     private QueryBuilderManager $queryBuilderManager;
     private Translator $translator;
 
     public function __construct(
-        UserFacade   $userFacade,
+        UserService   $userService,
         QueryBuilderManager $queryBuilderManager,
         Translator          $translator,
     )
     {
-        $this->userFacade = $userFacade;
+        $this->userService = $userService;
         $this->queryBuilderManager = $queryBuilderManager;
         $this->translator = $translator;
     }
@@ -34,7 +34,7 @@ class UserListGrid extends BaseComponent
         $translator = $this->translator->createPrefixedTranslator('admin.userListGrid');
         $grid = new BaseGrid();
         $grid->setTranslator($this->translator);
-        $grid->setDataSource($this->queryBuilderManager->getQueryBuilder(UserQuery::getAll()));
+        $grid->setDataSource($this->userService->getAllDataSource());
 
         $grid->addColumnText('name', $translator->translate('column_name'));
         $grid->addFilterText('name', $translator->translate('filter_name'));

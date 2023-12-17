@@ -44,7 +44,6 @@ services:
 	- App\Domain\Ride\DefaultRideManager
 
 	- App\Domain\Config\DefaultConfigService
-
 	- App\Domain\Config\DefaultConfigManager(%config%)
 
 	# Components =============

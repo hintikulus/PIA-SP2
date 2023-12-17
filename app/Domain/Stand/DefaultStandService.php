@@ -5,6 +5,7 @@ namespace App\Domain\Stand;
 use App\Domain\Location\Location;
 use App\Model\Database\QueryBuilderManager;
 use App\Model\Database\QueryManager;
+use Psr\Log\LoggerInterface;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
@@ -13,42 +14,45 @@ class DefaultStandService implements StandService
     private StandManager $standManager;
     private QueryBuilderManager $queryBuilderManager;
     private QueryManager $queryManager;
+    private LoggerInterface $logger;
 
     public function __construct(
         StandManager        $standManager,
         QueryBuilderManager $queryBuilderManager,
         QueryManager        $queryManager,
+        LoggerInterface     $logger,
     )
     {
         $this->standManager = $standManager;
         $this->queryBuilderManager = $queryBuilderManager;
         $this->queryManager = $queryManager;
+        $this->logger = $logger;
     }
 
     public function getById(string $id): Stand
     {
-        Debugger::log("Getting stand by id $id", ILogger::INFO);
+        $this->logger->info("Getting stand by id $id");
         return $this->standManager->getById($id);
     }
 
     public function getAll(): array
     {
-        Debugger::log('Getting all stands', ILogger::INFO);
+        $this->logger->info('Getting all stands');
         return $this->queryManager->findAll(StandQuery::getAll());
     }
 
     public function getAllDataSource(): mixed
     {
-        Debugger::log('Getting all stands data source', ILogger::INFO);
+        $this->logger->info('Getting all stands data source');
         return $this->queryBuilderManager->getQueryBuilder(StandQuery::getAll());
     }
 
     public function createStand(string $name, Location $location): Stand
     {
-        Debugger::log("Creating new stand $name at $location", ILogger::INFO);
+        $this->logger->info("Creating new stand $name at $location");
         $stand = $this->standManager->createStand($name, $location);
 
-        Debugger::log("Stand $stand created, saving it", ILogger::DEBUG);
+        $this->logger->debug("Stand $stand created, saving it");
         $this->standManager->save($stand);
 
         return $stand;
@@ -56,10 +60,10 @@ class DefaultStandService implements StandService
 
     public function updateStand(Stand $stand, string $name, Location $location): void
     {
-        Debugger::log("Updating stand $stand with $name at $location", ILogger::INFO);
+        $this->logger->info("Updating stand $stand with $name at $location");
         $this->standManager->updateStand($stand, $name, $location);
 
-        Debugger::log("Stand $stand updated, saving it", ILogger::DEBUG);
+        $this->logger->debug("Stand $stand updated, saving it");
         $this->standManager->save($stand);
     }
 }

@@ -21,13 +21,16 @@ contributte.mailing:
 
 contributte.monolog:
 	holder:
-		enabled: true
+		enabled: false
+	manager:
+	    enabled: false
 	hook:
-		toTracy: false
+	    fromTracy: true
+	    toTracy: true
 	channel:
 		default:
 			handlers:
-				- Monolog\Handler\RotatingFileHandler(%appDir%/../var/log/syslog.log, 30, Monolog\Logger::WARNING)
+				- Monolog\Handler\RotatingFileHandler(%appDir%/../var/log/debug.log, 30, Monolog\Logger::DEBUG)
 			processors:
 				- Monolog\Processor\WebProcessor()
 				- Monolog\Processor\IntrospectionProcessor()

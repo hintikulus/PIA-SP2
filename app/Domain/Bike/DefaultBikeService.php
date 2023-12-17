@@ -9,6 +9,8 @@ use App\Model\Database\QueryBuilderManager;
 use App\Model\Database\QueryManager;
 use App\Model\Exception\Logic\BikeNotServiceableException;
 use App\Model\Exception\Logic\StandNotFoundException;
+use Contributte\Monolog\LoggerManager;
+use Psr\Log\LoggerInterface;
 use Ramsey\Uuid\Uuid;
 use Tracy\Debugger;
 use Tracy\ILogger;
@@ -19,59 +21,62 @@ class DefaultBikeService implements BikeService
     private StandManager $standManager;
     private QueryManager $queryManager;
     private QueryBuilderManager $queryBuilderManager;
+    private LoggerInterface $logger;
 
     public function __construct(
         BikeManager $bikeManager,
         StandManager $standManager,
         QueryManager $queryManager,
         QueryBuilderManager $queryBuilderManager,
+        LoggerInterface $logger,
     )
     {
         $this->bikeManager = $bikeManager;
         $this->standManager = $standManager;
         $this->queryManager = $queryManager;
         $this->queryBuilderManager = $queryBuilderManager;
+        $this->logger = $logger;
     }
 
     public function getById(string $id): Bike
     {
-        Debugger::getLogger()->log("Getting Bike by id {$id}", ILogger::INFO);
+        $this->logger->info("Getting Bike by id {$id}");
         return $this->bikeManager->getById($id);
     }
 
     public function getAllBikes(): array
     {
-        Debugger::getLogger()->log('Getting all bikes', ILogger::INFO);
+        $this->logger->info('Getting all bikes');
         return $this->queryManager->findAll(BikeQuery::getAll());
     }
 
     public function getAllBikesDataSource(): mixed
     {
-        Debugger::getLogger('Getting all bikes data source', ILogger::INFO);
+        $this->logger->info('Getting all bikes data source');
         return $this->queryBuilderManager->getQueryBuilder(BikeQuery::getAll());
     }
 
     public function getRideableBikes(): array
     {
-        Debugger::log('Getting rideable bikes', ILogger::INFO);
+        $this->logger->info('Getting rideable bikes');
         return $this->queryManager->findAll(BikeQuery::getRideable());
     }
 
     public function getBikesDueForService(): array
     {
-        Debugger::getLogger()->log('Getting bikes due for service', ILogger::INFO);
+        $this->logger->info('Getting bikes due for service');
         return $this->queryManager->findAll(BikeQuery::getDueForService());
     }
 
     public function getBikesDueForServiceDataSource(): mixed
     {
-        Debugger::getLogger()->log('Getting bikes due for service data source', ILogger::INFO);
+        $this->logger->info('Getting bikes due for service data source');
         return $this->queryBuilderManager->getQueryBuilder(BikeQuery::getDueForService());
     }
 
     public function markServiced(Bike $bike): void
     {
-        Debugger::getLogger()->log("Marking bike $bike services", ILogger::INFO);
+        $this->logger->info("Marking bike $bike services");
 
         if(!$bike->isDueForService())
         {
@@ -80,17 +85,17 @@ class DefaultBikeService implements BikeService
 
         $bike->updateLastServiceTimestamp();
 
-        Debugger::getLogger()->log("Bike $bike is mark serviced, saving it", ILogger::DEBUG);
+        $this->logger->debug("Bike $bike is mark serviced, saving it");
 
         $this->bikeManager->save($bike);
     }
 
     public function moveBike(Bike $bike, Location $location): void
     {
-        Debugger::getLogger()->log("Changing position of bike $bike to location $location", ILogger::INFO);
+        $this->logger->info("Changing position of bike $bike to location $location");
         $bike->setLocation($location);
 
-        Debugger::getLogger()->log("Bike $bike changed location to $location, saving it", ILogger::DEBUG);
+        $this->logger->debug("Bike $bike changed location to $location, saving it");
         $this->bikeManager->save($bike);
 
         // TODO: websocket send bike move information
@@ -98,11 +103,11 @@ class DefaultBikeService implements BikeService
 
     public function createBike(string $standId): Bike
     {
-        Debugger::getLogger()->log("Creating new bike in stand $standId", ILogger::INFO);
+        $this->logger->info("Creating new bike in stand $standId");
         $stand = $this->standManager->getById($standId);
         $bike = $this->bikeManager->createBike($stand);
 
-        Debugger::getLogger()->log("Bike $bike created, saving it", ILogger::DEBUG);
+        $this->logger->debug("Bike $bike created, saving it");
         $this->bikeManager->save($bike);
 
         return $bike;
@@ -110,12 +115,12 @@ class DefaultBikeService implements BikeService
 
     public function updateBike(Bike $bike, ?string $standId, \DateTime $lastServiceDatetime): void
     {
-        Debugger::getLogger()->log("Updating bike {$bike} data", ILogger::INFO);
+        $this->logger->info("Updating bike {$bike} data");
         $stand = $this->standManager->findById($standId);
 
         $this->bikeManager->updateBike($bike, $stand, $lastServiceDatetime);
 
-        Debugger::getLogger()->log("Bike $bike updated, saving it", ILogger::DEBUG);
+        $this->logger->debug("Bike $bike updated, saving it");
         $this->bikeManager->save($bike);
     }
 }

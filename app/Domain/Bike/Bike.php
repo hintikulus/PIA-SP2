@@ -35,7 +35,7 @@ class Bike extends AbstractEntity
 
     /**
      * @var Collection<int, Ride>
-     * @ORM\OneToMany(targetEntity="App\Domain\Ride\Ride", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Domain\Ride\Ride", mappedBy="bike")
      */
     private Collection $rides;
 

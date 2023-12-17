@@ -9,6 +9,7 @@ use App\Domain\User\User;
 use App\Model\App;
 use App\Model\Database\Entity\AbstractEntity;
 use App\Model\Database\Entity\TUuid;
+use App\Model\Exception\Logic\BikeNotRideableException;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -109,14 +110,9 @@ class Bike extends AbstractEntity
 
     public function startRide(User $user): Ride
     {
-        if (!$this->isInStand())
+        if (!$this->isInStand() || $this->isDueForService())
         {
-            throw new \Exception('Bike is in ride');
-        }
-
-        if ($this->isDueForService())
-        {
-            throw new \Exception('Bike is due for service');
+            throw  new BikeNotRideableException($this);
         }
 
         $ride = new Ride($user, $this, $this->stand);

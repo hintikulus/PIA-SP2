@@ -4,7 +4,7 @@ namespace App\UI\Modules\WebSocket;
 
 use App\Domain\Bike\BikeService;
 use App\Domain\Location\Location;
-use App\Domain\Ride\RideFacade;
+use App\Domain\Ride\RideService;
 use IPub\WebSocketsWAMP\Entities\Clients\IClient;
 use IPub\WebSocketsWAMP\Entities\Topics\ITopic;
 use IPub\WebSocketsZMQ\Pusher\Pusher;
@@ -14,17 +14,17 @@ use Tracy\ILogger;
 
 class RideDetailController extends BaseWebSocketController
 {
-    private RideFacade $rideFacade;
+    private RideService $rideService;
     private BikeService $bikeService;
     private Pusher $zmqPusher;
 
     public function __construct(
-        RideFacade $rideFacade,
+        RideService $rideService,
         BikeService $bikeService,
         Pusher $zmqPusher,
     )
     {
-        $this->rideFacade = $rideFacade;
+        $this->rideService = $rideService;
         $this->bikeService = $bikeService;
         $this->zmqPusher = $zmqPusher;
     }
@@ -42,7 +42,7 @@ class RideDetailController extends BaseWebSocketController
         $location = new Location($event['location']['lat'], $event['location']['lng']);
         $rideId = $event['ride_id'];
 
-        $ride = $this->rideFacade->get($rideId);
+        $ride = $this->rideService->findById($rideId);
 
         if($ride === null || !$ride->isStarted())
         {
@@ -59,8 +59,6 @@ class RideDetailController extends BaseWebSocketController
         {
             return;
         }
-
-
 
         $this->zmqPusher->push([
             'bike_id'  => $ride->getBike()->getId()->toString(),

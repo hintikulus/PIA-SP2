@@ -40,7 +40,8 @@ services:
 	- App\Domain\User\DefaultUserService
 	- App\Domain\User\DefaultUserManager
 
-	- App\Domain\Ride\DefaultRideFacade
+	- App\Domain\Ride\DefaultRideService
+	- App\Domain\Ride\DefaultRideManager
 
 	- App\Domain\Config\DefaultConfigService
 

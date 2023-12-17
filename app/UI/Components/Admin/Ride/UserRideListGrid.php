@@ -3,6 +3,7 @@
 namespace App\UI\Components\Admin\Ride;
 
 use App\Domain\Ride\RideQuery;
+use App\Domain\Ride\RideService;
 use App\Domain\User\User;
 use App\Model\App;
 use App\Model\Database\QueryBuilderManager;
@@ -12,17 +13,17 @@ use Contributte\Translation\Translator;
 
 class UserRideListGrid extends BaseComponent
 {
-    private QueryBuilderManager $queryBuilderManager;
+    private RideService $rideService;
     private Translator $translator;
     private User $user;
 
     public function __construct(
-        QueryBuilderManager $queryBuilderManager,
-        Translator          $translator,
-        User                $user,
+        RideService $rideService,
+        Translator  $translator,
+        User        $user,
     )
     {
-        $this->queryBuilderManager = $queryBuilderManager;
+        $this->rideService = $rideService;
         $this->translator = $translator;
         $this->user = $user;
     }
@@ -33,7 +34,7 @@ class UserRideListGrid extends BaseComponent
         $grid = new BaseGrid();
         $grid->setTranslator($this->translator);
 
-        $grid->setDataSource($this->queryBuilderManager->getQueryBuilder(RideQuery::getByUser($this->user)));
+        $grid->setDataSource($this->rideService->getUserRidesDataSource($this->user));
 
         $grid->addColumnDateTime('start_timestamp', $translator->translate('column_start_timestamp'), 'startTimestamp')
             ->setFormat(App::DATETIME_FORMAT)
@@ -45,15 +46,16 @@ class UserRideListGrid extends BaseComponent
         $grid->addColumnDateTime('end_timestamp', $translator->translate('column_end_timestamp'), 'endTimestamp')
             ->setFormat(App::DATETIME_FORMAT)
             ->setReplacement(['' => 'N/A'])
-            ->setSortable();
-        ;
+            ->setSortable()
+        ;;
 
         $grid->addColumnText('end_stand', $translator->translate('column_end_stand'), 'end_stand.name')
             ->setReplacement(['' => 'N/A'])
         ;
 
         $grid->addAction('detail', $translator->translate('action_detail'), ':Admin:Ride:detail')
-            ->setClass('btn btn-sm bg-gradient-secondary mb-0');
+            ->setClass('btn btn-sm bg-gradient-secondary mb-0')
+        ;
 
         $grid->setDefaultSort(['start_timestamp' => 'DESC']);
 

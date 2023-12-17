@@ -3,7 +3,7 @@
 namespace App\UI\Modules\Admin\Ride;
 
 use App\Domain\Ride\Ride;
-use App\Domain\Ride\RideFacade;
+use App\Domain\Ride\RideService;
 use App\Model\Exception\Logic\RideNotFoundException;
 use App\UI\Components\Admin\Ride\RideDetailMap;
 use App\UI\Components\Admin\Ride\RideDetailMapFactory;
@@ -15,7 +15,7 @@ use App\UI\Modules\Admin\BaseAdminPresenter;
 
 class RidePresenter extends BaseAdminPresenter
 {
-    private RideFacade $rideFacade;
+    private RideService $rideService;
     private RideProgressMapFactory $rideProgressMapFactory;
     private RideableBikesAndStandMapFactory $rideableBikesAndStandMapFactory;
     private RideDetailMapFactory $rideDetailMapFactory;
@@ -23,13 +23,13 @@ class RidePresenter extends BaseAdminPresenter
     private Ride $ride;
 
     public function __construct(
-        RideFacade                      $rideFacade,
+        RideService                      $rideService,
         RideProgressMapFactory          $rideProgressMapFactory,
         RideableBikesAndStandMapFactory $rideableBikesAndStandMapFactory,
         RideDetailMapFactory            $rideDetailMapFactory,
     )
     {
-        $this->rideFacade = $rideFacade;
+        $this->rideService = $rideService;
         $this->rideProgressMapFactory = $rideProgressMapFactory;
         $this->rideableBikesAndStandMapFactory = $rideableBikesAndStandMapFactory;
         $this->rideDetailMapFactory = $rideDetailMapFactory;
@@ -37,14 +37,8 @@ class RidePresenter extends BaseAdminPresenter
 
     public function actionDetail(string $id)
     {
-        $ride = $this->rideFacade->get($id);
-        if ($ride === null)
-        {
-            throw new RideNotFoundException($id);
-        }
-
-        $this->ride = $ride;
-        $this->template->ride = $ride;
+        $this->ride = $this->rideService->getById($id);
+        $this->template->ride = $this->ride;
     }
 
     public function createComponentRideProgressMap(): RideProgressMap

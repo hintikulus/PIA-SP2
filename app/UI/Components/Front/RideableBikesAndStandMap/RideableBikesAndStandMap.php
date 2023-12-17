@@ -3,7 +3,7 @@
 namespace App\UI\Components\Front\RideableBikesAndStandMap;
 
 use App\Domain\Bike\BikeService;
-use App\Domain\Ride\RideFacade;
+use App\Domain\Ride\RideService;
 use App\Domain\Stand\StandService;
 use App\Domain\User\UserService;
 use App\Model\Exception\Logic\UserNotFoundException;
@@ -18,21 +18,21 @@ class RideableBikesAndStandMap extends BaseComponent
     private UserService $userService;
     private BikeService $bikeService;
     private StandService $standService;
-    private RideFacade $rideFacade;
+    private RideService $rideService;
     private Translator $translator;
 
     public function __construct(
         UserService  $userService,
         BikeService $bikeService,
         StandService $standService,
-        RideFacade  $rideFacade,
+        RideService  $rideService,
         Translator  $translator,
     )
     {
         $this->userService = $userService;
         $this->bikeService = $bikeService;
         $this->standService = $standService;
-        $this->rideFacade = $rideFacade;
+        $this->rideService = $rideService;
         $this->translator = $translator;
     }
 
@@ -85,10 +85,9 @@ class RideableBikesAndStandMap extends BaseComponent
         $bike = $this->bikeService->getById($bikeId);
 
         $user = $this->userService->getById($this->presenter->user->getId());
-        if ($user === null)
-            throw new UserNotFoundException($this->presenter->user->getId());
 
-        $ride = $this->rideFacade->startRide($user, $bike);
+        $ride = $this->rideService->startRide($user, $bike);
+
         $this->flashSuccess('Jízda byla zahájena');
         $this->presenter->redirect(':Admin:Ride:detail', ['id' => $ride->getId()->toString()]);
     }
@@ -103,11 +102,6 @@ class RideableBikesAndStandMap extends BaseComponent
         $userId = $this->presenter->user->getId();
         $user = $this->userService->getById($userId);
 
-        if ($user === null)
-        {
-            throw new UserNotFoundException($userId);
-        }
-
-        return !$this->rideFacade->isUserInRide($user);
+        return !$this->rideService->isUserInRide($user);
     }
 }

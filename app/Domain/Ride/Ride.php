@@ -134,4 +134,9 @@ class Ride extends AbstractEntity
     {
         return $this->state = self::STATE_COMPLETED;
     }
+
+    public function __toString(): string
+    {
+        return "Ride{id=$this->id}";
+    }
 }

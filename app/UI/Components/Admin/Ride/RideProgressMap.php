@@ -3,7 +3,7 @@
 namespace App\UI\Components\Admin\Ride;
 
 use App\Domain\Ride\Ride;
-use App\Domain\Ride\RideFacade;
+use App\Domain\Ride\RideService;
 use App\Domain\Stand\StandService;
 use App\Model\Exception\Logic\RideNotFoundException;
 use App\Model\Exception\Logic\StandNotFoundException;
@@ -16,7 +16,7 @@ use Contributte\Translation\Translator;
 class RideProgressMap extends BaseComponent
 {
     private StandService $standService;
-    private RideFacade $rideFacade;
+    private RideService $rideService;
     private Translator $translator;
     private Ride $ride;
 
@@ -25,13 +25,13 @@ class RideProgressMap extends BaseComponent
 
     public function __construct(
         StandService $standService,
-        RideFacade  $rideFacade,
+        RideService  $rideService,
         Translator  $translator,
         Ride        $ride,
     )
     {
         $this->standService = $standService;
-        $this->rideFacade = $rideFacade;
+        $this->rideService = $rideService;
         $this->translator = $translator;
         $this->ride = $ride;
     }
@@ -78,18 +78,12 @@ class RideProgressMap extends BaseComponent
 
     public function handleEndRide(string $rideId, string $standId): void
     {
-        $ride = $this->rideFacade->get($rideId);
+        $ride = $this->rideService->getById($rideId);
 
-        if ($ride === null)
-            throw new RideNotFoundException($rideId);
-
-        $stand = $this->standFacade->get($standId);
-
-        if ($stand === null)
-            throw new StandNotFoundException($standId);
+        $stand = $this->standService->getById($standId);
 
         try {
-            $this->rideFacade->endRide($ride, $stand);
+            $this->rideService->completeRide($ride, $stand);
         } catch (LogicException $e)
         {
             $this->flashInfo($e->getMessage());

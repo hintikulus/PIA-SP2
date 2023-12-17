@@ -22,7 +22,7 @@ use Contributte\ApiRouter\ApiRoute;
  */
 class StandsController extends BaseController
 {
-    private StandService $standFacade;
+    private StandService $standService;
     private StandTransformer $standTransformer;
 
     public function __construct(
@@ -30,7 +30,7 @@ class StandsController extends BaseController
         StandTransformer $standTransformer,
     )
     {
-        $this->standFacade = $standService;
+        $this->standService = $standService;
         $this->standTransformer = $standTransformer;
     }
 
@@ -49,13 +49,13 @@ class StandsController extends BaseController
     {
         if($id === null)
         {
-            $this->sendJson($this->standTransformer->transformCollection($this->standFacade->getAll()));
+            $this->sendJson($this->standTransformer->transformCollection($this->standService->getAll()));
         }
 
         $stand = null;
 
         try {
-            $stand = $this->standFacade->getById($id);
+            $stand = $this->standService->getById($id);
         } catch (StandNotFoundException)
         {
             $this->sendNotFoundError('Stand');

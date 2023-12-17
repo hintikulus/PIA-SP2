@@ -21,8 +21,10 @@ final class App
     public const DATE_PICKER_FORMAT = 'Y-m-d';
     public const DATE_PICKER_MAX_VALUE = '9999-12-31';
     public const DATETIME_PICKER_FORMAT = 'Y-m-d\TH:i';
-    public const DATETIME_PICKER_MAX_VALUE = "9999-12-31T23:59";
+    public const DATETIME_SECONDS_PICKER_FORMAT = 'Y-m-d\TH:i:s';
+    public const DATETIME_MILLISECONDS_PICKER_FORMAT = 'Y-m-d\TH:i:s.v';
 
+    public const DATETIME_PICKER_MAX_VALUE = "9999-12-31T23:59";
     public const SERVICE_TIME = '6 months';
     public const BIKE_DISTANCE_DELIVERY = 50;
 

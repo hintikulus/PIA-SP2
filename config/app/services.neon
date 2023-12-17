@@ -76,12 +76,14 @@ services:
 
 	# Transformers
 	- App\Domain\Stand\StandTransformer
+	- App\Domain\Ride\RideTransformer
 	- App\Domain\Location\LocationTransformer
 
 	# API Controllers
 	- App\UI\Modules\Api\PingController
 	#- App\ApiModule\UsersPresenter
 	- App\UI\Modules\Api\StandsController
+	- App\UI\Modules\Api\RidesController
 	#- ApiModule\UsersPresenter
 
 latte:

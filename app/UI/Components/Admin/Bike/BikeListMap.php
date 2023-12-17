@@ -2,26 +2,26 @@
 
 namespace App\UI\Components\Admin\Bike;
 
-use App\Domain\Bike\BikeFacade;
+use App\Domain\Bike\BikeService;
 use App\UI\Components\Base\BaseComponent;
 use App\UI\Map\BaseMap;
 
 class BikeListMap extends BaseComponent
 {
-    private BikeFacade $bikeFacade;
+    private BikeService $bikeService;
 
     public function __construct(
-        BikeFacade $bikeFacade,
+        BikeService $bikeService,
     )
     {
-        $this->bikeFacade = $bikeFacade;
+        $this->bikeService = $bikeService;
     }
 
     public function createComponentMap(): BaseMap
     {
         $map = new BaseMap();
 
-        foreach ($this->bikeFacade->getAll() as $bike)
+        foreach ($this->bikeService->getAllBikes() as $bike)
         {
             $markerType = '';
             if(!$bike->isInStand())

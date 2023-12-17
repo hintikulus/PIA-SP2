@@ -2,7 +2,7 @@
 
 namespace App\UI\Modules\WebSocket;
 
-use App\Domain\Bike\BikeFacade;
+use App\Domain\Bike\BikeService;
 use App\Domain\Location\Location;
 use App\Model\App;
 use App\Model\Utils\DateTime;
@@ -12,13 +12,8 @@ use Nette\Utils\Json;
 
 class BikeController extends BaseWebSocketController
 {
-    private BikeFacade $bikeFacade;
-
-    public function __contruct(
-        BikeFacade $bikeFacade,
-    )
+    public function __contruct()
     {
-        $this->bikeFacade = $bikeFacade;
     }
 
     public function publish(array $event, IClient $client, ITopic $topic)

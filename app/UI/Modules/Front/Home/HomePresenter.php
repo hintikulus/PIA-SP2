@@ -2,7 +2,6 @@
 
 namespace App\UI\Modules\Front\Home;
 
-use App\Domain\Bike\BikeFacade;
 use App\Domain\Location\Location;
 use App\Domain\User\UserFacade;
 use App\Model\Exception\Logic\BikeNotFoundException;

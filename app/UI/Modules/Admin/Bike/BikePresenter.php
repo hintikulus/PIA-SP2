@@ -3,7 +3,7 @@
 namespace App\UI\Modules\Admin\Bike;
 
 use App\Domain\Bike\Bike;
-use App\Domain\Bike\BikeFacade;
+use App\Domain\Bike\BikeService;
 use App\Model\Exception\Logic\BikeNotFoundException;
 use App\UI\Components\Admin\Bike\BikeChooseStandMap;
 use App\UI\Components\Admin\Bike\BikeChooseStandMapFactory;
@@ -21,7 +21,7 @@ use App\UI\Modules\Admin\BaseAdminPresenter;
 
 class BikePresenter extends BaseAdminPresenter
 {
-    private BikeFacade $bikeFacade;
+    private BikeService $bikeService;
     private BikeChooseStandMapFactory $bikeChooseStandMapFactory;
     private BikeListGridFactory $bikeListGridFactory;
     private BikeListMapFactory $bikeListMapFactory;
@@ -32,7 +32,7 @@ class BikePresenter extends BaseAdminPresenter
     private ?Bike $bike = null;
 
     public function __construct(
-        BikeFacade $bikeFacade,
+        BikeService $bikeService,
         BikeListGridFactory       $bikeListGridFactory,
         BikeChooseStandMapFactory $bikeChooseStandMapFactory,
         BikeFormFactory           $bikeFormFactory,
@@ -41,7 +41,7 @@ class BikePresenter extends BaseAdminPresenter
         BikeDueForServiceListMapFactory $bikeDueForServiceListMapFactory,
     )
     {
-        $this->bikeFacade = $bikeFacade;
+        $this->bikeService = $bikeService;
         $this->bikeListGridFactory = $bikeListGridFactory;
         $this->bikeChooseStandMapFactory = $bikeChooseStandMapFactory;
         $this->bikeFormFactory = $bikeFormFactory;
@@ -52,26 +52,12 @@ class BikePresenter extends BaseAdminPresenter
 
     public function actionEdit(string $id)
     {
-        $bike = $this->bikeFacade->get($id);
-
-        if($bike === null)
-        {
-            throw new BikeNotFoundException($id);
-        }
-
-        $this->bike = $bike;
+        $this->bike = $this->bikeService->getById($id);
     }
 
     public function actionService(string $id)
     {
-        $bike = $this->bikeFacade->get($id);
-
-        if($bike === null)
-        {
-            throw new BikeNotFoundException($id);
-        }
-
-        $this->bike = $bike;
+        $this->bike = $this->bikeService->getById($id);
     }
 
     public function createComponentBikeListGrid(): BikeListGrid

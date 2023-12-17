@@ -2,7 +2,7 @@
 
 namespace App\UI\Modules\WebSocket;
 
-use App\Domain\Bike\BikeFacade;
+use App\Domain\Bike\BikeService;
 use App\Domain\Location\Location;
 use App\Domain\Ride\RideFacade;
 use IPub\WebSocketsWAMP\Entities\Clients\IClient;
@@ -15,17 +15,17 @@ use Tracy\ILogger;
 class RideDetailController extends BaseWebSocketController
 {
     private RideFacade $rideFacade;
-    private BikeFacade $bikeFacade;
+    private BikeService $bikeService;
     private Pusher $zmqPusher;
 
     public function __construct(
         RideFacade $rideFacade,
-        BikeFacade $bikeFacade,
+        BikeService $bikeService,
         Pusher $zmqPusher,
     )
     {
         $this->rideFacade = $rideFacade;
-        $this->bikeFacade = $bikeFacade;
+        $this->bikeService = $bikeService;
         $this->zmqPusher = $zmqPusher;
     }
 
@@ -54,7 +54,7 @@ class RideDetailController extends BaseWebSocketController
 
         try
         {
-            $this->bikeFacade->updateLocation($ride->getBike(), $location);
+            $this->bikeService->moveBike($ride->getBike(), $location);
         } catch (\Exception)
         {
             return;

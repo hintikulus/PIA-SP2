@@ -6,6 +6,7 @@ use App\Domain\Location\Location;
 use App\Domain\Ride\Ride;
 use App\Domain\Stand\Stand;
 use App\Domain\User\User;
+use App\Model\App;
 use App\Model\Database\Entity\AbstractEntity;
 use App\Model\Database\Entity\TUuid;
 use Doctrine\Common\Collections\Collection;
@@ -108,12 +109,12 @@ class Bike extends AbstractEntity
 
     public function startRide(User $user): Ride
     {
-        if(!$this->isInStand())
+        if (!$this->isInStand())
         {
             throw new \Exception('Bike is in ride');
         }
 
-        if($this->isDueForService())
+        if ($this->isDueForService())
         {
             throw new \Exception('Bike is due for service');
         }
@@ -121,5 +122,10 @@ class Bike extends AbstractEntity
         $ride = new Ride($user, $this, $this->stand);
         $this->setStand(null);
         return $ride;
+    }
+
+    public function __toString(): string
+    {
+        return "Bike{id={$this->id}, location={$this->location}, lastServiceTimestamp={$this->lastServiceTimestamp->format(App::DATETIME_SECONDS_FORMAT)}, stand={$this->stand}}";
     }
 }

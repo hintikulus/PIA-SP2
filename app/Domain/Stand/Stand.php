@@ -55,4 +55,9 @@ class Stand extends AbstractEntity
     {
         $this->location = $location;
     }
+
+    public function __toString()
+    {
+        return "Stand{id={$this->getId()}, name='{$this->getName()}', location={$this->location}}";
+    }
 }

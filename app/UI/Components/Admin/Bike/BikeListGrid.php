@@ -3,9 +3,8 @@
 namespace App\UI\Components\Admin\Bike;
 
 use App\Domain\Bike\Bike;
-use App\Domain\Bike\BikeQuery;
+use App\Domain\Bike\BikeService;
 use App\Model\App;
-use App\Model\Database\QueryBuilderManager;
 use App\Model\Utils\Html;
 use App\UI\Components\Base\BaseComponent;
 use App\UI\DataGrid\BaseGrid;
@@ -13,15 +12,15 @@ use Contributte\Translation\Translator;
 
 class BikeListGrid extends BaseComponent
 {
-    private QueryBuilderManager $queryBuilderManager;
+    private BikeService $bikeService;
     private Translator $translator;
 
     public function __construct(
-        QueryBuilderManager $queryBuilderManager,
-        Translator          $translator,
+        BikeService $bikeService,
+        Translator  $translator,
     )
     {
-        $this->queryBuilderManager = $queryBuilderManager;
+        $this->bikeService = $bikeService;
         $this->translator = $translator;
     }
 
@@ -30,7 +29,7 @@ class BikeListGrid extends BaseComponent
         $translator = $this->translator->createPrefixedTranslator('admin.bikeListGrid');
         $grid = new BaseGrid();
         $grid->setTranslator($this->translator);
-        $grid->setDataSource($this->queryBuilderManager->getQueryBuilder(BikeQuery::getAll()));
+        $grid->setDataSource($this->bikeService->getAllBikesDataSource());
 
         $grid->addColumnText('stand', $translator->translate('column_stand'), 'stand.name');
 
@@ -39,8 +38,7 @@ class BikeListGrid extends BaseComponent
         ;
 
         $grid->addColumnDateTime('next_service_datetime', $translator->translate('column_next_service_datetime'), 'last_service_timestamp')
-            ->setRenderer(function(Bike $bike)
-            {
+            ->setRenderer(function(Bike $bike) {
                 return $bike->getNextServiceDatetime()->format(App::DATETIME_FORMAT);
             })
         ;
@@ -67,10 +65,12 @@ class BikeListGrid extends BaseComponent
             }
 
             return Html::el('span', ['class' => 'btn btn-icon-only btn-rounded mb-0 btn-sm d-flex align-items-center justify-content-center p-3 ' . $colorClass])
-                ->addHtml(Html::el('i', ['class' => $iconClass . ' text-lg']));
+                ->addHtml(Html::el('i', ['class' => $iconClass . ' text-lg']))
+            ;
         })
-        ->setAlign('center')
-        ->setFitContent();
+            ->setAlign('center')
+            ->setFitContent()
+        ;
 
         $grid->addAction('edit', $translator->translate('action_edit'), 'Bike:edit')
             ->setClass('btn btn-sm bg-gradient-secondary mb-0')

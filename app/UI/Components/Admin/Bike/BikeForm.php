@@ -3,7 +3,7 @@
 namespace App\UI\Components\Admin\Bike;
 
 use App\Domain\Bike\Bike;
-use App\Domain\Bike\BikeFacade;
+use App\Domain\Bike\BikeService;
 use App\Model\App;
 use App\UI\Components\Base\BaseComponent;
 use App\UI\Form\BaseForm;
@@ -12,19 +12,19 @@ use Nette\Utils\ArrayHash;
 
 class BikeForm extends BaseComponent
 {
-    private BikeFacade $bikeFacade;
+    private BikeService $bikeService;
     private Translator $translator;
     private ?Bike $bike = null;
     private ?string $cancelUrl = null;
 
     public function __construct(
-        BikeFacade $bikeFacade,
-        Translator $translator,
-        ?Bike      $bike = null,
-        ?string    $cancelUrl = null,
+        BikeService $bikeService,
+        Translator  $translator,
+        ?Bike       $bike = null,
+        ?string     $cancelUrl = null,
     )
     {
-        $this->bikeFacade = $bikeFacade;
+        $this->bikeService = $bikeService;
         $this->translator = $translator;
         $this->bike = $bike;
         $this->cancelUrl = $cancelUrl;
@@ -63,7 +63,9 @@ class BikeForm extends BaseComponent
 
         if ($this->bike)
         {
-            $form->addDatetime('last_service_datetime', $translator->translate('input_last_service_datetime'));
+            $form->addDatetime('last_service_datetime', $translator->translate('input_last_service_datetime'))
+                ->setRequired()
+            ;
         }
 
         $form->addSubmit('send');
@@ -78,7 +80,19 @@ class BikeForm extends BaseComponent
         $transformedValues = $this->transformValues($values);
         try
         {
-            $this->bikeFacade->save($this->bike, $transformedValues['stand_id'], $transformedValues['last_service_datetime'] ?? null);
+            if ($this->bike)
+            {
+                $this->bikeService->updateBike(
+                    $this->bike,
+                    $transformedValues['stand_id'],
+                    $transformedValues['last_service_datetime'] ?? null
+                );
+            }
+            else
+            {
+                $this->bikeService->createBike($transformedValues['stand_id']);
+            }
+
             $this->flashSuccess('Kolo úspěšně uloženo.');
         }
         catch (\Exception $e)

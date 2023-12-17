@@ -2,7 +2,7 @@
 
 namespace App\UI\Components\Front\RideableBikesAndStandMap;
 
-use App\Domain\Bike\BikeFacade;
+use App\Domain\Bike\BikeService;
 use App\Domain\Ride\RideFacade;
 use App\Domain\Stand\StandFacade;
 use App\Domain\User\UserFacade;
@@ -17,21 +17,21 @@ use mysql_xdevapi\Exception;
 class RideableBikesAndStandMap extends BaseComponent
 {
     private UserFacade $userFacade;
-    private BikeFacade $bikeFacade;
+    private BikeService $bikeService;
     private StandFacade $standFacade;
     private RideFacade $rideFacade;
     private Translator $translator;
 
     public function __construct(
         UserFacade  $userFacade,
-        BikeFacade  $bikeFacade,
+        BikeService $bikeService,
         StandFacade $standFacade,
         RideFacade  $rideFacade,
         Translator  $translator,
     )
     {
         $this->userFacade = $userFacade;
-        $this->bikeFacade = $bikeFacade;
+        $this->bikeService = $bikeService;
         $this->standFacade = $standFacade;
         $this->rideFacade = $rideFacade;
         $this->translator = $translator;
@@ -48,7 +48,7 @@ class RideableBikesAndStandMap extends BaseComponent
             $map->addMarker($stand->getLocation(), $stand->getId()->toString(), 'stand');
         }
 
-        foreach ($this->bikeFacade->getRideableBikes() as $bike)
+        foreach ($this->bikeService->getRideableBikes() as $bike)
         {
             $marker = $map->addMarker($bike->getLocation(), $bike->getId()->toString(), $bike->isInStand() ? 'bike' : 'bike_ride', 'bike');
 
@@ -83,9 +83,7 @@ class RideableBikesAndStandMap extends BaseComponent
 
     public function handleStartRide(string $bikeId): void
     {
-        $bike = $this->bikeFacade->get($bikeId);
-        if ($bike === null)
-            throw new BikeNotFoundException($bikeId);
+        $bike = $this->bikeService->getById($bikeId);
 
         $user = $this->userFacade->get($this->presenter->user->getId());
         if ($user === null)

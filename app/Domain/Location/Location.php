@@ -77,4 +77,9 @@ class Location
 
         return $distance;
     }
+
+    public function __toString(): string
+    {
+        return "Location{latitude='{$this->latitude}', longitude='{$this->longitude}'}";
+    }
 }

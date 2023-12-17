@@ -31,10 +31,14 @@ services:
 		factory: @App\Model\Router\RouterFactory::create
 
 	# Domain =================
+	- App\Domain\Bike\DefaultBikeService
+	- App\Domain\Bike\DefaultBikeManager
+
+	- App\Domain\Stand\DefaultStandManager
+
 	- App\Domain\User\CreateUserFacade
 	- App\Domain\User\DefaultUserFacade
 	- App\Domain\Stand\DefaultStandFacade
-	- App\Domain\Bike\DefaultBikeFacade
 	- App\Domain\Ride\DefaultRideFacade
 
 	- App\Domain\Config\DefaultConfigService

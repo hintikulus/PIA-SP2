@@ -25,9 +25,9 @@ class User extends AbstractEntity
     public const ROLE_SERVICEMAN = 'serviceman';
     public const ROLE_ADMIN = 'admin';
     public const ROLES = [
-        self::ROLE_REGULAR => self::ROLE_REGULAR,
+        self::ROLE_REGULAR    => self::ROLE_REGULAR,
         self::ROLE_SERVICEMAN => self::ROLE_SERVICEMAN,
-        self::ROLE_ADMIN => self::ROLE_ADMIN,
+        self::ROLE_ADMIN      => self::ROLE_ADMIN,
     ];
 
     use TUuid;
@@ -99,7 +99,7 @@ class User extends AbstractEntity
 
     public function setRole(string $role): void
     {
-        if(!isset(self::ROLES[$role]))
+        if (!isset(self::ROLES[$role]))
         {
             throw new InvalidArgumentException();
         }
@@ -117,10 +117,10 @@ class User extends AbstractEntity
         $this->lastLogin = new DateTime();
     }
 
-	public function getGravatar(): string
-	{
-		return 'https://www.gravatar.com/avatar/' . md5($this->emailAddress);
-	}
+    public function getGravatar(): string
+    {
+        return 'https://www.gravatar.com/avatar/' . md5($this->emailAddress);
+    }
 
     public function getGoogleId(): ?string
     {
@@ -132,13 +132,18 @@ class User extends AbstractEntity
         $this->googleId = $googleId;
     }
 
-	public function toIdentity(): Identity
-	{
-		return new Identity($this->getId()->toString(), [$this->getRole()], [
-			'email' => $this->emailAddress,
-			'name' => $this->name,
-			'gravatar' => $this->getGravatar(),
-		]);
-	}
+    public function toIdentity(): Identity
+    {
+        return new Identity($this->getId()->toString(), [$this->getRole()], [
+            'email'    => $this->emailAddress,
+            'name'     => $this->name,
+            'gravatar' => $this->getGravatar(),
+        ]);
+    }
+
+    public function __toString(): string
+    {
+        return "User{id={$this->id}, name='{$this->name}', emailAddress='{$this->emailAddress}', role={$this->role}}";
+    }
 
 }

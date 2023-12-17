@@ -74,9 +74,14 @@ services:
 	- App\Model\Database\QueryManager
 	- App\Model\Database\QueryBuilderManager
 
+	# Transformers
+	- App\Domain\Stand\StandTransformer
+	- App\Domain\Location\LocationTransformer
+
 	# API Controllers
 	- App\UI\Modules\Api\PingController
 	#- App\ApiModule\UsersPresenter
+	- App\UI\Modules\Api\StandsController
 	#- ApiModule\UsersPresenter
 
 latte:

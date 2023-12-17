@@ -28,6 +28,7 @@ final class RouterFactory
     {
         $this->router[] = $list = new RouteList('Api');
         $list->addRoute('api/<presenter>/<action>[/<id>]', 'Home:default');
+        $list->addRoute('api/<presenter>[/<id>]', 'Home:default');
     }
 
 	protected function buildAdmin(): void

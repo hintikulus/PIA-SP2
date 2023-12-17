@@ -17,6 +17,7 @@ use Nette\Application\Responses\TextResponse;
  * 	methods={
  * 		"GET"="run"
  * 	},
+ *  priority=1,
  *  presenter="Api:Ping",
  *  format="plain"
  * )

@@ -74,6 +74,11 @@ services:
 	- App\Model\Database\QueryManager
 	- App\Model\Database\QueryBuilderManager
 
+	# API Controllers
+	- App\UI\Modules\Api\PingController
+	#- App\ApiModule\UsersPresenter
+	#- ApiModule\UsersPresenter
+
 latte:
 	macros:
 		- App\Model\Latte\Macros::register

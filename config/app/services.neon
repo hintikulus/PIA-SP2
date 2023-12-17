@@ -34,11 +34,11 @@ services:
 	- App\Domain\Bike\DefaultBikeService
 	- App\Domain\Bike\DefaultBikeManager
 
+	- App\Domain\Stand\DefaultStandService
 	- App\Domain\Stand\DefaultStandManager
 
 	- App\Domain\User\CreateUserFacade
 	- App\Domain\User\DefaultUserFacade
-	- App\Domain\Stand\DefaultStandFacade
 	- App\Domain\Ride\DefaultRideFacade
 
 	- App\Domain\Config\DefaultConfigService

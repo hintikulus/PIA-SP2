@@ -2,25 +2,26 @@
 
 namespace App\UI\Components\Admin\Stand;
 
+use App\Domain\Location\Location;
 use App\Domain\Stand\Stand;
-use App\Domain\Stand\StandFacade;
+use App\Domain\Stand\StandService;
 use App\UI\Components\Base\BaseComponent;
 use App\UI\Form\BaseForm;
 use Nette\Utils\ArrayHash;
 
 class StandForm extends BaseComponent
 {
-    private StandFacade $standFacade;
+    private StandService $standService;
     private ?string $cancelUrl;
     private ?Stand $stand;
 
     public function __construct(
-        StandFacade $standFacade,
+        StandService $standService,
         ?Stand      $stand,
         string      $cancelUrl = null,
     )
     {
-        $this->standFacade = $standFacade;
+        $this->standService = $standService;
         $this->stand = $stand;
         $this->cancelUrl = $cancelUrl;
     }
@@ -69,7 +70,14 @@ class StandForm extends BaseComponent
     {
         try
         {
-            $this->standFacade->save($this->stand, $values['name'], $values['latitude'], $values['longitude']);
+            if($this->stand)
+            {
+                $this->standService->updateStand($this->stand, $values['name'], new Location($values['latitude'], $values['longitude']));
+            } else
+            {
+                $this->standService->createStand($values['name'], new Location($values['latitude'], $values['longitude']));
+            }
+
             $this->flashSuccess('Stojan úspěšně uložen.');
         }
         catch (\Exception $e)

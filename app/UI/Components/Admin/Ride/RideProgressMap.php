@@ -4,7 +4,7 @@ namespace App\UI\Components\Admin\Ride;
 
 use App\Domain\Ride\Ride;
 use App\Domain\Ride\RideFacade;
-use App\Domain\Stand\StandFacade;
+use App\Domain\Stand\StandService;
 use App\Model\Exception\Logic\RideNotFoundException;
 use App\Model\Exception\Logic\StandNotFoundException;
 use App\Model\Exception\LogicException;
@@ -15,7 +15,7 @@ use Contributte\Translation\Translator;
 
 class RideProgressMap extends BaseComponent
 {
-    private StandFacade $standFacade;
+    private StandService $standService;
     private RideFacade $rideFacade;
     private Translator $translator;
     private Ride $ride;
@@ -24,13 +24,13 @@ class RideProgressMap extends BaseComponent
     public array $onRideEnd = [];
 
     public function __construct(
-        StandFacade $standFacade,
+        StandService $standService,
         RideFacade  $rideFacade,
         Translator  $translator,
         Ride        $ride,
     )
     {
-        $this->standFacade = $standFacade;
+        $this->standService = $standService;
         $this->rideFacade = $rideFacade;
         $this->translator = $translator;
         $this->ride = $ride;
@@ -47,7 +47,7 @@ class RideProgressMap extends BaseComponent
         $translator = $this->translator->createPrefixedTranslator('admin.rideProgressMap');
         $map = new BaseMap();
 
-        foreach ($this->standFacade->getAll() as $stand)
+        foreach ($this->standService->getAll() as $stand)
         {
             $marker = $map->addMarker($stand->getLocation(), $stand->getId()->toString(), $stand !== $this->ride->getStartStand() ? 'stand' : 'stand_green', 'stand');
 

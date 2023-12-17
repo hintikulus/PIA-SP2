@@ -4,46 +4,45 @@ namespace App\UI\Components\Front\RideableBikesAndStandMap;
 
 use App\Domain\Bike\BikeService;
 use App\Domain\Ride\RideFacade;
-use App\Domain\Stand\StandFacade;
+use App\Domain\Stand\StandService;
 use App\Domain\User\UserFacade;
-use App\Model\Exception\Logic\BikeNotFoundException;
 use App\Model\Exception\Logic\UserNotFoundException;
 use App\Model\Utils\Html;
 use App\UI\Components\Base\BaseComponent;
 use App\UI\Map\BaseMap;
+use App\UI\Map\Map;
 use Contributte\Translation\Translator;
-use mysql_xdevapi\Exception;
 
 class RideableBikesAndStandMap extends BaseComponent
 {
     private UserFacade $userFacade;
     private BikeService $bikeService;
-    private StandFacade $standFacade;
+    private StandService $standService;
     private RideFacade $rideFacade;
     private Translator $translator;
 
     public function __construct(
         UserFacade  $userFacade,
         BikeService $bikeService,
-        StandFacade $standFacade,
+        StandService $standService,
         RideFacade  $rideFacade,
         Translator  $translator,
     )
     {
         $this->userFacade = $userFacade;
         $this->bikeService = $bikeService;
-        $this->standFacade = $standFacade;
+        $this->standService = $standService;
         $this->rideFacade = $rideFacade;
         $this->translator = $translator;
     }
 
-    public function createComponentMap()
+    public function createComponentMap(): Map
     {
         $translator = $this->translator->createPrefixedTranslator('admin.rideableBikesAndStandMap');
         $map = new BaseMap();
 
 
-        foreach ($this->standFacade->getAll() as $stand)
+        foreach ($this->standService->getAll() as $stand)
         {
             $map->addMarker($stand->getLocation(), $stand->getId()->toString(), 'stand');
         }

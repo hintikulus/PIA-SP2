@@ -3,7 +3,7 @@
 namespace App\UI\Modules\Admin\Stand;
 
 use App\Domain\Stand\Stand;
-use App\Domain\Stand\StandFacade;
+use App\Domain\Stand\StandService;
 use App\Model\Exception\Logic\StandNotFoundException;
 use App\UI\Components\Admin\Stand\StandChooseMap;
 use App\UI\Components\Admin\Stand\StandChooseMapFactory;
@@ -21,7 +21,7 @@ class StandPresenter extends BaseAdminPresenter
     private StandListMapFactory $standListMapFactory;
     private StandFormFactory $standFormFactory;
     private StandChooseMapFactory $standChooseMapFactory;
-    private StandFacade $standFacade;
+    private StandService $standService;
 
     private ?Stand $stand = null;
 
@@ -30,26 +30,19 @@ class StandPresenter extends BaseAdminPresenter
         StandListMapFactory  $standListMapFactory,
         StandFormFactory     $standFormFactory,
         StandChooseMapFactory $standChooseMapFactory,
-        StandFacade   $standFacade,
+        StandService   $standService,
     )
     {
         $this->standListGridFactory = $standListGridFactory;
         $this->standListMapFactory = $standListMapFactory;
         $this->standFormFactory = $standFormFactory;
         $this->standChooseMapFactory = $standChooseMapFactory;
-        $this->standFacade = $standFacade;
+        $this->standService = $standService;
     }
 
     public function actionEdit(string $id)
     {
-        $stand = $this->standFacade->get($id);
-
-        if($stand === null)
-        {
-            throw new StandNotFoundException($id);
-        }
-
-        $this->stand = $stand;
+        $this->stand = $this->standService->getById($id);
     }
 
     public function createComponentStandListGrid(): StandListGrid

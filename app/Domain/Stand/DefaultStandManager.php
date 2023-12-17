@@ -2,6 +2,7 @@
 
 namespace App\Domain\Stand;
 
+use App\Domain\Location\Location;
 use App\Model\Database\EntityManagerDecorator;
 use App\Model\Exception\Logic\StandNotFoundException;
 use Ramsey\Uuid\Uuid;
@@ -37,6 +38,20 @@ class DefaultStandManager implements StandManager
         }
 
         return $this->em->getStandRepository()->find($id);
+    }
+
+    public function createStand(string $name, Location $location): Stand
+    {
+        $stand = new Stand($name, $location);
+        $this->em->persist($stand);
+
+        return $stand;
+    }
+
+    public function updateStand(Stand $stand, string $name, Location $location): void
+    {
+        $stand->setName($name);
+        $stand->setLocation($location);
     }
 
     public function save(Stand $stand): void

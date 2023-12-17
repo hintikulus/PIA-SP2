@@ -3,7 +3,7 @@
 namespace App\UI\Components\Admin\Stand;
 
 use App\Domain\Location\Location;
-use App\Domain\Stand\StandFacade;
+use App\Domain\Stand\StandService;
 use App\Model\Utils\Html;
 use App\UI\Components\Base\BaseComponent;
 use App\UI\Map\BaseMap;
@@ -12,24 +12,24 @@ use Nette\Application\LinkGenerator;
 
 class StandListMap extends BaseComponent
 {
-    private StandFacade $standFacade;
+    private StandService $standService;
     private LinkGenerator $linkGenerator;
     private Translator $translator;
 
     public function __construct(
-        StandFacade $standFacade,
+        StandService $standService,
         LinkGenerator $linkGenerator,
         Translator $translator,
     )
     {
-        $this->standFacade = $standFacade;
+        $this->standService = $standService;
         $this->linkGenerator = $linkGenerator;
         $this->translator = $translator;
     }
 
     public function render(mixed $params = null): void
     {
-        $this->template->stands = $this->standFacade->getAll();
+        $this->template->stands = $this->standService->getAll();
         parent::render($params);
     }
 
@@ -38,7 +38,7 @@ class StandListMap extends BaseComponent
         $translator = $this->translator->createPrefixedTranslator('admin.standListMap');
         $map = new BaseMap();
 
-        foreach ($this->standFacade->getAll() as $stand)
+        foreach ($this->standService->getAll() as $stand)
         {
             $popupName = Html::el('span');
             $popupName->addHtml(Html::el('b')->addText($translator->translate('popup_name')));

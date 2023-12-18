@@ -6,17 +6,16 @@
         var map = window.map_rideableBikesAndStandMap_map;
         var mapMarkers = window.map_rideableBikesAndStandMap_map_markers;
 
-        console.log(window);
         socketsConnection.on('socket/connect', function (session) {
                 console.log('Připojeno');
                 socketSession = session;
 
-                socketSession.subscribe('/bike/stand', function (topic, event) {
+                socketSession.subscribe('/bike/rideable', function (topic, event) {
                     let obj = JSON.parse(event);
 
-                    if (obj.type == 'bike_update') {
-                        let marker = mapMarkers['bike'][obj.content.bike_id];
-                        marker.setLatLng(L.latLng(obj.content.location.lat, obj.content.location.long));
+                    if (obj.type == 'bike_location_update') {
+                        let marker = mapMarkers['bike'][obj.bike_id];
+                        marker.setLatLng(L.latLng(obj.location.latitude, obj.location.longitude));
                     }
                 });
 

@@ -23,20 +23,20 @@ class RideTransformer extends AbstractTransformer
     }
 
     /**
-     * @param Ride $ride
+     * @param Ride $item
      * @return array
      */
-    public function transform($ride): array
+    public function transform($item): array
     {
         return [
-            'id'              => $ride->getId(),
-            'user_id'         => $ride->getUser()->getId(),
-            'bike_id'         => $ride->getBike()->getId(),
-            'start_stand_id'  => $ride->getStartStand()->getId(),
-            'start_timestamp' => $ride->getStartTimestamp()->format(App::DATETIME_MILLISECONDS_PICKER_FORMAT),
-            'end_stand_id'    => $ride->getEndStand()?->getId(),
-            'end_timestamp'   => $ride->getEndTimestamp()?->format(App::DATETIME_MILLISECONDS_PICKER_FORMAT),
-            'state'           => $ride->getState(),
+            'id'              => $item->getId(),
+            'user_id'         => $item->getUser()->getId(),
+            'bike_id'         => $item->getBike()->getId(),
+            'start_stand_id'  => $item->getStartStand()->getId(),
+            'start_timestamp' => $item->getStartTimestamp()->format(App::DATETIME_MILLISECONDS_PICKER_FORMAT),
+            'end_stand_id'    => $item->getEndStand()?->getId(),
+            'end_timestamp'   => $item->getEndTimestamp()?->format(App::DATETIME_MILLISECONDS_PICKER_FORMAT),
+            'state'           => $item->getState(),
         ];
     }
 }

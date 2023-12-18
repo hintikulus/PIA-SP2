@@ -2,7 +2,6 @@
 
 namespace App\UI\Modules\Api;
 
-use App\Domain\Stand\StandFacade;
 use App\Domain\Stand\StandService;
 use App\Domain\Stand\StandTransformer;
 use App\Model\Exception\Logic\StandNotFoundException;

@@ -1,1 +1,35 @@
 {control map}
+<script>
+    $(document).ready(function () {
+        var map = window.map_bikeListMap_map;
+        var mapMarkers = window.map_bikeListMap_map_markers;
+
+        console.log(map);
+        console.log(mapMarkers);
+        socketsConnection.on('socket/connect', function (session) {
+                console.log('Připojeno');
+                socketSession = session;
+
+                socketSession.subscribe('/bike/all', function (topic, event) {
+                    let obj = JSON.parse(event);
+
+                    if (obj.type == 'bike_location_update') {
+                        let marker = mapMarkers['bike'][obj.bike_id];
+                        marker.setLatLng(L.latLng(obj.location.latitude, obj.location.longitude));
+                    }
+                });
+
+            },
+            function (code, reason, detail) {
+                console.log('chyba pripojeni');
+            }
+        );
+
+        socketsConnection.on('socket/disconnect', function (error) {
+            // Callback který se zavola při ukončení spojení se serverem
+            // např. při reloadu stránky nebo když spojení ukončí samotný server
+            console.log('socket disconected');
+            console.log(error);
+        });
+    });
+</script>

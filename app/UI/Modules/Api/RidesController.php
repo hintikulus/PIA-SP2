@@ -2,7 +2,6 @@
 
 namespace App\UI\Modules\Api;
 
-use App\Domain\Ride\RideFacade;
 use App\Domain\Ride\RideService;
 use App\Domain\Ride\RideTransformer;
 use App\Model\Exception\Logic\RideNotFoundException;

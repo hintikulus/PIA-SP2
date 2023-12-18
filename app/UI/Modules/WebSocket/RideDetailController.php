@@ -5,6 +5,7 @@ namespace App\UI\Modules\WebSocket;
 use App\Domain\Bike\BikeService;
 use App\Domain\Location\Location;
 use App\Domain\Ride\RideService;
+use App\Domain\Ride\RideUpdateNotifyManager;
 use IPub\WebSocketsWAMP\Entities\Clients\IClient;
 use IPub\WebSocketsWAMP\Entities\Topics\ITopic;
 use IPub\WebSocketsZMQ\Pusher\Pusher;
@@ -16,17 +17,20 @@ class RideDetailController extends BaseWebSocketController
 {
     private RideService $rideService;
     private BikeService $bikeService;
+    private RideUpdateNotifyManager $rideUpdateNotifyManager;
     private Pusher $zmqPusher;
 
     public function __construct(
         RideService $rideService,
         BikeService $bikeService,
         Pusher $zmqPusher,
+        RideUpdateNotifyManager $rideUpdateNotifyManager,
     )
     {
         $this->rideService = $rideService;
         $this->bikeService = $bikeService;
         $this->zmqPusher = $zmqPusher;
+        $this->rideUpdateNotifyManager = $rideUpdateNotifyManager;
     }
 
 
@@ -52,28 +56,6 @@ class RideDetailController extends BaseWebSocketController
             return;
         }
 
-        try
-        {
-            $this->bikeService->moveBike($ride->getBike(), $location);
-        } catch (\Exception)
-        {
-            return;
-        }
-
-        $this->zmqPusher->push([
-            'bike_id'  => $ride->getBike()->getId()->toString(),
-            'location' => $location,
-        ], 'Bike:', [
-            'state' => 'stand',
-        ]);
-
-
-        $this->zmqPusher->push([
-            'bike_id'  => $ride->getBike()->getId()->toString(),
-            'location' => $location,
-        ], 'Ride:', [
-            'ride' => $ride->getId()->toString(),
-        ]);
-        return;
+        $this->bikeService->moveBikeinRide($ride, $location);
     }
 }

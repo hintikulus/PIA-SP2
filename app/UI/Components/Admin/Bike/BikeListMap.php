@@ -34,7 +34,7 @@ class BikeListMap extends BaseComponent
                 $markerType = 'bike';
             }
 
-            $map->addMarker($bike->getLocation(), 'Kolo', $markerType);
+            $map->addMarker($bike->getLocation(), $bike->getId()->toString(), $markerType, 'bike');
         }
 
         return $map;

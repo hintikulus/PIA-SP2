@@ -56,20 +56,6 @@ class RideController extends BaseWebSocketController
 
     public function actionPush(array $data, ITopic $topic)
     {
-        $now = new DateTime();
-        $location = $data['location'];
-
-        $message = new \stdClass();
-        $message->time = $now->format(App::DATETIME_PICKER_FORMAT);
-        $message->content = [
-            'bike_id'  => $data['bike_id'],
-            'location' => [
-                'lat'  => $location['latitude'],
-                'long' => $location['longitude'],
-            ],
-        ];
-        $message->type = 'bike_update';
-
-        $topic->broadcast(Json::encode($message));
+        $topic->broadcast(Json::encode($data));
     }
 }

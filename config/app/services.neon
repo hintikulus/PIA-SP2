@@ -43,6 +43,9 @@ services:
 	- App\Domain\Ride\DefaultRideService
 	- App\Domain\Ride\DefaultRideManager
 
+	- App\Domain\Bike\WebsocketBikeLocationNotifyManager
+	- App\Domain\Ride\WebsocketRideUpdateNotifyManager
+
 	- App\Domain\Config\DefaultConfigService
 	- App\Domain\Config\DefaultConfigManager(%config%)
 
@@ -73,6 +76,19 @@ services:
 
 	- App\Model\Database\QueryManager
 	- App\Model\Database\QueryBuilderManager
+
+	# Transformers
+	- App\Domain\Stand\StandTransformer
+	- App\Domain\Ride\RideTransformer
+	- App\Domain\Bike\BikeTransformer
+	- App\Domain\Location\LocationTransformer
+
+	# API Controllers
+	- App\UI\Modules\Api\PingController
+	#- App\ApiModule\UsersPresenter
+	- App\UI\Modules\Api\StandsController
+	- App\UI\Modules\Api\RidesController
+	#- ApiModule\UsersPresenter
 
 latte:
 	macros:

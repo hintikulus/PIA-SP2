@@ -3,6 +3,7 @@
 namespace App\Domain\Bike;
 
 use App\Domain\Location\Location;
+use App\Domain\Ride\Ride;
 
 interface BikeService
 {
@@ -29,7 +30,7 @@ interface BikeService
 
     public function markServiced(Bike $bike): void;
 
-    public function moveBike(Bike $bike, Location $location): void;
+    public function moveBikeinRide(Ride $ride, Location $location): void;
 
     public function createBike(string $standId): Bike;
 

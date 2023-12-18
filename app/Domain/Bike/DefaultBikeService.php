@@ -3,6 +3,8 @@
 namespace App\Domain\Bike;
 
 use App\Domain\Location\Location;
+use App\Domain\Ride\Ride;
+use App\Domain\Ride\RideUpdateNotifyManager;
 use App\Domain\Stand\StandManager;
 use App\Model\App;
 use App\Model\Database\QueryBuilderManager;
@@ -21,6 +23,7 @@ class DefaultBikeService implements BikeService
     private StandManager $standManager;
     private QueryManager $queryManager;
     private QueryBuilderManager $queryBuilderManager;
+    private RideUpdateNotifyManager $rideUpdateNotifyManager;
     private LoggerInterface $logger;
 
     public function __construct(
@@ -28,6 +31,7 @@ class DefaultBikeService implements BikeService
         StandManager $standManager,
         QueryManager $queryManager,
         QueryBuilderManager $queryBuilderManager,
+        RideUpdateNotifyManager $rideUpdateNotifyManager,
         LoggerInterface $logger,
     )
     {
@@ -35,6 +39,7 @@ class DefaultBikeService implements BikeService
         $this->standManager = $standManager;
         $this->queryManager = $queryManager;
         $this->queryBuilderManager = $queryBuilderManager;
+        $this->rideUpdateNotifyManager = $rideUpdateNotifyManager;
         $this->logger = $logger;
     }
 
@@ -90,15 +95,19 @@ class DefaultBikeService implements BikeService
         $this->bikeManager->save($bike);
     }
 
-    public function moveBike(Bike $bike, Location $location): void
+    public function moveBikeInRide(Ride $ride, Location $location): void
     {
-        $this->logger->info("Changing position of bike $bike to location $location");
+
+        $this->logger->info("Changing position of bike to location $location");
+        $bike = $ride->getBike();
         $bike->setLocation($location);
 
         $this->logger->debug("Bike $bike changed location to $location, saving it");
+
         $this->bikeManager->save($bike);
 
-        // TODO: websocket send bike move information
+        $this->logger->debug("Bike $bike saved location update, notifying it");
+        $this->rideUpdateNotifyManager->notifyRideBikeLocationUpdate($ride, $location);
     }
 
     public function createBike(string $standId): Bike

@@ -4,13 +4,12 @@ namespace App\UI\Modules\Admin\Ride;
 
 use App\Domain\Ride\Ride;
 use App\Domain\Ride\RideService;
-use App\Model\Exception\Logic\RideNotFoundException;
 use App\UI\Components\Admin\Ride\RideDetailMap;
 use App\UI\Components\Admin\Ride\RideDetailMapFactory;
 use App\UI\Components\Admin\Ride\RideProgressMap;
 use App\UI\Components\Admin\Ride\RideProgressMapFactory;
-use App\UI\Components\Front\RideableBikesAndStandMap\RideableBikesAndStandMap;
-use App\UI\Components\Front\RideableBikesAndStandMap\RideableBikesAndStandMapFactory;
+use App\UI\Components\Base\RideableBikesAndStandMap\RideableBikesAndStandMap;
+use App\UI\Components\Base\RideableBikesAndStandMap\RideableBikesAndStandMapFactory;
 use App\UI\Modules\Admin\BaseAdminPresenter;
 
 class RidePresenter extends BaseAdminPresenter

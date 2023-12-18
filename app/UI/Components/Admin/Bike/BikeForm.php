@@ -57,14 +57,14 @@ class BikeForm extends BaseComponent
 
         if ($this->bike === null)
         {
-            $standIdText->setRequired();
-            $standTitleText->setRequired();
+            $standIdText->setRequired($this->translator->translate('base.form.required'));
+            $standTitleText->setRequired($this->translator->translate('base.form.required'));
         }
 
         if ($this->bike)
         {
             $form->addDatetime('last_service_datetime', $translator->translate('input_last_service_datetime'))
-                ->setRequired()
+                ->setRequired($this->translator->translate('base.form.required'))
             ;
         }
 
@@ -93,11 +93,11 @@ class BikeForm extends BaseComponent
                 $this->bikeService->createBike($transformedValues['stand_id']);
             }
 
-            $this->flashSuccess('Kolo úspěšně uloženo.');
+            $this->flashSuccess($this->translator->translate('admin.bikeForm.flash_success'));
         }
         catch (\Exception $e)
         {
-            $this->flashError('Při ukládání se vyskytla chyba.');
+            $this->flashError($this->translator->translate('admin.bikeForm.flash_error'));
         }
     }
 

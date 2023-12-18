@@ -228,14 +228,13 @@
             <div class="row align-items-center justify-content-lg-between">
                 <div class="col-lg-6 mb-lg-0 mb-4">
                     <div class="copyright text-center text-sm text-muted text-lg-start">
-                        ©
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script>,
-                        vytvořeno jako semestrální práce z
-                        <a class="font-weight-bold" target="_blank" href="https://portal.zcu.cz/StagPortletsJSR168/CleanUrl?urlid=prohlizeni-predmet-sylabus&predmetZkrPrac=KIV&predmetZkrPred=PIA-E&predmetRok=2023&predmetSemestr=ZS">KIV/PIA-E</a>
-                        v roce 2023
-                        <a class="font-weight-bold" target="_blank" href="https://hintik.cz">Janem Hinterholzingerem</a>.
+                        {_base.credits.created1}
+                            <script>
+                        document.write(new Date().getFullYear())
+                    </script>{_base.credits.created2}
+                            <a class="font-weight-bold" target="_blank" href="https://portal.zcu.cz/StagPortletsJSR168/CleanUrl?urlid=prohlizeni-predmet-sylabus&predmetZkrPrac=KIV&predmetZkrPred=PIA-E&predmetRok=2023&predmetSemestr=ZS">{_base.credits.createdSubject}</a>
+                            {_base.credits.createdInYear}
+                            <a class="font-weight-bold" target="_blank" href="https://hintik.cz">{_base.credits.createdAuthor}</a>{_base.credits.createdFooter}
                     </div>
                 </div>
                 <div class="col-lg-6">

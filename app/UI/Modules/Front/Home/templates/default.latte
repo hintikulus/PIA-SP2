@@ -1,14 +1,12 @@
 
 {block #header}
     <header class="header-2">
-        <div class="page-header min-vh-75 relative"
+        <div class="page-header min-vh-50 relative"
              style="background-image: url('{$basePath}/assets/front/img/curved-images/curved.jpg')">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-7 text-center mx-auto">
-                        <h1 class="text-white pt-3 mt-n5">{_base.appName}</h1>
-                        <p class="lead text-white mt-3">Free & Open Source Web UI Kit built over Bootstrap 5. <br/> Join
-                            over 1.4 million developers around the world. </p>
+                        <h1 class="text-white">{_base.appName}</h1>
                     </div>
                 </div>
             </div>
@@ -35,36 +33,6 @@
 {/block}
 
 {block #content}
-<section class="pt-3 pb-4" id="count-stats">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-9 z-index-2 border-radius-xl mt-n10 mx-auto py-3 blur shadow-blur">
-                <div class="row">
-                    <div class="col-md-4 position-relative">
-                        <div class="p-3 text-center">
-                            <h1 class="text-gradient text-primary"><span id="state1" countTo="{$standCount|noescape}">0</span>+</h1>
-                            <h5 class="mt-3">Stojanů</h5>
-                        </div>
-                        <hr class="vertical dark">
-                    </div>
-                    <div class="col-md-4 position-relative">
-                        <div class="p-3 text-center">
-                            <h1 class="text-gradient text-primary"> <span id="state2" countTo="{$bikeCount|noescape}">0</span>+</h1>
-                            <h5 class="mt-3">Kol</h5>
-                        </div>
-                        <hr class="vertical dark">
-                    </div>
-                    <div class="col-md-4">
-                        <div class="p-3 text-center">
-                            <h1 class="text-gradient text-primary" id="state3" countTo="{$ridesDone|noescape}">0</h1>
-                            <h5 class="mt-3">Jízd</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 
 <section class="py-5">

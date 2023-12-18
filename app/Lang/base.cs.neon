@@ -4,3 +4,20 @@ role:
     regular: 'Běžný uživatel'
     serviceman: 'Servisní pracovník'
     admin: 'Administrátor'
+
+credits:
+    created1: '@'
+    created2: ', vytvořeno jako semestrální práce z'
+    createdSubject: 'KIV/PIA-E'
+    createdInYear: 'v roce 2023'
+    createdAuthor: 'Janem Hinterholzingerem'
+    createdFooter: '.'
+
+rideableBikesAndStandMap:
+    popup_bike_state: 'Status: '
+    popup_bike_state_in_ride: 'V jízdě'
+    popup_bike_state_parked: 'Zaparkováno'
+    popup_action_start_ride: 'Zahájit jízdu'
+
+form:
+    required: 'Položka musí být vyplněna.'

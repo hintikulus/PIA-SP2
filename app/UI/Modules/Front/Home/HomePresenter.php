@@ -2,8 +2,8 @@
 
 namespace App\UI\Modules\Front\Home;
 
-use App\UI\Components\Front\RideableBikesAndStandMap\RideableBikesAndStandMap;
-use App\UI\Components\Front\RideableBikesAndStandMap\RideableBikesAndStandMapFactory;
+use App\UI\Components\Base\RideableBikesAndStandMap\RideableBikesAndStandMap;
+use App\UI\Components\Base\RideableBikesAndStandMap\RideableBikesAndStandMapFactory;
 use App\UI\Modules\Front\BaseFrontPresenter;
 
 final class HomePresenter extends BaseFrontPresenter

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UI\Components\Front\RideableBikesAndStandMap;
+namespace App\UI\Components\Base\RideableBikesAndStandMap;
 
 interface RideableBikesAndStandMapFactory
 {

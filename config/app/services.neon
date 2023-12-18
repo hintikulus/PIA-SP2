@@ -68,7 +68,7 @@ services:
 	- App\UI\Components\Admin\Ride\RideProgressMapFactory
 	- App\UI\Components\Admin\Ride\RideDetailMapFactory
 
-	- App\UI\Components\Front\RideableBikesAndStandMap\RideableBikesAndStandMapFactory
+	- App\UI\Components\Base\RideableBikesAndStandMap\RideableBikesAndStandMapFactory
 
 	- App\UI\Components\Front\Sign\GoogleButton\GoogleButtonFactory
 	# Console ================

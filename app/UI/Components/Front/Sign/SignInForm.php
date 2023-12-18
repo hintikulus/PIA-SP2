@@ -29,15 +29,15 @@ class SignInForm extends BaseComponent
         $translator = $this->translator->createPrefixedTranslator('front.signInForm');
         $form = new BaseForm();
 
-        $form->addEmail('email', 'Email')
-            ->setRequired('Položka musí být vyplněna')
+        $form->addEmail('email', $translator->translate('input_email'))
+            ->setRequired($this->translator->translate('base.form.required'))
         ;
 
-        $form->addPassword('password', 'Password')
-            ->setRequired('Položka musí být vyplněna')
+        $form->addPassword('password', $translator->translate('input_password'))
+            ->setRequired($this->translator->translate('base.form.required'))
         ;
 
-        $form->addCheckbox('remember', 'Remember me');
+        $form->addCheckbox('remember', $translator->translate('input_remember'));
 
         $form->addSubmit('send');
 

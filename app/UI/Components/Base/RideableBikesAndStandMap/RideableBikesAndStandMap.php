@@ -1,12 +1,11 @@
 <?php
 
-namespace App\UI\Components\Front\RideableBikesAndStandMap;
+namespace App\UI\Components\Base\RideableBikesAndStandMap;
 
 use App\Domain\Bike\BikeService;
 use App\Domain\Ride\RideService;
 use App\Domain\Stand\StandService;
 use App\Domain\User\UserService;
-use App\Model\Exception\Logic\UserNotFoundException;
 use App\Model\Utils\Html;
 use App\UI\Components\Base\BaseComponent;
 use App\UI\Map\BaseMap;
@@ -38,7 +37,7 @@ class RideableBikesAndStandMap extends BaseComponent
 
     public function createComponentMap(): Map
     {
-        $translator = $this->translator->createPrefixedTranslator('admin.rideableBikesAndStandMap');
+        $translator = $this->translator->createPrefixedTranslator('base.rideableBikesAndStandMap');
         $map = new BaseMap();
 
 

@@ -57,13 +57,13 @@ class UserForm extends BaseComponent
         $form = new BaseForm();
 
         $form->addText('name', $translator->translate('input_name'))
-            ->setRequired()
+            ->setRequired($this->translator->translate('base.form.required'))
         ;
 
         if(!$this->user)
         {
             $form->addEmail('email', $translator->translate('input_email'))
-                ->setRequired()
+                ->setRequired($this->translator->translate('base.form.required'))
             ;
         }
 
@@ -105,15 +105,15 @@ class UserForm extends BaseComponent
             } else {
                 $this->userService->createUser($transformedValues['name'], $transformedValues['email'], $transformedValues['password']);
             }
-            $this->flashSuccess('Uložení proběhlo úspěšně.');
+            $this->flashSuccess($this->translator->translate('admin.userForm.flash_success'));
         }
         catch (UserNotFoundException $e)
         {
-            $form->addError('Emailová adresa je obsazena.');
+            $this->flashWarning($this->translator->translate('admin.userForm.flash_email_is_used'));
         }
         catch (\Exception $exception)
         {
-            $this->flashError('Při ukládání se vyskytla chyba.');
+            $this->flashError($this->translator->translate('admin.userForm.flash_error'));
         }
     }
 

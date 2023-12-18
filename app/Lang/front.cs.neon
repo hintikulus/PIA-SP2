@@ -1,0 +1,31 @@
+navBar:
+    projectRepositoryLink: 'Repozitář projektu'
+    userDropdown:
+        profileLink: 'Profil'
+        myRidesLink: 'Moje jízdy'
+        administrationLink: 'Administrace'
+        userSettingsLink: 'Nastavení účtu'
+        signOutLink: 'Odhlásit se'
+
+signInForm:
+    input_email: 'E-Mail'
+    input_password: 'Heslo'
+    input_remember: 'Pamatovat si mě'
+
+signUpForm:
+    input_name: 'Jméno a příjmení'
+    input_email: 'E-Mail'
+    input_password1: 'Heslo'
+    input_password2: 'Znovu heslo pro ověření'
+    input_agreement: 'Souhlasím s podmínkami.'
+    input_send: 'Registrovat'
+    flash_success: 'Registrace proběhla úspěšně.'
+    error_passwordNotMatch: 'Zadaná hesla nejsou stejná.'
+    error_emailInUse: 'Na Vámi zadanou emailovou adresu již evidujeme registrovaný účet, použijte prosím jinou nebo se zkuste přihlásit.'
+    error_error: 'Při registraci se vyskytla chyba. Zkuste to prosím znovu.'
+
+googleButton:
+    button_label: 'Přihlásit se přes Google'
+    flash_error: 'Vyskytla se chyba při zpracování požadavku.'
+    flash_user_not_found: 'Uživatel nenalezen.'
+    flash_success: 'Úspěšně přihlášen.'

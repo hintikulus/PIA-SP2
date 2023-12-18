@@ -7,6 +7,8 @@ use App\Model\Exception\Logic\UserNotFoundException;
 use App\Model\Exception\Runtime\AuthenticationException;
 use App\UI\Components\Base\BaseComponent;
 use Contributte\OAuth2Client\Flow\Google\GoogleAuthCodeFlow;
+use Contributte\Translation\PrefixedTranslator;
+use Contributte\Translation\Translator;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Provider\GoogleUser;
 use Nette\Application\UI\Control;
@@ -17,16 +19,21 @@ class GoogleButton extends BaseComponent
     private GoogleAuthCodeFlow $flow;
     private UserService $userService;
     private User $user;
+    private Translator $translator;
+    private PrefixedTranslator $pt;
 
     public function __construct(
         GoogleAuthCodeFlow $flow,
         UserService $userService,
         User               $user,
+        Translator $translator,
     )
     {
         $this->flow = $flow;
         $this->userService = $userService;
         $this->user = $user;
+        $this->translator = $translator;
+        $this->pt = $translator->createPrefixedTranslator('front.googleButton');
     }
 
     public function authenticate(string $authorizationUrl): void
@@ -45,7 +52,7 @@ class GoogleButton extends BaseComponent
         }
         catch (IdentityProviderException $e)
         {
-            $this->flashError('Vyskytla se chyba při zpracování požadavku.');
+            $this->flashError($this->pt->translate('flash_error'));
             $this->presenter->redirect(':in');
         }
 
@@ -64,16 +71,16 @@ class GoogleButton extends BaseComponent
         }
         catch (UserNotFoundException)
         {
-            $this->flashError('Uživatel nenalezen.');
+            $this->flashError($this->pt->translate('flash_user_not_found'));
             return;
         }
         catch (\Exception $e)
         {
-            $this->flashError('Vyskytla se chyba.');
+            $this->flashError($this->pt->translate('flash_error'));
             return;
         }
 
-        $this->flashSuccess('Úspěšně přihlášen');
+        $this->flashSuccess($this->pt->translate('flash_success'));
         $this->presenter->redirect(':Front:Sign:in');
     }
 

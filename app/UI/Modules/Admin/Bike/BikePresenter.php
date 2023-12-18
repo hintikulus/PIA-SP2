@@ -96,14 +96,8 @@ class BikePresenter extends BaseAdminPresenter
 
     public function handleMakeBikeService(string $id): void
     {
-        $bike = $this->bikeFacade->get($id);
-
-        if($bike === null)
-        {
-            throw new BikeNotFoundException($id);
-        }
-
-        $this->bikeFacade->makeService($bike);
+        $bike = $this->bikeService->getById($id);
+        $this->bikeService->markServiced($bike);
         $this->flashSuccess($this->presenterTranslator->translate('signal_makeBikeService.flash_success'));
         $this->redirect(':dueForService');
     }

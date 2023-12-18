@@ -122,6 +122,6 @@ class Bike extends AbstractEntity
 
     public function __toString(): string
     {
-        return "Bike{id={$this->id}, location={$this->location}, lastServiceTimestamp={$this->lastServiceTimestamp->format(App::DATETIME_SECONDS_FORMAT)}, stand={$this->stand}}";
+        return "Bike{" . (!isset($this->id) ?: "id={$this->id}, ");
     }
 }

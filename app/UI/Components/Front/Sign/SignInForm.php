@@ -6,6 +6,7 @@ use App\Model\Exception\Logic\UserNotFoundException;
 use App\Model\Exception\Runtime\AuthenticationException;
 use App\UI\Components\Base\BaseComponent;
 use App\UI\Form\BaseForm;
+use Contributte\Translation\PrefixedTranslator;
 use Contributte\Translation\Translator;
 use Nette\Security\User;
 use Nette\Utils\ArrayHash;
@@ -14,6 +15,7 @@ class SignInForm extends BaseComponent
 {
     private User $user;
     private Translator $translator;
+    private PrefixedTranslator $pt;
 
     public function __construct(
         User       $user,
@@ -22,6 +24,7 @@ class SignInForm extends BaseComponent
     {
         $this->user = $user;
         $this->translator = $translator;
+        $this->pt = $translator->createPrefixedTranslator('front.signInForm');
     }
 
     public function createComponentForm(): BaseForm
@@ -31,15 +34,19 @@ class SignInForm extends BaseComponent
 
         $form->addEmail('email', $translator->translate('input_email'))
             ->setRequired($this->translator->translate('base.form.required'))
+            ->setHtmlAttribute('placeholder', $translator->translate('input_email'))
+            ->setHtmlAttribute('aria-label', $translator->translate('input_email'))
         ;
 
         $form->addPassword('password', $translator->translate('input_password'))
             ->setRequired($this->translator->translate('base.form.required'))
+            ->setHtmlAttribute('placeholder', $translator->translate('input_password'))
+            ->setHtmlAttribute('aria-label', $translator->translate('input_password'))
         ;
 
         $form->addCheckbox('remember', $translator->translate('input_remember'));
 
-        $form->addSubmit('send');
+        $form->addSubmit('send', $translator->translate('input_submit'));
 
         $form->onSuccess[] = [$this, 'formSucceeded'];
 
@@ -54,17 +61,17 @@ class SignInForm extends BaseComponent
         }
         catch (AuthenticationException|UserNotFoundException $e)
         {
-            $this->flashWarning('Autentizace selhala.');
-            $form->addError('Autentizace selhala.');
+            $this->flashWarning($this->pt->translate('flash_authentication_error'));
+            $form->addError($this->pt->translate('error_authentication_error'));
             return;
         }
         catch (\Exception $e)
         {
-            $this->flashError('Vyskytla se chyba.');
-            $form->addError('Vyskytla se chyba.');
+            $this->flashError($this->pt->translate('flash_error'));
+            $form->addError($this->pt->translate('error_error'));
             return;
         }
 
-        $this->flashSuccess('Úspěšně přihlášen.');
+        $this->flashSuccess($this->pt->translate('flash_success'));
     }
 }

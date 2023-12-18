@@ -1,0 +1,204 @@
+lang:
+    code_short: cs
+
+menu:
+    section_maintenance: 'Maintenance'
+    section_administration: 'Administration'
+
+homePresenter:
+    action_default:
+        title: 'Home'
+        nav_link: 'Home'
+        card_available_bikes_count_label: 'Available bikes'
+        card_stands_count_label: 'Bike stands'
+        card_rides_count_label: 'Rides completed'
+
+bikeChooseStandMap:
+    popup_name: 'Name: '
+    popup_action_choose_stand: 'Choose this stand'
+
+bikeDueForServiceListGrid:
+    column_last_service_datetime: 'Last service inspection'
+    column_stand: 'Stand'
+    action_service: 'Service'
+
+bikeForm:
+    input_stand_title: 'Bike stand (select on the map)'
+    input_stand_id: 'Bike stand ID'
+    input_last_service_datetime: 'Last service inspection'
+    input_send: 'Save'
+    flash_success: 'Bike successfully saved.'
+    flash_error: 'An error occurred while saving.'
+
+bikeListGrid:
+    column_stand: 'Bike stand'
+    column_last_service_datetime: 'Last service inspection'
+    column_next_service_datetime: 'Next service inspection'
+    column_status: 'State'
+    action_edit: 'Edit'
+
+bikePresenter:
+    action_list:
+        title: 'List of bikes'
+        nav_link: 'Bikes'
+        bikeListCard:
+            title: 'List of bikes'
+            link_add: 'Add a new bike'
+        bikeMapCard:
+            title: 'Bike map'
+    action_add:
+        title: 'Add a bike'
+        bikeFormCard:
+            title: 'Add a bike'
+        chooseStandMapCard:
+            title: 'Map - Select a bike stand to determine the location of the bike'
+    action_edit:
+        title: 'Edit the bike'
+        bikeFormCard:
+            title: 'Edit the bike'
+        chooseStandMapCard:
+            title: 'Map - Select a bike stand to determine the location of the bike'
+    action_dueForService:
+        title: 'Bikes due for service'
+        nav_link: 'Bikes to service'
+        bikeListCard:
+            title: 'List of bikes due for service'
+        bikeMapCard:
+            title: 'Bikes map'
+    action_service:
+        title: 'Bike service'
+        bikeServiceCard:
+            title: 'Bike service'
+            button_service: 'Perform a service check now'
+    signal_makeBikeService:
+        flash_success: 'Bike servicing successfully completed.'
+
+myRidesPresenter:
+    action_default:
+        title: 'My rides'
+        nav_link: 'My rides'
+        userRideListCard:
+            title: 'My rides'
+            link_start: 'Start a new ride'
+        usersActiveRideCard:
+            title: 'You are in an active ride'
+            subtext: 'See the details of your ride.'
+            detail_link: 'Details'
+
+rideDetailMap:
+    popup_stand_name: 'Name: '
+
+ridePresenter:
+    action_detail:
+        title: 'Ride details'
+        rideDetailsCard:
+            title: 'Ride details'
+            start_timestamp: 'Start'
+            start_stand: 'Starting bike stand'
+            end_timestamp: 'End'
+            end_stand: 'Destination bike stand'
+            state_title: 'State'
+            state:
+                started: 'Ongoing'
+                completed: 'Completed'
+        rideDetailsMapCard:
+            title: 'Ride details map'
+    action_start:
+        title: 'Starting the ride'
+        rideableBikesAndStandCard:
+            title: 'Starting the ride - Choose a bike'
+
+rideProgressMap:
+    popup_stand_name: 'Name: '
+    popup_action_end_ride: 'Ukončit jízdu'
+
+standForm:
+    input_name: 'Name'
+    input_latitude: 'Latitude'
+    input_longitude: 'Longitude'
+    input_send: 'Save'
+    flash_success: 'The stand has been successfully saved.'
+    flash_error: 'An error occurred while saving.'
+
+standListGrid:
+    column_name: 'Name'
+    column_location: 'Location'
+    action_edit: 'Edit'
+
+standListMap:
+    popup_name: 'Name: '
+    popup_action_edit: 'Edit'
+
+standPresenter:
+    action_list:
+        title: 'List of stands'
+        nav_link: 'Stands'
+        standListCard:
+            title: 'List of stands'
+            link_add: 'Add a new stand'
+        standMapCard:
+            title: 'Stands map'
+    action_add:
+        title: 'Add a new stand'
+        standFormCard:
+            title: 'Adding a new stand'
+        standChooseMapCard:
+            title: 'Map - Select the location of the stand'
+    action_edit:
+        title: 'Edit the stand'
+        standFormCard:
+            title: 'Editing the stand'
+        standChooseMapCard:
+            title: 'Map - Select the location of the stand'
+
+userForm:
+    input_name: 'Firstname and surname'
+    input_email: 'E-mail'
+    input_role: 'Role'
+    input_send: 'Save'
+    option_role:
+        regular: 'Regular user'
+        serviceman: 'Serviceman'
+        admin: 'Administrator'
+    flash_success: 'The User has been successfully saved.'
+    flash_email_is_used: 'The email address is already in use.'
+    flash_error: 'An error occurred while saving.'
+
+userListGrid:
+    column_id: 'ID'
+    column_name: 'Firstname and surname'
+    filter_name: 'Firstname and surname'
+    column_email: 'E-mail'
+    filter_email: 'E-mail'
+    column_role: 'Role'
+    filter_role: 'Role'
+    column_lastlogin: 'Last login'
+    action_edit: 'Edit'
+
+userPresenter:
+    action_list:
+        title: 'List of users'
+        nav_link: 'Users'
+        userListCard:
+            title: 'List of users'
+            link_add: 'Add a new User'
+    action_add:
+        title: 'Add a new user'
+        userFormCard:
+            title: 'Add a new user'
+    action_edit:
+        title: 'Edit the User'
+        userFormCard:
+            title: 'Edit the user'
+
+userRideListGrid:
+    column_start_timestamp: 'Start'
+    column_start_stand: 'Výchozí místo'
+    column_end_timestamp: 'End'
+    column_end_stand: 'Cílové místo'
+    column_status: 'State'
+    action_detail: 'Details'
+
+userSettingsPresenter:
+    action_default:
+        title: 'Account settings'

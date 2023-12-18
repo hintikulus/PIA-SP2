@@ -96,7 +96,7 @@
 
                 {if $_user->isAllowed('Service')}
                     <li class="nav-item mt-3">
-                        <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Údržba</h6>
+                        <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">{_admin.menu.section_maintenance}</h6>
                     </li>
 
                     <li class="nav-item" n:if="$_user->isAllowed('Admin:Bike:dueForService')">
@@ -111,7 +111,7 @@
 
                 {if $_user->isAllowed('Administration')}
                     <li class="nav-item mt-3">
-                        <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Administrace</h6>
+                        <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">{_admin.menu.section_administration}</h6>
                     </li>
 
                     <li class="nav-item" n:if="$_user->isAllowed('Admin:User:list')">
@@ -236,26 +236,6 @@
                             {_base.credits.createdInYear}
                             <a class="font-weight-bold" target="_blank" href="https://hintik.cz">{_base.credits.createdAuthor}</a>{_base.credits.createdFooter}
                     </div>
-                </div>
-                <div class="col-lg-6">
-                    <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                        <li class="nav-item">
-                            <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative
-                                Tim</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted"
-                               target="_blank">About Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="https://www.creative-tim.com/blog" class="nav-link text-muted"
-                               target="_blank">Blog</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted"
-                               target="_blank">License</a>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>

@@ -1,0 +1,23 @@
+appName: 'BikesToGo'
+
+role:
+    regular: 'Regular user'
+    serviceman: 'Serviceman'
+    admin: 'Administrator'
+
+credits:
+    created1: '@'
+    created2: ', created as a semester project in'
+    createdSubject: 'KIV/PIA-E'
+    createdInYear: 'in 2023 by'
+    createdAuthor: 'Jan Hinterholzinger'
+    createdFooter: '.'
+
+rideableBikesAndStandMap:
+    popup_bike_state: 'State: '
+    popup_bike_state_in_ride: 'In the ride'
+    popup_bike_state_parked: 'Parked'
+    popup_action_start_ride: 'Start the ride'
+
+form:
+    required: 'The item must be filled in.'

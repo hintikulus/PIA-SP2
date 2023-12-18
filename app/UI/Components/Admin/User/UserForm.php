@@ -81,7 +81,7 @@ class UserForm extends BaseComponent
             $form->addCancelButton($this->cancelUrl);
         }
 
-        $form->addSubmit('send');
+        $form->addSubmit('send', $translator->translate('input_send'));
         $form->onSuccess[] = [$this, 'formSucceeded'];
         $form->onValidate[] = [$this, 'formValidated'];
 

@@ -87,19 +87,81 @@
                            href="https://github.com/hintikulus/PIA-SP2" target="_blank">
                             <i class="fa fa-github me-1"></i>
                             <p class="d-inline text-sm z-index-1 font-weight-bold" data-bs-toggle="tooltip"
-                               data-bs-placement="bottom" title="Star us on Github">Repozitář projektu</p>
+                               data-bs-placement="bottom" title="Star us on Github">{_front.navBar.projectRepositoryLink}</p>
                         </a>
                     </li>
+
+
+                    <li class="nav-item my-auto ms-lg-0 dropdown dropdown-hover">
+                        <a class="nav-link d-flex cursor-pointer align-items-center font-weight-bold"
+                           href="javascript:;" id="dropdownMenuDocs" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <i class="fas fa-globe me-2"></i>
+                            <img src="{$basePath}/assets/front/img/down-arrow-dark.svg" alt="down-arrow"
+                                 class="arrow ms-1">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-animation overflow-hidden dropdown mt-0 mt-lg-3 p-3 border-radius-lg"
+                             aria-labelledby="dropdownMenuDocs">
+                            <div class="d-none d-lg-block">
+                                <ul class="list-group">
+                                    <li class="nav-item list-group-item border-0 p-0">
+                                        <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                                n:href=":changeLocale! cs">
+                                            <div class="d-flex">
+                                                <div>
+                                                    <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                        Čeština</h6>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item list-group-item border-0 p-0">
+                                        <a class="dropdown-item py-2 ps-3 border-radius-md" n:href=":changeLocale! en">
+                                            <div class="d-flex">
+                                                <div>
+                                                    <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                        English
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="row d-lg-none">
+                                <div class="col-md-12 g-0">
+                                    <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                            n:href=":changeLocale! cs">
+                                        <div class="d-flex">
+                                            <div>
+                                                <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                Čeština</h6>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                            n:href=":changeLocale! en">
+                                        <div class="d-flex">
+                                            <div>
+                                                <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                    English</h6>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </li>
+
                     {if !$_user->isLoggedIn()}
                         <li class="nav-item my-auto ms-3 ms-lg-0">
                             <a n:href="Sign:in"
-                                    class="btn btn-sm btn-outline-primary btn-round mb-0 me-1 mt-2 mt-md-0">Přihlásit
-                                se</a>
+                                    class="btn btn-sm btn-outline-primary btn-round mb-0 me-1 mt-2 mt-md-0">{_front.navBar.login_link}</a>
                         </li>
                         <li class="nav-item my-auto ms-3 ms-lg-0">
                             <a n:href="Sign:up"
-                                    class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1 mt-2 mt-md-0">Zaregistrovat
-                                se</a>
+                                    class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1 mt-2 mt-md-0">{_front.navBar.register_link}</a>
                         </li>
                     {else}
                         <li class="nav-item my-auto ms-lg-0 dropdown dropdown-hover">
@@ -111,7 +173,7 @@
                                 <img src="{$basePath}/assets/front/img/down-arrow-dark.svg" alt="down-arrow"
                                      class="arrow ms-1">
                             </a>
-                            <div class="dropdown-menu dropdown-menu-animation overflow-hidden dropdown-lg mt-0 mt-lg-3 p-3 border-radius-lg"
+                            <div class="dropdown-menu dropdown-menu-animation overflow-hidden dropdown mt-0 mt-lg-3 p-3 border-radius-lg"
                                  aria-labelledby="dropdownMenuDocs">
                                 <div class="d-none d-lg-block">
                                     <ul class="list-group">
@@ -272,12 +334,15 @@
                     <div class="text-center">
                         <p class="my-4 text-sm">
                             {_base.credits.created1}
-                            <script>
-                                document.write(new Date().getFullYear())
-                            </script>{_base.credits.created2}
-                            <a class="font-weight-bold" target="_blank" href="https://portal.zcu.cz/StagPortletsJSR168/CleanUrl?urlid=prohlizeni-predmet-sylabus&predmetZkrPrac=KIV&predmetZkrPred=PIA-E&predmetRok=2023&predmetSemestr=ZS">{_base.credits.createdSubject}</a>
+
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>{_base.credits.created2}
+                            <a class="font-weight-bold" target="_blank"
+                               href="https://portal.zcu.cz/StagPortletsJSR168/CleanUrl?urlid=prohlizeni-predmet-sylabus&predmetZkrPrac=KIV&predmetZkrPred=PIA-E&predmetRok=2023&predmetSemestr=ZS">{_base.credits.createdSubject}</a>
                             {_base.credits.createdInYear}
-                            <a class="font-weight-bold" target="_blank" href="https://hintik.cz">{_base.credits.createdAuthor}</a>{_base.credits.createdFooter}
+                            <a class="font-weight-bold" target="_blank"
+                               href="https://hintik.cz">{_base.credits.createdAuthor}</a>{_base.credits.createdFooter}
                         </p>
                     </div>
                 </div>

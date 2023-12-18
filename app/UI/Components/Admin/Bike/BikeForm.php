@@ -68,7 +68,7 @@ class BikeForm extends BaseComponent
             ;
         }
 
-        $form->addSubmit('send');
+        $form->addSubmit('send', $translator->translate('input_send'));
 
         $form->onSuccess[] = [$this, 'formSucceeded'];
 

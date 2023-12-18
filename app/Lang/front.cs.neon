@@ -1,5 +1,7 @@
 navBar:
     projectRepositoryLink: 'Repozitář projektu'
+    login_link: 'Přihlásit se'
+    register_link: 'Zaregistrovat se'
     userDropdown:
         profileLink: 'Profil'
         myRidesLink: 'Moje jízdy'
@@ -7,10 +9,22 @@ navBar:
         userSettingsLink: 'Nastavení účtu'
         signOutLink: 'Odhlásit se'
 
+homePresenter:
+    action_default:
+        title_line1: 'Nasedněte na flexibilitu'
+        title_line2: 'S našimi sdílenými koly'
+        subtitle: 'Nejlepší způsob jak se rychle, pohodlně a ekologicky přesunout kam potřebujete.'
+
 signInForm:
     input_email: 'E-Mail'
     input_password: 'Heslo'
     input_remember: 'Pamatovat si mě'
+    input_submit: 'Přihlásit se'
+    flash_authentication_error: 'Autentizace selhala.'
+    error_authentication_error: 'Autentizace selhala.'
+    flash_error: 'Vyskytla se chyba.'
+    error_error: 'Vyskytla se chyba.'
+    flash_success: 'Úspěšně přihlášen.'
 
 signUpForm:
     input_name: 'Jméno a příjmení'
@@ -29,3 +43,15 @@ googleButton:
     flash_error: 'Vyskytla se chyba při zpracování požadavku.'
     flash_user_not_found: 'Uživatel nenalezen.'
     flash_success: 'Úspěšně přihlášen.'
+
+signPresenter:
+    action_in:
+        title: 'Přihlášení'
+        subtitle: 'Pro přihlášení zadejte svoji emailovou adresu a heslo.'
+        register_label: 'Nemáte dosud vytvořený účet?'
+        register_link: 'Zaregistrujte se'
+    action_up:
+        title: 'Registrace'
+        subtitle: 'Pro registraci zadejte údaje a pokračujte.'
+        login_label: 'Již máte vytvořený účet?'
+        login_link: 'Přihlašte se'

@@ -1,21 +1,9 @@
 lang:
     code_short: cs
 
-userPresenter:
-    action_list:
-        title: 'Seznam uživatelů'
-        nav_link: 'Uživatelé'
-        userListCard:
-            title: 'Seznam uživatelů'
-            link_add: 'Přidat uživatele'
-    action_add:
-        title: 'Přidat uživatele'
-        userFormCard:
-            title: 'Přidat uživatele'
-    action_edit:
-        title: 'Upravit uživatele'
-        userFormCard:
-            title: 'Upravit uživatele'
+menu:
+    section_maintenance: 'Údržba'
+    section_administration: 'Administrace'
 
 homePresenter:
     action_default:
@@ -24,6 +12,30 @@ homePresenter:
         card_available_bikes_count_label: 'Dostupných kol'
         card_stands_count_label: 'Odkládacích stojanů'
         card_rides_count_label: 'Uskutečněných jízd'
+
+bikeChooseStandMap:
+    popup_name: 'Název: '
+    popup_action_choose_stand: 'Zvolit stojan'
+
+bikeDueForServiceListGrid:
+    column_last_service_datetime: 'Poslední kontrola'
+    column_stand: 'Stojan'
+    action_service: 'Servisovat'
+
+bikeForm:
+    input_stand_title: 'Stojan (vyberte na mapě)'
+    input_stand_id: 'Stojan ID'
+    input_last_service_datetime: 'Poslední kontrola údržby'
+    input_send: 'Uložit'
+    flash_success: 'Kolo úspěšně uloženo.'
+    flash_error: 'Při ukládání se vyskytla chyba.'
+
+bikeListGrid:
+    column_stand: 'Stojan'
+    column_last_service_datetime: 'Poslední kontrola'
+    column_next_service_datetime: 'Nejbližší další kontrola'
+    column_status: 'Stav'
+    action_edit: 'Upravit'
 
 bikePresenter:
     action_list:
@@ -62,6 +74,62 @@ bikePresenter:
     signal_makeBikeService:
         flash_success: 'Servis kola byl úspěšně dokončen.'
 
+myRidesPresenter:
+    action_default:
+        title: 'Moje jízdy'
+        nav_link: 'Moje jízdy'
+        userRideListCard:
+            title: 'Moje jízdy'
+            link_start: 'Zahájit novou jízdu'
+        usersActiveRideCard:
+            title: 'Jsi v aktivní jízdě'
+            subtext: 'Prohlédni si podrobnosti své jízdy.'
+            detail_link: 'Podrobnosti'
+
+rideDetailMap:
+    popup_stand_name: 'Název: '
+
+ridePresenter:
+    action_detail:
+        title: 'Podrobnosti jízdy'
+        rideDetailsCard:
+            title: 'Podrobnosti jízdy'
+            start_timestamp: 'Zahájení'
+            start_stand: 'Výchozí stojan'
+            end_timestamp: 'Ukončení'
+            end_stand: 'Cílový stojan'
+            state_title: 'Status'
+            state:
+                started: 'Probíhající'
+                completed: 'Dokončena'
+        rideDetailsMapCard:
+            title: 'Podrobnosti jízdy'
+    action_start:
+        title: 'Zahájení jízdy'
+        rideableBikesAndStandCard:
+            title: 'Zahájení jízdy - Zvolte jízdní kolo'
+
+rideProgressMap:
+    popup_stand_name: 'Název: '
+    popup_action_end_ride: 'Ukončit jízdu'
+
+standForm:
+    input_name: 'Název'
+    input_latitude: 'Zeměpisná šířka'
+    input_longitude: 'Zeměpisná délka'
+    input_send: 'Uložit'
+    flash_success: 'Stojan úspěšně uložen.'
+    flash_error: 'Při ukládání se vyskytla chyba.'
+
+standListGrid:
+    column_name: 'Název'
+    column_location: 'Lokace'
+    action_edit: 'Upravit'
+
+standListMap:
+    popup_name: 'Název: '
+    popup_action_edit: 'Upravit'
+
 standPresenter:
     action_list:
         title: 'Seznam stojanů'
@@ -84,41 +152,18 @@ standPresenter:
         standChooseMapCard:
             title: 'Mapa - Vyberte pozici stojanu'
 
-myRidesPresenter:
-    action_default:
-        title: 'Moje jízdy'
-        nav_link: 'Moje jízdy'
-        userRideListCard:
-            title: 'Moje jízdy'
-            link_start: 'Zahájit novou jízdu'
-        usersActiveRideCard:
-            title: 'Jsi v aktivní jízdě'
-            subtext: 'Prohlédni si podobnosti své jízdy.'
-            detail_link: 'Podrobnosti'
-
-ridePresenter:
-    action_detail:
-        title: 'Podrobnosti jízdy'
-        rideDetailsCard:
-            title: 'Podrobnosti jízdy'
-            start_timestamp: 'Zahájení'
-            start_stand: 'Výchozí stojan'
-            end_timestamp: 'Ukončení'
-            end_stand: 'Cílový stojan'
-            state_title: 'Status'
-            state:
-                started: 'Probíhající'
-                completed: 'Dokončena'
-        rideDetailsMapCard:
-            title: 'Podrobnosti jízdy'
-    action_start:
-        title: 'Zahájení jízdy'
-        rideableBikesAndStandCard:
-            title: 'Zahájení jízdy - Zvolte jízdní kolo'
-
-userSettingsPresenter:
-    action_default:
-        title: 'Nastavení účtu'
+userForm:
+    input_name: 'Jméno a příjmení'
+    input_email: 'E-mail'
+    input_role: 'Role'
+    input_send: 'Uložit'
+    option_role:
+        regular: 'Běžný uživatel'
+        serviceman: 'Servisní pracovník'
+        admin: 'Administrátor'
+    flash_success: 'Uložení proběhlo úspěšně.'
+    flash_email_is_used: 'Emailová adresa je obsazena.'
+    flash_error: 'Při ukládání se vyskytla chyba.'
 
 userListGrid:
     column_id: 'ID'
@@ -131,57 +176,21 @@ userListGrid:
     column_lastlogin: 'Posl. přihlášení'
     action_edit: 'Upravit'
 
-standListGrid:
-    column_name: 'Název'
-    column_location: 'Lokace'
-    action_edit: 'Upravit'
-
-standForm:
-    input_name: 'Název'
-    input_latitude: 'Zeměpisná šířka'
-    input_longitude: 'Zeměpisná délka'
-    input_send: 'Uložit'
-    flash_success: 'Stojan úspěšně uložen.'
-    flash_error: 'Při ukládání se vyskytla chyba.'
-
-standListMap:
-    popup_name: 'Název: '
-    popup_action_edit: 'Upravit'
-
-bikeListGrid:
-    column_stand: 'Stojan'
-    column_last_service_datetime: 'Poslední kontrola'
-    column_next_service_datetime: 'Nejbližší další kontrola'
-    column_status: 'Stav'
-    action_edit: 'Upravit'
-
-userForm:
-    input_name: 'Jméno a příjmení'
-    input_email: 'E-mail'
-    input_role: 'Role'
-    option_role:
-        regular: 'Běžný uživatel'
-        serviceman: 'Servisní pracovník'
-        admin: 'Administrátor'
-    flash_success: 'Uložení proběhlo úspěšně.'
-    flash_email_is_used: 'Emailová adresa je obsazena.'
-    flash_error: 'Při ukládání se vyskytla chyba.'
-
-bikeForm:
-    input_stand_title: 'Stojan (vyberte na mapě)'
-    input_stand_id: 'Stojan ID'
-    input_last_service_datetime: 'Poslední kontrola údržby'
-    flash_success: 'Kolo úspěšně uloženo.'
-    flash_error: 'Při ukládání se vyskytla chyba.'
-
-bikeChooseStandMap:
-    popup_name: 'Název: '
-    popup_action_choose_stand: 'Zvolit stojan'
-
-bikeDueForServiceListGrid:
-    column_last_service_datetime: 'Poslední kontrola'
-    column_stand: 'Stojan'
-    action_service: 'Servisovat'
+userPresenter:
+    action_list:
+        title: 'Seznam uživatelů'
+        nav_link: 'Uživatelé'
+        userListCard:
+            title: 'Seznam uživatelů'
+            link_add: 'Přidat uživatele'
+    action_add:
+        title: 'Přidat uživatele'
+        userFormCard:
+            title: 'Přidat uživatele'
+    action_edit:
+        title: 'Upravit uživatele'
+        userFormCard:
+            title: 'Upravit uživatele'
 
 userRideListGrid:
     column_start_timestamp: 'Zahájení'
@@ -191,9 +200,6 @@ userRideListGrid:
     column_status: 'Status'
     action_detail: 'Podrobnosti'
 
-rideProgressMap:
-    popup_stand_name: 'Název: '
-    popup_action_end_ride: 'Ukončit jízdu'
-
-rideDetailMap:
-    popup_stand_name: 'Název: '
+userSettingsPresenter:
+    action_default:
+        title: 'Nastavení účtu'

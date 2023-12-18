@@ -1,0 +1,57 @@
+navBar:
+    projectRepositoryLink: 'Project repository'
+    login_link: 'Sign in'
+    register_link: 'Sign up'
+    userDropdown:
+        profileLink: 'Profile'
+        myRidesLink: 'My rides'
+        administrationLink: 'Administration'
+        userSettingsLink: 'Account settings'
+        signOutLink: 'Sign out'
+
+homePresenter:
+    action_default:
+        title_line1: 'Get on the flexibility'
+        title_line2: 'With our shared bikes'
+        subtitle: 'The best way to get where you need to go quickly, conveniently and environmentally.'
+
+signInForm:
+    input_email: 'E-Mail'
+    input_password: 'Password'
+    input_remember: 'Remember me'
+    input_submit: 'Sign in'
+    flash_authentication_error: 'Authentication failed.'
+    error_authentication_error: 'Authentication failed.'
+    flash_error: "There's been an error."
+    error_error: "There's been an error."
+    flash_success: 'Úspěšně přihlášen.'
+
+signUpForm:
+    input_name: 'Name and surname'
+    input_email: 'E-Mail'
+    input_password1: 'Password'
+    input_password2: 'Password again for verification'
+    input_agreement: 'I agree to the terms.'
+    input_send: 'Sign up'
+    flash_success: 'Registration was successful.'
+    error_passwordNotMatch: 'The passwords entered are not the same.'
+    error_emailInUse: 'We already have a registered account at the email address you entered, please use a different one or try logging in.'
+    error_error: 'An error occurred during registration. Please try again.'
+
+googleButton:
+    button_label: 'Sign in with Google'
+    flash_error: 'An error occurred while processing the request.'
+    flash_user_not_found: 'User not found.'
+    flash_success: 'Successfully logged in.'
+
+signPresenter:
+    action_in:
+        title: 'Signing in'
+        subtitle: 'Enter your email address and password to log in.'
+        register_label: "Don't have an account yet?"
+        register_link: 'Sign up'
+    action_up:
+        title: 'Signing up'
+        subtitle: 'Enter your details to register and proceed.'
+        login_label: 'Already have an account?'
+        login_link: 'Sign in'

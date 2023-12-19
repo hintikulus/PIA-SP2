@@ -10,7 +10,7 @@
                             <h6 class="mb-0">{_admin.bikePresenter.action_list.bikeListCard.title}</h6>
                         </div>
                         <div class="col-6 text-end">
-                            <a n:if="$_user->isAllowed('Admin:Bike:list')" class="btn bg-gradient-primary mb-0" n:href=":add"><i class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;{_admin.bikePresenter.action_list.bikeListCard.link_add}</a>
+                            <a n:if="$_user->isAllowed(App\Domain\Bike\Bike::RESOURCE_ID, 'add')" class="btn bg-gradient-primary mb-0" n:href=":add"><i class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;{_admin.bikePresenter.action_list.bikeListCard.link_add}</a>
                         </div>
                     </div>
                 </div>

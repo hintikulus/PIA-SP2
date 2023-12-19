@@ -32,7 +32,7 @@
                         <h6 class="mb-0">{_admin.myRidesPresenter.action_default.userRideListCard.title}</h6>
                     </div>
                     <div class="col-6 text-end">
-                        <a n:if="$_user->isAllowed('Admin:Ride:start') && $usersActiveRide === null" class="btn bg-gradient-primary mb-0" n:href="Ride:start">
+                        <a n:if="$_user->isAllowed(App\Domain\Ride\Ride::RESOURCE_ID, 'start') && $usersActiveRide === null" class="btn bg-gradient-primary mb-0" n:href="Ride:start">
                             <i class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;{_admin.myRidesPresenter.action_default.userRideListCard.link_start}
                         </a>
                     </div>

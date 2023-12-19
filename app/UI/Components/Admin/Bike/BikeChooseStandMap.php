@@ -2,11 +2,13 @@
 
 namespace App\UI\Components\Admin\Bike;
 
+use App\Domain\Bike\Bike;
 use App\Domain\Stand\StandService;
 use App\Model\Utils\Html;
 use App\UI\Components\Base\BaseComponent;
 use App\UI\Map\BaseMap;
 use Contributte\Translation\Translator;
+use Nette\Application\ForbiddenRequestException;
 use Nette\Application\LinkGenerator;
 
 class BikeChooseStandMap extends BaseComponent

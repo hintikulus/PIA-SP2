@@ -10,6 +10,7 @@ use App\Model\Utils\Html;
 use App\UI\Components\Base\BaseComponent;
 use App\UI\DataGrid\BaseGrid;
 use Contributte\Translation\Translator;
+use Nette\Application\ForbiddenRequestException;
 
 class BikeListGrid extends BaseComponent
 {
@@ -30,6 +31,11 @@ class BikeListGrid extends BaseComponent
 
     public function createComponentGrid(): BaseGrid
     {
+        if(!$this->presenter->user->isAllowed(Bike::RESOURCE_ID, 'list'))
+        {
+            throw new ForbiddenRequestException();
+        }
+
         $translator = $this->translator->createPrefixedTranslator('admin.bikeListGrid');
         $grid = new BaseGrid();
         $grid->setTranslator($this->translator);
@@ -76,9 +82,12 @@ class BikeListGrid extends BaseComponent
             ->setFitContent()
         ;
 
-        $grid->addAction('edit', $translator->translate('action_edit'), 'Bike:edit')
-            ->setClass('btn btn-sm bg-gradient-secondary mb-0')
-        ;
+        if($this->presenter->user->isAllowed(Bike::RESOURCE_ID, 'edit'))
+        {
+            $grid->addAction('edit', $translator->translate('action_edit'), 'Bike:edit')
+                ->setClass('btn btn-sm bg-gradient-secondary mb-0')
+            ;
+        }
 
         return $grid;
     }

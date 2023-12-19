@@ -99,7 +99,7 @@
                         <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">{_admin.menu.section_maintenance}</h6>
                     </li>
 
-                    <li class="nav-item" n:if="$_user->isAllowed('Admin:Bike:dueForService')">
+                    <li class="nav-item" n:if="$_user->isAllowed(App\Domain\Bike\Bike::RESOURCE_ID, 'listDueForService')">
                         <a n:class="nav-link, $presenter->isLinkCurrent('Bike:dueForService') ? active" n:href="Bike:dueForService">
                             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="fa-solid fa-screwdriver-wrench"></i>
@@ -114,7 +114,7 @@
                         <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">{_admin.menu.section_administration}</h6>
                     </li>
 
-                    <li class="nav-item" n:if="$_user->isAllowed('Admin:User:list')">
+                    <li class="nav-item" n:if="$_user->isAllowed(App\Domain\User\User::RESOURCE_ID, 'list')">
                         <a n:class="nav-link, $presenter->isLinkCurrent('User:list') ? active" n:href="User:list">
                             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="fa-solid fa-users"></i>
@@ -123,7 +123,7 @@
                         </a>
                     </li>
 
-                    <li class="nav-item" n:if="$_user->isAllowed('Admin:Stand:list')">
+                    <li class="nav-item" n:if="$_user->isAllowed(App\Domain\Stand\Stand::RESOURCE_ID, 'list')">
                         <a n:class="nav-link, $presenter->isLinkCurrent('Stand:list') ? active" n:href="Stand:list">
                             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="fa-solid fa-square-parking"></i>
@@ -132,7 +132,7 @@
                         </a>
                     </li>
 
-                    <li class="nav-item" n:if="$_user->isAllowed('Admin:Bike:list')">
+                    <li class="nav-item" n:if="$_user->isAllowed(App\Domain\Bike\Bike::RESOURCE_ID, 'list')">
                         <a n:class="nav-link, $presenter->isLinkCurrent('Bike:list') ? active" n:href="Bike:list">
                             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="fa-solid fa-bicycle"></i>

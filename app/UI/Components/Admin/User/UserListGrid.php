@@ -11,6 +11,7 @@ use App\Model\Utils\Html;
 use App\UI\Components\Base\BaseComponent;
 use App\UI\DataGrid\BaseGrid;
 use Contributte\Translation\Translator;
+use Nette\Application\ForbiddenRequestException;
 
 class UserListGrid extends BaseComponent
 {
@@ -31,6 +32,11 @@ class UserListGrid extends BaseComponent
 
     public function createComponentGrid(): BaseGrid
     {
+        if(!$this->presenter->user->isAllowed(User::RESOURCE_ID, 'list'))
+        {
+            throw new ForbiddenRequestException();
+        }
+
         $translator = $this->translator->createPrefixedTranslator('admin.userListGrid');
         $grid = new BaseGrid();
         $grid->setTranslator($this->translator);
@@ -72,9 +78,13 @@ class UserListGrid extends BaseComponent
         ->setSortable()
         ->setFormat(App::DATETIME_FORMAT);
 
-        $grid->addAction('edit', $translator->translate('action_edit'), 'User:edit')
-            ->setClass('btn btn-sm bg-gradient-secondary mb-0')
-        ;
+        if($this->presenter->user->isAllowed(User::RESOURCE_ID, 'edit'))
+        {
+            $grid->addAction('edit', $translator->translate('action_edit'), 'User:edit')
+                ->setClass('btn btn-sm bg-gradient-secondary mb-0')
+            ;
+        }
+
         return $grid;
     }
 }

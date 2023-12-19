@@ -9,14 +9,16 @@ use App\Model\Database\Entity\AbstractEntity;
 use App\Model\Database\Entity\TUuid;
 
 use Doctrine\ORM\Mapping as ORM;
+use Nette\Security\Resource;
 
 /**
  * @ORM\Entity(repositoryClass="App\Domain\Ride\RideRepository")
  * @ORM\Table(name="`ride`")
  * @ORM\HasLifecycleCallbacks
  */
-class Ride extends AbstractEntity
+class Ride extends AbstractEntity implements Resource
 {
+    public const RESOURCE_ID = 'Ride';
     public const STATE_STARTED = 1;
     public const STATE_COMPLETED = 2;
 
@@ -138,5 +140,10 @@ class Ride extends AbstractEntity
     public function __toString(): string
     {
         return "Ride{id=$this->id}";
+    }
+
+    function getResourceId(): string
+    {
+        return self::RESOURCE_ID;
     }
 }

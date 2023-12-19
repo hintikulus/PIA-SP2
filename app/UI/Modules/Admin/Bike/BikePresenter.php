@@ -19,6 +19,7 @@ use App\UI\Components\Admin\Bike\DueForService\BikeDueForServiceListGridFactory;
 use App\UI\Components\Admin\Bike\DueForService\BikeDueForServiceListMap;
 use App\UI\Components\Admin\Bike\DueForService\BikeDueForServiceListMapFactory;
 use App\UI\Modules\Admin\BaseAdminPresenter;
+use Nette\Application\ForbiddenRequestException;
 
 class BikePresenter extends BaseAdminPresenter
 {
@@ -51,14 +52,24 @@ class BikePresenter extends BaseAdminPresenter
         $this->bikeDueForServiceListMapFactory = $bikeDueForServiceListMapFactory;
     }
 
-    public function actionEdit(string $id)
+    public function actionEdit(string $id): void
     {
         $this->bike = $this->bikeService->getById($id);
+
+        if (!$this->user->isAllowed($this->bike, 'edit'))
+        {
+            throw new ForbiddenRequestException();
+        }
     }
 
-    public function actionService(string $id)
+    public function actionService(string $id): void
     {
         $this->bike = $this->bikeService->getById($id);
+
+        if(!$this->user->isAllowed($this->bike, 'service'))
+        {
+            throw new ForbiddenRequestException();
+        }
     }
 
     public function createComponentBikeListGrid(): BikeListGrid
@@ -98,6 +109,11 @@ class BikePresenter extends BaseAdminPresenter
     public function handleMakeBikeService(string $id): void
     {
         $bike = $this->bikeService->getById($id);
+
+        if (!$this->user->isAllowed($bike, 'service'))
+        {
+            throw new ForbiddenRequestException();
+        }
 
         try
         {

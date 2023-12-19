@@ -7,6 +7,7 @@ use App\Domain\Stand\StandService;
 use App\UI\Components\Base\BaseComponent;
 use App\UI\DataGrid\BaseGrid;
 use Contributte\Translation\Translator;
+use Nette\Application\ForbiddenRequestException;
 
 class StandListGrid extends BaseComponent
 {
@@ -15,7 +16,7 @@ class StandListGrid extends BaseComponent
 
     public function __construct(
         StandService $standService,
-        Translator          $translator,
+        Translator   $translator,
     )
     {
         $this->standService = $standService;
@@ -24,6 +25,11 @@ class StandListGrid extends BaseComponent
 
     public function createComponentGrid(): BaseGrid
     {
+        if (!$this->presenter->user->isAllowed(Stand::RESOURCE_ID, 'list'))
+        {
+            throw new ForbiddenRequestException();
+        }
+
         $translator = $this->translator->createPrefixedTranslator('admin.standListGrid');
         $grid = new BaseGrid();
         $grid->setTranslator($this->translator);
@@ -36,9 +42,13 @@ class StandListGrid extends BaseComponent
             })
         ;
 
-        $grid->addAction('edit', $translator->translate('action_edit'), 'Stand:edit')
-            ->setClass('btn btn-sm bg-gradient-secondary mb-0')
-        ;
+        if ($this->presenter->user->isAllowed(Stand::RESOURCE_ID, 'edit'))
+        {
+            $grid->addAction('edit', $translator->translate('action_edit'), 'Stand:edit')
+                ->setClass('btn btn-sm bg-gradient-secondary mb-0')
+            ;
+        }
+
         return $grid;
     }
 }

@@ -10,7 +10,7 @@
                         <h6 class="mb-0">Seznam uživatelů</h6>
                     </div>
                     <div class="col-6 text-end">
-                        <a n:if="$_user->isAllowed('Admin:User:list')" class="btn bg-gradient-primary mb-0" n:href=":add"><i class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp{_admin.userPresenter.action_list.userListCard.link_add}</a>
+                        <a n:if="$_user->isAllowed(App\Domain\User\User::RESOURCE_ID, 'add')" class="btn bg-gradient-primary mb-0" n:href=":add"><i class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp{_admin.userPresenter.action_list.userListCard.link_add}</a>
                     </div>
                 </div>
             </div>

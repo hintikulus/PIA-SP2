@@ -10,17 +10,22 @@ use App\Model\Database\Entity\TUuid;
 use App\Model\Database\Entity\TUpdatedAt;
 use App\Model\Exception\Logic\InvalidArgumentException;
 use App\Model\Security\Identity;
+use App\Model\Security\Role\Administrator;
+use App\Model\Security\Role\Regular;
+use App\Model\Security\Role\Serviceman;
 use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Nette\Security\Resource;
 
 /**
  * @ORM\Entity(repositoryClass="App\Domain\User\UserRepository")
  * @ORM\Table(name="`user`")
  * @ORM\HasLifecycleCallbacks
  */
-class User extends AbstractEntity
+class User extends AbstractEntity implements Resource
 {
+    public const RESOURCE_ID = 'User';
     public const ROLE_REGULAR = 'regular';
     public const ROLE_SERVICEMAN = 'serviceman';
     public const ROLE_ADMIN = 'admin';
@@ -135,7 +140,13 @@ class User extends AbstractEntity
 
     public function toIdentity(): Identity
     {
-        return new Identity($this->getId()->toString(), [$this->getRole()], [
+        return new Identity($this->getId()->toString(), [
+            match ($this->role)
+            {
+                self::ROLE_REGULAR    => new Regular($this->id->toString()),
+                self::ROLE_SERVICEMAN => new Serviceman($this->id->toString()),
+                self::ROLE_ADMIN      => new Administrator($this->id->toString()),
+            }], [
             'email'    => $this->emailAddress,
             'name'     => $this->name,
             'gravatar' => $this->getGravatar(),
@@ -147,4 +158,8 @@ class User extends AbstractEntity
         return "User{id={$this->id}, name='{$this->name}', emailAddress='{$this->emailAddress}', role={$this->role}}";
     }
 
+    function getResourceId(): string
+    {
+        return self::RESOURCE_ID;
+    }
 }

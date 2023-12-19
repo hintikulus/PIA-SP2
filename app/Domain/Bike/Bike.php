@@ -13,14 +13,16 @@ use App\Model\Exception\Logic\BikeNotRideableException;
 use App\Model\Utils\DateTime;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Nette\Security\Resource;
 
 /**
  * @ORM\Entity(repositoryClass="App\Domain\Bike\BikeRepository")
  * @ORM\Table(name="`bike`")
  * @ORM\HasLifecycleCallbacks
  */
-class Bike extends AbstractEntity
+class Bike extends AbstractEntity implements Resource
 {
+    public const RESOURCE_ID = 'Bike';
     use TUuid;
 
     /** @ORM\Column(type="location", nullable=FALSE, unique=false) */
@@ -125,5 +127,10 @@ class Bike extends AbstractEntity
     public function __toString(): string
     {
         return "Bike{" . (!isset($this->id) ?: "id={$this->id}, ");
+    }
+
+    function getResourceId(): string
+    {
+        return self::RESOURCE_ID;
     }
 }

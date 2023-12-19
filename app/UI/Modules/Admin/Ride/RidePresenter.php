@@ -11,6 +11,7 @@ use App\UI\Components\Admin\Ride\RideProgressMapFactory;
 use App\UI\Components\Base\RideableBikesAndStandMap\RideableBikesAndStandMap;
 use App\UI\Components\Base\RideableBikesAndStandMap\RideableBikesAndStandMapFactory;
 use App\UI\Modules\Admin\BaseAdminPresenter;
+use Nette\Application\ForbiddenRequestException;
 
 class RidePresenter extends BaseAdminPresenter
 {
@@ -37,6 +38,12 @@ class RidePresenter extends BaseAdminPresenter
     public function actionDetail(string $id)
     {
         $this->ride = $this->rideService->getById($id);
+
+        if(!$this->user->isAllowed($this->ride, 'view'))
+        {
+            throw new ForbiddenRequestException();
+        }
+
         $this->template->ride = $this->ride;
     }
 

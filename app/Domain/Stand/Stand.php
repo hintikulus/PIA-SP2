@@ -8,14 +8,16 @@ use App\Model\Database\Entity\AbstractEntity;
 use App\Model\Database\Entity\TUuid;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Nette\Security\Resource;
 
 /**
  * @ORM\Entity(repositoryClass="App\Domain\Stand\StandRepository")
  * @ORM\Table(name="`stand`")
  * @ORM\HasLifecycleCallbacks
  */
-class Stand extends AbstractEntity
+class Stand extends AbstractEntity implements Resource
 {
+    public const RESOURCE_ID = 'Stand';
     use TUuid;
 
     /** @ORM\Column(type="string", length=255, nullable=FALSE, unique=false) */
@@ -59,5 +61,10 @@ class Stand extends AbstractEntity
     public function __toString()
     {
         return "Stand{id={$this->getId()}, name='{$this->getName()}', location={$this->location}}";
+    }
+
+    function getResourceId(): string
+    {
+        return self::RESOURCE_ID;
     }
 }

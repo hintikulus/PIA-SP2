@@ -79,6 +79,8 @@ final class StaticAuthorizator extends Permission
 	protected function addPermissions(): void
 	{
         $this->allow(User::ROLE_REGULAR, 'Regular');
+        //$this->allow(User::ROLE_REGULAR, 'Admin:Ride:start');
+
         $this->allow(User::ROLE_SERVICEMAN, 'Service');
         $this->allow(User::ROLE_ADMIN, 'Administration');
 	}

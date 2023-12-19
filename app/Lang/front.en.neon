@@ -55,3 +55,5 @@ signPresenter:
         subtitle: 'Enter your details to register and proceed.'
         login_label: 'Already have an account?'
         login_link: 'Sign in'
+    action_out:
+        flash_success: 'User successfully logged out.'

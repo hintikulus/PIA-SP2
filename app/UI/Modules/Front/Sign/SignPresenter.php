@@ -54,7 +54,7 @@ class SignPresenter extends BaseFrontPresenter
         }
 
         $this->user->logout(true);
-        $this->flashSuccess('Uživatel úspěšně odhlášen.');
+        $this->flashSuccess($this->translator->translate($this->presenterTranslator->translate('action_out.flash_success')));
         $this->redirect(':Front:Home:');
     }
 

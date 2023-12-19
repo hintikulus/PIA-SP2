@@ -85,19 +85,23 @@ class RideableBikesAndStandMap extends BaseComponent
 
     public function handleStartRide(string $bikeId): void
     {
+        if(!$this->presenter->user->isAllowed('Admin:Ride:start')){
+            $this->flashWarning($this->translator->translate('base.notPermitted'));
+            return;
+        }
         $bike = $this->bikeService->getById($bikeId);
 
         $user = $this->userService->getById($this->presenter->user->getId());
 
         $ride = $this->rideService->startRide($user, $bike);
 
-        $this->flashSuccess('Jízda byla zahájena');
+        $this->flashSuccess($this->translator->translate('base.rideableBikesAndStandMap.flash_rideStarted'));
         $this->presenter->redirect(':Admin:Ride:detail', ['id' => $ride->getId()->toString()]);
     }
 
     private function canUserTakeRide(): bool
     {
-        if (!$this->presenter->user->isLoggedIn())
+        if (!$this->presenter->user->isLoggedIn() || !$this->presenter->user->isAllowed('Admin:Ride:start'))
         {
             return false;
         }

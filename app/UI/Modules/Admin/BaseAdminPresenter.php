@@ -35,13 +35,13 @@ abstract class BaseAdminPresenter extends SecuredPresenter
         if (!$isAllowed && $this->getRequest()?->getPresenterName() !== 'Front:Sign')
         {
             $sessionKey = $this->storeRequest();
-            $this->flashError('Pro zobrazení této položky je potřeba se nejprve přihlásit.');
+            $this->flashError($this->translator->translate('base.flash.signInToView'));
             $this->redirect(App::DESTINATION_SIGN_IN, ['key' => $sessionKey]);
         }
 
         if (!$this->user->isAllowed('Admin:Home'))
         {
-            $this->flashError('You cannot access this with user role');
+            $this->flashError($this->translator->translate('base.flash.notPermitted'));
             $this->redirect('Front:Home');
         }
     }

@@ -5,6 +5,10 @@ role:
     serviceman: 'Servisní pracovník'
     admin: 'Administrátor'
 
+flash:
+    notPermitted: 'Na tuto akci nemáš potřebná oprávnění'
+    signInToView: 'Pro zobrazení této položky je potřeba se nejprve přihlásit.'
+
 credits:
     created1: '@'
     created2: ', vytvořeno jako semestrální práce z'
@@ -18,6 +22,7 @@ rideableBikesAndStandMap:
     popup_bike_state_in_ride: 'V jízdě'
     popup_bike_state_parked: 'Zaparkováno'
     popup_action_start_ride: 'Zahájit jízdu'
+    flash_rideStarted: 'Jízda byla úspěšně zahájena.'
 
 form:
     required: 'Položka musí být vyplněna.'

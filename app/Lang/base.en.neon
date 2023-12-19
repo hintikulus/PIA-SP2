@@ -5,6 +5,10 @@ role:
     serviceman: 'Serviceman'
     admin: 'Administrator'
 
+flash:
+    notPermitted: "You don't have the necessary permissions to perform this action."
+    signInToView: 'To view this item, you must first sign in.'
+
 credits:
     created1: '@'
     created2: ', created as a semester project in'
@@ -18,6 +22,7 @@ rideableBikesAndStandMap:
     popup_bike_state_in_ride: 'In the ride'
     popup_bike_state_parked: 'Parked'
     popup_action_start_ride: 'Start the ride'
+    flash_rideStarted: 'The ride was successfully launched.'
 
 form:
     required: 'The item must be filled in.'

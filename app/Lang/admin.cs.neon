@@ -72,7 +72,9 @@ bikePresenter:
             title: 'Servis kola'
             button_service: 'Provést servis teď'
     signal_makeBikeService:
+        flash_bikeNotServiceable: 'Kolo není určené pro servis.'
         flash_success: 'Servis kola byl úspěšně dokončen.'
+        flash_error: 'Při servisování se vyskytla chyba.'
 
 myRidesPresenter:
     action_default:
@@ -112,6 +114,9 @@ ridePresenter:
 rideProgressMap:
     popup_stand_name: 'Název: '
     popup_action_end_ride: 'Ukončit jízdu'
+    flash_rideNotStarted: 'Jízda aktuálně neprobíhá.'
+    flash_bikeFarFromStand: 'Kolo je pro odevzdání příliš vzdáleno.'
+    flash_error: 'Při ukončování jízdy se vyskytla.'
 
 standForm:
     input_name: 'Název'

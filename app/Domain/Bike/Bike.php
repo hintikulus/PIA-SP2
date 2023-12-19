@@ -10,6 +10,7 @@ use App\Model\App;
 use App\Model\Database\Entity\AbstractEntity;
 use App\Model\Database\Entity\TUuid;
 use App\Model\Exception\Logic\BikeNotRideableException;
+use App\Model\Utils\DateTime;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -96,23 +97,24 @@ class Bike extends AbstractEntity
         return $this->stand !== null;
     }
 
-    public function getNextServiceDatetime(): \DateTime
+    public function getNextServiceDatetime(\DateInterval $dateInterval): \DateTime
     {
-        return (clone $this->lastServiceTimestamp)->modify('+ 6 months');
+
+        return (clone $this->lastServiceTimestamp)->add($dateInterval);
     }
 
-    public function isDueForService(): bool
+    public function isDueForService(\DateInterval $dateInteval): bool
     {
         $now = new \DateTime();
-        $nextService = $this->getNextServiceDatetime();
+        $nextService = $this->getNextServiceDatetime($dateInteval);
         return $now > $nextService;
     }
 
-    public function startRide(User $user): Ride
+    public function startRide(User $user, \DateInterval $serviceDateInterval): Ride
     {
-        if (!$this->isInStand() || $this->isDueForService())
+        if (!$this->isInStand() || $this->isDueForService($serviceDateInterval))
         {
-            throw  new BikeNotRideableException($this);
+            throw new BikeNotRideableException($this);
         }
 
         $ride = new Ride($user, $this, $this->stand);

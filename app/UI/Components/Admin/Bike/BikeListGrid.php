@@ -4,6 +4,7 @@ namespace App\UI\Components\Admin\Bike;
 
 use App\Domain\Bike\Bike;
 use App\Domain\Bike\BikeService;
+use App\Domain\Config\ConfigService;
 use App\Model\App;
 use App\Model\Utils\Html;
 use App\UI\Components\Base\BaseComponent;
@@ -13,14 +14,17 @@ use Contributte\Translation\Translator;
 class BikeListGrid extends BaseComponent
 {
     private BikeService $bikeService;
+    private ConfigService $configService;
     private Translator $translator;
 
     public function __construct(
         BikeService $bikeService,
+        ConfigService $configService,
         Translator  $translator,
     )
     {
         $this->bikeService = $bikeService;
+        $this->configService = $configService;
         $this->translator = $translator;
     }
 
@@ -39,7 +43,7 @@ class BikeListGrid extends BaseComponent
 
         $grid->addColumnDateTime('next_service_datetime', $translator->translate('column_next_service_datetime'), 'last_service_timestamp')
             ->setRenderer(function(Bike $bike) {
-                return $bike->getNextServiceDatetime()->format(App::DATETIME_FORMAT);
+                return $bike->getNextServiceDatetime($this->configService->getBikeServiceInterval())->format(App::DATETIME_FORMAT);
             })
         ;
 
@@ -53,7 +57,7 @@ class BikeListGrid extends BaseComponent
                 $iconClass = 'fas fa-person-biking';
                 $colorClass = 'btn-outline-success';
             }
-            else if (!$bike->isDueForService())
+            else if (!$bike->isDueForService($this->configService->getBikeServiceInterval()))
             {
                 $iconClass = 'fas fa-parking';
                 $colorClass = 'btn-outline-primary';

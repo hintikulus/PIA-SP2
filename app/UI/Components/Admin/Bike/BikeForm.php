@@ -5,6 +5,7 @@ namespace App\UI\Components\Admin\Bike;
 use App\Domain\Bike\Bike;
 use App\Domain\Bike\BikeService;
 use App\Model\App;
+use App\Model\Exception\Logic\BikeNotFoundException;
 use App\UI\Components\Base\BaseComponent;
 use App\UI\Form\BaseForm;
 use Contributte\Translation\Translator;

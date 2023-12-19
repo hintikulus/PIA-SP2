@@ -3,6 +3,7 @@
 namespace App\UI\Components\Base\RideableBikesAndStandMap;
 
 use App\Domain\Bike\BikeService;
+use App\Domain\Config\ConfigService;
 use App\Domain\Ride\RideService;
 use App\Domain\Stand\StandService;
 use App\Domain\User\UserService;
@@ -18,6 +19,7 @@ class RideableBikesAndStandMap extends BaseComponent
     private BikeService $bikeService;
     private StandService $standService;
     private RideService $rideService;
+    private ConfigService $configService;
     private Translator $translator;
 
     public function __construct(
@@ -25,6 +27,7 @@ class RideableBikesAndStandMap extends BaseComponent
         BikeService $bikeService,
         StandService $standService,
         RideService  $rideService,
+        ConfigService $configService,
         Translator  $translator,
     )
     {
@@ -32,6 +35,7 @@ class RideableBikesAndStandMap extends BaseComponent
         $this->bikeService = $bikeService;
         $this->standService = $standService;
         $this->rideService = $rideService;
+        $this->configService = $configService;
         $this->translator = $translator;
     }
 
@@ -58,7 +62,7 @@ class RideableBikesAndStandMap extends BaseComponent
 
             if ($this->canUserTakeRide())
             {
-                if ($bike->isInStand() && !$bike->isDueForService())
+                if ($bike->isInStand() && !$bike->isDueForService($this->configService->getBikeServiceInterval()))
                 {
                     $popupStartRideLink = Html::el(
                         'a',

@@ -5,9 +5,11 @@ namespace App\UI\Components\Admin\Ride;
 use App\Domain\Ride\Ride;
 use App\Domain\Ride\RideService;
 use App\Domain\Stand\StandService;
+use App\Model\Exception\Logic\BikeTooFarFromEndStand;
 use App\Model\Exception\Logic\RideNotFoundException;
 use App\Model\Exception\Logic\StandNotFoundException;
 use App\Model\Exception\LogicException;
+use App\Model\Exception\Runtime\InvalidStateException;
 use App\Model\Utils\Html;
 use App\UI\Components\Base\BaseComponent;
 use App\UI\Map\BaseMap;
@@ -82,11 +84,18 @@ class RideProgressMap extends BaseComponent
 
         $stand = $this->standService->getById($standId);
 
-        try {
-            $this->rideService->completeRide($ride, $stand);
-        } catch (LogicException $e)
+        try
         {
-            $this->flashInfo($e->getMessage());
+            $this->rideService->completeRide($ride, $stand);
+        } catch (InvalidStateException)
+        {
+            $this->flashWarning($this->translator->translate('admin.rideProgressMap.flash_rideNotStarted'));
+        } catch (BikeTooFarFromEndStand)
+        {
+            $this->flashWarning($this->translator->translate('admin.rideProgressMap.flash_bikeFarFromStand'));
+        } catch (\Exception $e)
+        {
+            $this->flashError($this->translator->translate('admin.rideProgressMap.flash_error'));
             return;
         }
 

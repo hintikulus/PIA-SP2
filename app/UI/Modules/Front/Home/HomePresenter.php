@@ -19,9 +19,7 @@ final class HomePresenter extends BaseFrontPresenter
 
     public function actionDefault(): void
     {
-        $this->template->bikeCount = 100;
-        $this->template->standCount = 20;
-        $this->template->ridesDone = 1256;
+
     }
 
     public function createComponentRideableBikesAndStandMap(): RideableBikesAndStandMap

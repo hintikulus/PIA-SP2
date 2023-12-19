@@ -31,8 +31,9 @@ class BikeDueForServiceListGrid extends BaseComponent
 
         $grid->addColumnText('id', 'ID');
 
-        $grid->addColumnDateTime('last_service_datetime', $translator->translate('column_last_service_datetime'), 'last_service_timestamp')
+        $grid->addColumnDateTime('last_service_datetime', $translator->translate('column_last_service_datetime'), 'lastServiceTimestamp')
             ->setFormat(App::DATETIME_FORMAT)
+            ->setSortable()
         ;
 
         $grid->addColumnText('stand', $translator->translate('column_stand'), 'stand.name');

@@ -5,6 +5,7 @@ namespace App\UI\Modules\Admin\Bike;
 use App\Domain\Bike\Bike;
 use App\Domain\Bike\BikeService;
 use App\Model\Exception\Logic\BikeNotFoundException;
+use App\Model\Exception\Logic\BikeNotServiceableException;
 use App\UI\Components\Admin\Bike\BikeChooseStandMap;
 use App\UI\Components\Admin\Bike\BikeChooseStandMapFactory;
 use App\UI\Components\Admin\Bike\BikeForm;
@@ -32,13 +33,13 @@ class BikePresenter extends BaseAdminPresenter
     private ?Bike $bike = null;
 
     public function __construct(
-        BikeService $bikeService,
-        BikeListGridFactory       $bikeListGridFactory,
-        BikeChooseStandMapFactory $bikeChooseStandMapFactory,
-        BikeFormFactory           $bikeFormFactory,
-        BikeListMapFactory $bikeListMapFactory,
+        BikeService                      $bikeService,
+        BikeListGridFactory              $bikeListGridFactory,
+        BikeChooseStandMapFactory        $bikeChooseStandMapFactory,
+        BikeFormFactory                  $bikeFormFactory,
+        BikeListMapFactory               $bikeListMapFactory,
         BikeDueForServiceListGridFactory $bikeDueForServiceListGridFactory,
-        BikeDueForServiceListMapFactory $bikeDueForServiceListMapFactory,
+        BikeDueForServiceListMapFactory  $bikeDueForServiceListMapFactory,
     )
     {
         $this->bikeService = $bikeService;
@@ -97,7 +98,22 @@ class BikePresenter extends BaseAdminPresenter
     public function handleMakeBikeService(string $id): void
     {
         $bike = $this->bikeService->getById($id);
-        $this->bikeService->markServiced($bike);
+
+        try
+        {
+            $this->bikeService->markServiced($bike);
+        }
+        catch (BikeNotServiceableException)
+        {
+            $this->flashWarning($this->presenterTranslator->translate('signal_makeBikeService.flash_bikeNotServiceable'));
+            return;
+        }
+        catch (\Exception)
+        {
+            $this->flashWarning($this->presenterTranslator->translate('signal_makeBikeService.flash_error'));
+            return;
+        };
+
         $this->flashSuccess($this->presenterTranslator->translate('signal_makeBikeService.flash_success'));
         $this->redirect(':dueForService');
     }

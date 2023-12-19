@@ -2,6 +2,7 @@
 
 namespace App\Domain\Bike;
 
+use App\Domain\Config\ConfigService;
 use App\Domain\Location\Location;
 use App\Domain\Ride\Ride;
 use App\Domain\Ride\RideUpdateNotifyManager;
@@ -24,6 +25,7 @@ class DefaultBikeService implements BikeService
     private QueryManager $queryManager;
     private QueryBuilderManager $queryBuilderManager;
     private RideUpdateNotifyManager $rideUpdateNotifyManager;
+    private ConfigService $configService;
     private LoggerInterface $logger;
 
     public function __construct(
@@ -32,6 +34,7 @@ class DefaultBikeService implements BikeService
         QueryManager $queryManager,
         QueryBuilderManager $queryBuilderManager,
         RideUpdateNotifyManager $rideUpdateNotifyManager,
+        ConfigService $configService,
         LoggerInterface $logger,
     )
     {
@@ -40,6 +43,7 @@ class DefaultBikeService implements BikeService
         $this->queryManager = $queryManager;
         $this->queryBuilderManager = $queryBuilderManager;
         $this->rideUpdateNotifyManager = $rideUpdateNotifyManager;
+        $this->configService = $configService;
         $this->logger = $logger;
     }
 
@@ -83,7 +87,7 @@ class DefaultBikeService implements BikeService
     {
         $this->logger->info("Marking bike $bike services");
 
-        if(!$bike->isDueForService())
+        if(!$bike->isDueForService($this->configService->getBikeServiceInterval()))
         {
             throw new BikeNotServiceableException($bike);
         }

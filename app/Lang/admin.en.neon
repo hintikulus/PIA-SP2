@@ -71,7 +71,9 @@ bikePresenter:
             title: 'Bike service'
             button_service: 'Perform a service check now'
     signal_makeBikeService:
+        flash_bikeNotServiceable: 'The bike is not intended for servicing.'
         flash_success: 'Bike servicing successfully completed.'
+        flash_error: 'An error occurred during servicing.'
 
 myRidesPresenter:
     action_default:
@@ -110,7 +112,10 @@ ridePresenter:
 
 rideProgressMap:
     popup_stand_name: 'Name: '
-    popup_action_end_ride: 'Ukončit jízdu'
+    popup_action_end_ride: 'End ride'
+    flash_rideNotStarted: 'Driving is not currently in progress.'
+    flash_bikeFarFromStand: 'The bike is too far away for the ending stand.'
+    flash_error: 'an error occurred during the ending of the ride.'
 
 standForm:
     input_name: 'Name'

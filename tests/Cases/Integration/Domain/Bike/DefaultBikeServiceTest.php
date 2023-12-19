@@ -7,6 +7,7 @@ use App\Domain\Bike\BikeManager;
 use App\Domain\Bike\BikeRepository;
 use App\Domain\Bike\BikeService;
 use App\Domain\Bike\DefaultBikeService;
+use App\Domain\Config\ConfigService;
 use App\Domain\Location\Location;
 use App\Domain\Ride\RideUpdateNotifyManager;
 use App\Domain\Stand\Stand;
@@ -17,6 +18,7 @@ use App\Model\Database\QueryManager;
 use App\Model\Exception\Logic\BikeNotFoundException;
 use App\Model\Exception\Logic\BikeNotServiceableException;
 use Contributte\Tester\TestCase\BaseTestCase;
+use PHP_CodeSniffer\Config;
 use Psr\Log\LoggerInterface;
 use Tester\Assert;
 
@@ -30,6 +32,7 @@ class DefaultBikeServiceTest extends BaseTestCase
     private QueryManager $queryManager;
     private QueryBuilderManager $queryBuilderManager;
     private RideUpdateNotifyManager $rideUpdateNotifyManager;
+    private ConfigService $configService;
     private LoggerInterface $loggerInterface;
 
     private BikeService $bikeService;
@@ -41,6 +44,7 @@ class DefaultBikeServiceTest extends BaseTestCase
         $this->queryManager = \Mockery::mock(QueryManager::class);
         $this->queryBuilderManager = \Mockery::mock(QueryBuilderManager::class);
         $this->rideUpdateNotifyManager = \Mockery::mock(RideUpdateNotifyManager::class);
+        $this->configService = \Mockery::mock(ConfigService::class);
         $this->loggerInterface = \Mockery::mock(LoggerInterface::class)->allows([
             'info' => null,
             'debug' => null,
@@ -53,6 +57,7 @@ class DefaultBikeServiceTest extends BaseTestCase
             $this->queryManager,
             $this->queryBuilderManager,
             $this->rideUpdateNotifyManager,
+            $this->configService,
             $this->loggerInterface,
         );
 
@@ -91,14 +96,17 @@ class DefaultBikeServiceTest extends BaseTestCase
     {
         $stand = new Stand('test', new Location('5', '5'));
         $bike = new Bike($stand);
-        $bike->setLastServiceTimestamp($bike->getLastServiceTimestamp()->modify('-' . App::SERVICE_TIME));
+        $bike->setLastServiceTimestamp($bike->getLastServiceTimestamp()->modify('- 10 months'));
 
         $this->bikeManager->shouldReceive('save')->once();
         $this->bikeManager->shouldReceive('save')->with($bike);
+        $this->configService->allows([
+            'getBikeServiceInterval' => \DateInterval::createFromDateString('6 months'),
+        ]);
 
         $this->bikeService->markServiced($bike);
 
-        Assert::false($bike->isDueForService());
+        Assert::false($bike->isDueForService($this->configService->getBikeServiceInterval()));
     }
 
     public function testBikeNotServiceable(): void
@@ -108,6 +116,10 @@ class DefaultBikeServiceTest extends BaseTestCase
 
         $this->bikeManager->shouldReceive('save')->once();
         $this->bikeManager->shouldReceive('save')->with($bike);
+
+        $this->configService->allows([
+            'getBikeServiceInterval' => \DateInterval::createFromDateString('6 months'),
+        ]);
 
         Assert::throws(fn() => $this->bikeService->markServiced($bike), BikeNotServiceableException::class);
     }

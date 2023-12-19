@@ -13,6 +13,6 @@ interface RideManager
 
     public function findActiveByUser(User $user): ?Ride;
 
-    public function startRide(User $user, Bike $bike): Ride;
+    public function startRide(User $user, Bike $bike, \DateInterval $serviceInterval): Ride;
     public function save(Ride $ride): void;
 }

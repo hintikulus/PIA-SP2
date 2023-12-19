@@ -4,6 +4,7 @@ namespace App\Domain\Ride;
 
 use App\Domain\Bike\Bike;
 use App\Domain\Bike\BikeQuery;
+use App\Domain\Config\ConfigService;
 use App\Domain\Stand\Stand;
 use App\Domain\User\User;
 use App\Model\App;
@@ -19,18 +20,21 @@ class DefaultRideService implements RideService
     private RideManager $rideManager;
     private QueryManager $queryManager;
     private QueryBuilderManager $queryBuilderManager;
+    private ConfigService $configService;
     private LoggerInterface $logger;
 
     public function __construct(
         RideManager         $rideManager,
         QueryManager        $queryManager,
         QueryBuilderManager $queryBuilderManager,
+        ConfigService $configService,
         LoggerInterface     $logger,
     )
     {
         $this->rideManager = $rideManager;
         $this->queryManager = $queryManager;
         $this->queryBuilderManager = $queryBuilderManager;
+        $this->configService = $configService;
         $this->logger = $logger;
     }
 
@@ -66,7 +70,7 @@ class DefaultRideService implements RideService
             throw new UserInRideException($user);
         }
 
-        $ride = $this->rideManager->startRide($user, $bike);
+        $ride = $this->rideManager->startRide($user, $bike, $this->configService->getBikeServiceInterval());
 
         $this->logger->debug("Ride $ride is started, saving it");
 

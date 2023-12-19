@@ -3,9 +3,11 @@
 namespace App\Domain\Ride;
 
 use App\Domain\Bike\Bike;
+use App\Domain\Config\ConfigManager;
 use App\Domain\User\User;
 use App\Model\Database\EntityManagerDecorator;
 use App\Model\Exception\Logic\RideNotFoundException;
+use PHP_CodeSniffer\Config;
 use Ramsey\Uuid\Uuid;
 
 class DefaultRideManager implements RideManager
@@ -53,9 +55,9 @@ class DefaultRideManager implements RideManager
         return $this->em->getRideRepository()->findOneBy(['user' => $user, 'state' => Ride::STATE_STARTED]);
     }
 
-    public function startRide(User $user, Bike $bike): Ride
+    public function startRide(User $user, Bike $bike, \DateInterval $serviceInterval): Ride
     {
-        $ride = $bike->startRide($user);
+        $ride = $bike->startRide($user, $serviceInterval);
         $this->em->persist($ride);
         return $ride;
     }

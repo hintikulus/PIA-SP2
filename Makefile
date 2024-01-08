@@ -30,7 +30,7 @@ delete-cache dc:
 	find var/tmp -mindepth 1 ! -name '.gitignore' -type f,d -exec rm -rf {} +
 
 phpstan ps:
-	cd "${DIR_DOCKER}" && docker exec -it "${PHP_CONTAINER_NAME}" bash -c "vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=512M app tests/toolkit"
+	cd "${DIR_DOCKER}" && docker exec -it "${PHP_CONTAINER_NAME}" bash -c "vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=512M app tests/Toolkit"
 
 tests test nt:
 	cd "${DIR_DOCKER}" && docker exec -it "${PHP_CONTAINER_NAME}" bash -c "vendor/bin/tester -s -p php --colors 1 -C tests"

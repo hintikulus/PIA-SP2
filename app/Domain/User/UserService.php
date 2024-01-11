@@ -77,7 +77,7 @@ interface UserService
      * @param string $name The name of the user.
      * @param string $email The email address of the user.
      * @param string $password The password of the user.
-     * @param array $data Additional data for user creation.
+     * @param array<mixed> $data Additional data for user creation.
      * @return User The newly created user entity.
      */
     public function createUser(string $name, string $email, string $password, array $data = []): User;
@@ -89,7 +89,7 @@ interface UserService
      * @param string $name The new name of the user.
      * @param string|null $password The new password of the user (nullable for no password change).
      * @param string $role The new role of the user.
-     * @param array $data Additional data for user update.
+     * @param array<mixed> $data Additional data for user update.
      */
     public function updateUser(User $user, string $name, ?string $password, string $role, array $data = []): void;
 

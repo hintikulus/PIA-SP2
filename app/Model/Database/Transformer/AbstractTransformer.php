@@ -9,13 +9,13 @@ abstract class AbstractTransformer
 {
     /**
      * @param T $item
-     * @return array
+     * @return array<mixed>
      */
     public abstract function transform($item): array;
 
     /**
      * @param array<T> $array
-     * @return array
+     * @return array<mixed>
      */
     public function transformCollection($array): array
     {

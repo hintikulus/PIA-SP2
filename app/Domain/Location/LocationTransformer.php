@@ -11,7 +11,7 @@ class LocationTransformer extends AbstractTransformer
 {
     /**
      * @param Location $location
-     * @return array
+     * @return array<mixed>
      */
     public function transform($location): array
     {

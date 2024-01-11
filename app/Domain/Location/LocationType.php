@@ -22,6 +22,11 @@ class LocationType extends Type
             return null;
         }
 
+        if(!is_string($value))
+        {
+            return null;
+        }
+
         $values = explode(';', $value);
         return new Location($values[0], $values[1]);
     }

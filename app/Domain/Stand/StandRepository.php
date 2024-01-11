@@ -4,6 +4,7 @@ namespace App\Domain\Stand;
 
 use App\Domain\User\User;
 use App\Model\Database\Repository\AbstractRepository;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Stand|NULL find($id, ?int $lockMode = NULL, ?int $lockVersion = NULL)
@@ -16,7 +17,7 @@ class StandRepository extends AbstractRepository
 {
 
 
-    public function getAllQueryBuilder()
+    public function getAllQueryBuilder(): QueryBuilder
     {
         $qb = $this->createQueryBuilder('u');
         return $qb;

@@ -6,6 +6,7 @@ use Nette\Localization\ITranslator;
 use Nette\Localization\Translator;
 use Ublaboo\DataGrid\Column\Action;
 use Ublaboo\DataGrid\Column\ActionCallback;
+use Ublaboo\DataGrid\Column\ColumnText;
 use Ublaboo\DataGrid\Components\DataGridPaginator\DataGridPaginator;
 use Ublaboo\DataGrid\DataGrid;
 use Ublaboo\DataGrid\Filter\FilterDateRange;
@@ -40,16 +41,15 @@ class BaseGrid extends DataGrid
         return $paginator;
     }
 
-    /**
-     * @param array<string> $columns
-     */
-    public function addFilterText(string $key, string $name, $columns = null): FilterText
+
+    public function addFilterText(string $key, string $name, array|string $columns = null): FilterText
     {
         $filter = parent::addFilterText($key, $name, $columns);
         $filter->setTemplate(__DIR__ . '/templates/datagrid_filter_text.latte');
         $filter->setAttribute('placeholder', $name);
         return $filter;
     }
+
 
     /**
      * @param string $key
@@ -62,7 +62,7 @@ class BaseGrid extends DataGrid
     {
         $action = parent::addAction($key, $name, $href, $params);
         $action->setDataAttribute(self::TEST_TYPE_ATTR, $key);
-        return  $action;
+        return $action;
     }
 
     public function addActionCallback(string $key, string $name, ?callable $callback = null): ActionCallback

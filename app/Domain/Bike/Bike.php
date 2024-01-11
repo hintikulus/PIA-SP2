@@ -105,10 +105,10 @@ class Bike extends AbstractEntity implements Resource
         return (clone $this->lastServiceTimestamp)->add($dateInterval);
     }
 
-    public function isDueForService(\DateInterval $dateInteval): bool
+    public function isDueForService(\DateInterval $dateInterval): bool
     {
         $now = new \DateTime();
-        $nextService = $this->getNextServiceDatetime($dateInteval);
+        $nextService = $this->getNextServiceDatetime($dateInterval);
         return $now > $nextService;
     }
 

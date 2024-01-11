@@ -38,31 +38,61 @@ class Stand extends AbstractEntity implements Resource
         $this->location = $location;
     }
 
+    /**
+     * Gets the name of the stand.
+     *
+     * @return string The name of the stand.
+     */
     public function getName(): string
     {
         return $this->name;
     }
 
+    /**
+     * Sets the name of the stand.
+     *
+     * @param string $name The new name for the stand.
+     */
     public function setName(string $name): void
     {
         $this->name = $name;
     }
 
+    /**
+     * Gets the location of the stand.
+     *
+     * @return Location The location of the stand.
+     */
     public function getLocation(): Location
     {
         return $this->location;
     }
 
+    /**
+     * Sets the location of the stand.
+     *
+     * @param Location $location The new location for the stand.
+     */
     public function setLocation(Location $location): void
     {
         $this->location = $location;
     }
 
+    /**
+     * Returns a string representation of the stand.
+     *
+     * @return string The string representation of the stand.
+     */
     public function __toString()
     {
         return "Stand{id={$this->getId()}, name='{$this->getName()}', location={$this->location}}";
     }
 
+    /**
+     * Gets the resource ID associated with the stand.
+     *
+     * @return string The resource ID of the stand.
+     */
     function getResourceId(): string
     {
         return self::RESOURCE_ID;

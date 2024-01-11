@@ -84,41 +84,81 @@ class Ride extends AbstractEntity implements Resource
         $this->state = self::STATE_STARTED;
     }
 
+    /**
+     * Gets the associated user for this ride.
+     *
+     * @return User The user associated with this ride.
+     */
     public function getUser(): User
     {
         return $this->user;
     }
 
+    /**
+     * Gets the associated bike for this ride.
+     *
+     * @return Bike The bike associated with this ride.
+     */
     public function getBike(): Bike
     {
         return $this->bike;
     }
 
+    /**
+     * Gets the state of this ride.
+     *
+     * @return int The state of the ride.
+     */
     public function getState(): int
     {
         return $this->state;
     }
 
+    /**
+     * Gets the stand where the ride started.
+     *
+     * @return Stand The stand where the ride started.
+     */
     public function getStartStand(): Stand
     {
         return $this->startStand;
     }
 
+    /**
+     * Gets the timestamp when the ride started.
+     *
+     * @return \DateTime The timestamp when the ride started.
+     */
     public function getStartTimestamp(): \DateTime
     {
         return $this->startTimestamp;
     }
 
+    /**
+     * Gets the stand where the ride ended, or null if the ride is not completed.
+     *
+     * @return Stand|null The stand where the ride ended, or null if the ride is not completed.
+     */
     public function getEndStand(): ?Stand
     {
         return $this->endStand;
     }
 
+    /**
+     * Gets the timestamp when the ride ended, or null if the ride is not completed.
+     *
+     * @return \DateTime|null The timestamp when the ride ended, or null if the ride is not completed.
+     */
     public function getEndTimestamp(): ?\DateTime
     {
         return $this->endTimestamp;
     }
 
+    /**
+     * Completes the ride by updating its state, end timestamp, end stand, and the associated bike's stand.
+     *
+     * @param Stand $endStand The stand where the ride ends.
+     */
     public function complete(Stand $endStand): void
     {
         $this->state = self::STATE_COMPLETED;
@@ -127,21 +167,41 @@ class Ride extends AbstractEntity implements Resource
         $this->bike->setStand($endStand);
     }
 
+    /**
+     * Checks if the ride has started.
+     *
+     * @return bool True if the ride has started, false otherwise.
+     */
     public function isStarted(): bool
     {
         return $this->state === self::STATE_STARTED;
     }
 
+    /**
+     * Checks if the ride is completed.
+     *
+     * @return bool True if the ride is completed, false otherwise.
+     */
     public function isCompleted(): bool
     {
-        return $this->state = self::STATE_COMPLETED;
+        return $this->state === self::STATE_COMPLETED;
     }
 
+    /**
+     * Returns a string representation of the ride.
+     *
+     * @return string The string representation of the ride.
+     */
     public function __toString(): string
     {
         return "Ride{id=$this->id}";
     }
 
+    /**
+     * Gets the resource ID associated with the ride.
+     *
+     * @return string The resource ID of the ride.
+     */
     function getResourceId(): string
     {
         return self::RESOURCE_ID;

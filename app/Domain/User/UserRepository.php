@@ -3,6 +3,7 @@
 namespace App\Domain\User;
 
 use App\Model\Database\Repository\AbstractRepository;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method User|NULL find($id, ?int $lockMode = NULL, ?int $lockVersion = NULL)
@@ -19,7 +20,7 @@ class UserRepository extends AbstractRepository
 		return $this->findOneBy(['emailAddress' => $email]);
 	}
 
-    public function getAllQueryBuilder()
+    public function getAllQueryBuilder(): QueryBuilder
     {
         $qb = $this->createQueryBuilder('u');
         return $qb;

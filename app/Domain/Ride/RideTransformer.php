@@ -9,22 +9,29 @@ use App\Model\App;
 use App\Model\Database\Transformer\AbstractTransformer;
 
 /**
+ * A transformer class for converting Ride objects to arrays.
+ *
  * @template-extends AbstractTransformer<Ride>
  */
 class RideTransformer extends AbstractTransformer
 {
     private LocationTransformer $locationTransformer;
 
-    public function __construct(
-        LocationTransformer $locationTransformer,
-    )
+    /**
+     * Constructor to initialize the RideTransformer.
+     *
+     * @param LocationTransformer $locationTransformer The LocationTransformer for transforming Location objects.
+     */
+    public function __construct(LocationTransformer $locationTransformer)
     {
         $this->locationTransformer = $locationTransformer;
     }
 
     /**
-     * @param Ride $item
-     * @return array
+     * Transforms a Ride object into an associative array.
+     *
+     * @param Ride $item The Ride object to transform.
+     * @return array An associative array representing the Ride.
      */
     public function transform($item): array
     {
@@ -40,3 +47,4 @@ class RideTransformer extends AbstractTransformer
         ];
     }
 }
+

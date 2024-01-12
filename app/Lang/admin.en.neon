@@ -158,6 +158,7 @@ standPresenter:
 
 userForm:
     input_name: 'Firstname and surname'
+    input_password: 'Password'
     input_email: 'E-mail'
     input_role: 'Role'
     input_send: 'Save'

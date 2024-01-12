@@ -63,10 +63,11 @@ interface UserManager
      * @param string $name The name of the user.
      * @param string $email The email address of the user.
      * @param string|null $password The password of the user (nullable for external logins).
+     * @param string $role The new role of the user.
      * @param array $data Additional data for user creation.
      * @return User The newly created user entity.
      */
-    public function createUser(string $name, string $email, #[\SensitiveParameter] ?string $password, array $data = []): User;
+    public function createUser(string $name, string $email, #[\SensitiveParameter] ?string $password, string $role, array $data = []): User;
 
     /**
      * Updates an existing user entity with the given information.
@@ -77,7 +78,7 @@ interface UserManager
      * @param string $role The new role of the user.
      * @param array $data Additional data for user update.
      */
-    public function updateUser(User $user, string $name, #[\SensitiveParameter] ?string $password, string $role,  array $data = []): void;
+    public function updateUser(User $user, string $name, #[\SensitiveParameter] ?string $password, string $role, array $data = []): void;
 
     /**
      * Saves the changes made to a user entity in the repository.

@@ -82,7 +82,7 @@ class DefaultUserManager implements UserManager
         return $this->em->getUserRepository()->findOneBy(['googleId' => $googleId]);
     }
 
-    public function createUser(string $name, string $email, #[\SensitiveParameter] ?string $password, array $data = []): User
+    public function createUser(string $name, string $email, #[\SensitiveParameter] ?string $password, string $role, array $data = []): User
     {
         $user = new User($name, $email);
 
@@ -95,6 +95,8 @@ class DefaultUserManager implements UserManager
         {
             $user->setGoogleId($data['google_id']);
         }
+
+        $user->setRole($role);
 
         $this->em->persist($user);
         return $user;

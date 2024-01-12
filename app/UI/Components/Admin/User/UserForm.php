@@ -103,7 +103,7 @@ class UserForm extends BaseComponent
             {
                 $this->userService->updateUser($this->user, $transformedValues['name'], $transformedValues['password'], $transformedValues['role']);
             } else {
-                $this->userService->createUser($transformedValues['name'], $transformedValues['email'], $transformedValues['password']);
+                $this->userService->createUser($transformedValues['name'], $transformedValues['email'], $transformedValues['password'], $transformedValues['role']);
             }
             $this->flashSuccess($this->translator->translate('admin.userForm.flash_success'));
         }

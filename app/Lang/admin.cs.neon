@@ -159,6 +159,7 @@ standPresenter:
 
 userForm:
     input_name: 'Jméno a příjmení'
+    input_password: 'Heslo'
     input_email: 'E-mail'
     input_role: 'Role'
     input_send: 'Uložit'

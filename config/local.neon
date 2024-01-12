@@ -7,7 +7,7 @@ parameters:
 		password: root_pristup_123
 
 	config:
-	    websocket.baseUrl: 'ws://127.0.0.1:50006/'
+	    websocket.baseUrl: 'ws://127.0.0.1:10006/'
 	    bike_service_date_interval: '6 months'
 	    testing:
 	        enabled: true

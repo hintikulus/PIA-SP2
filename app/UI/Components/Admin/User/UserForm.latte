@@ -7,6 +7,10 @@
             {label name /}
             {input name class => "form-control"}
         </div>
+        <div n:if="isset($form->getComponents()['password'])" class="form-group">
+            {label password /}
+            {input password class => "form-control"}
+        </div>
         <div n:if="isset($form->getComponents()['email'])" class="form-group">
             {label email /}
             {input email class => "form-control"}

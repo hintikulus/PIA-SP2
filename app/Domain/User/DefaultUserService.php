@@ -74,10 +74,10 @@ class DefaultUserService implements UserService
         return $this->queryBuilderManager->getQueryBuilder(UserQuery::getAll());
     }
 
-    public function createUser(string $name, string $email, #[\SensitiveParameter] ?string $password, array $data = []): User
+    public function createUser(string $name, string $email, #[\SensitiveParameter] ?string $password, string $role, array $data = []): User
     {
         $this->logger->info("Creating user with name $name and email $email");
-        $user = $this->userManager->createUser($name, $email, $password, $data);
+        $user = $this->userManager->createUser($name, $email, $password, $role, $data);
 
         $this->logger->debug("User $user created, saving it");
         $this->userManager->save($user);

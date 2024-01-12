@@ -41,7 +41,7 @@ contributte.monolog:
 contributte.translation:
 	locales:
 		whitelist: [en, cs]
-		default: cs
+		default: en
 		fallback: [en]
 	dirs:
 		- %appDir%/Lang

@@ -1,4 +1,5 @@
 appName: 'BikesToGo'
+appTitle: 'BikesToGo Bikesharing App'
 
 role:
     regular: 'Běžný uživatel'

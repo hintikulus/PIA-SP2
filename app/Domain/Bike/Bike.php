@@ -68,7 +68,6 @@ class Bike extends AbstractEntity implements Resource
     {
         return $this->location;
     }
-
     /**
      * Sets the location of the bike.
      *

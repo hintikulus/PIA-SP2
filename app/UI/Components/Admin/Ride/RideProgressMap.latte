@@ -6,6 +6,17 @@
 
 <script>
     $(document).ready(() => {
+        mapInit();
+    });
+
+    naja.addEventListener('success', function (event) {
+        requestIdleCallback(function () {
+            mapInit();
+        });
+    });
+
+    function mapInit()
+    {
         var socketSession;
 
         var map = window.map_rideProgressMap_map;
@@ -14,37 +25,24 @@
 
         socketsConnection.on('socket/connect', function (session) {
                 socketSession = session;
-
-                console.log('připojeno');
-
                 socketSession.subscribe('/ride/{$ride->getId()->toString()|noescape}', function (topic, event) {
 
-                    console.log(event);
                     let obj = JSON.parse(event);
 
-
-
-                    if (obj.type == 'bike_location_update') {
+                    if (obj.type === 'bike_location_update') {
                         let marker = mapMarkers['bike'][obj.bike_id];
-                        console.log(mapMarkers);
                         marker.setLatLng(L.latLng(obj.location.latitude, obj.location.longitude));
                     }
                 });
 
             },
             function (code, reason, detail) {
-                console.log('chyba pripojeni');
+                toastr.error("Connection Error. Try refresh the page.");
             }
         );
 
 
         map.on('click', function (e) {
-            //if (marker)
-                //map.removeLayer(marker);
-            //marker = L.marker(e.latlng).addTo(map);
-
-            console.log(e.latlng);
-
             var data = {
                 'type': 'bike_position_update',
                 'ride_id': {$ride->getId()->toString()},
@@ -56,5 +54,5 @@
 
             socketSession.publish('/ride/details', data);
         });
-    });
+    }
 </script>

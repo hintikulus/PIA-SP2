@@ -38,7 +38,6 @@
         var map = window.map_standChooseMap_map;
         var marker;
         map.on('click', function(e) {
-            console.log('klik');
             if(marker)
                 map.removeLayer(marker);
             marker = L.marker(e.latlng).addTo(map);

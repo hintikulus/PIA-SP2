@@ -32,15 +32,5 @@
             console.log('socket disconected');
             console.log(error);
         });
-
-        $('#websocket-button').click(function () {
-            console.log('klik');
-
-            var data = {
-                'message': 'hello'
-            };
-
-            socketSession.publish('/bike/stand', data);
-        });
     });
 </script>

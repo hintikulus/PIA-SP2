@@ -5,13 +5,12 @@
         var mapMarkers = window.map_bikeListMap_map_markers;
 
         socketsConnection.on('socket/connect', function (session) {
-                console.log('Připojeno');
                 socketSession = session;
 
                 socketSession.subscribe('/bike/all', function (topic, event) {
                     let obj = JSON.parse(event);
 
-                    if (obj.type == 'bike_location_update') {
+                    if (obj.type === 'bike_location_update') {
                         let marker = mapMarkers['bike'][obj.bike_id];
                         marker.setLatLng(L.latLng(obj.location.latitude, obj.location.longitude));
                     }
@@ -19,7 +18,6 @@
 
             },
             function (code, reason, detail) {
-                console.log('chyba pripojeni');
             }
         );
 

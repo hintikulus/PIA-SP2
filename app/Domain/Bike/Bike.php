@@ -154,7 +154,7 @@ class Bike extends AbstractEntity implements Resource
      * @param \DateInterval $dateInteval The interval between services.
      * @return bool True if the bike is due for service, false otherwise.
      */
-    public function isDueForService(\DateInterval $dateInteval): bool
+    public function isDueForService(\DateInterval $dateInterval): bool
     {
         $now = new \DateTime();
         $nextService = $this->getNextServiceDatetime($dateInterval);

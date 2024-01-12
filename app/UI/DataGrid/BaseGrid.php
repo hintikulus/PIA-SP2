@@ -42,7 +42,8 @@ class BaseGrid extends DataGrid
     }
 
 
-    public function addFilterText(string $key, string $name, array|string $columns = null): FilterText
+    /* @phpstan-ignore-next-line */
+    public function addFilterText(string $key, string $name, $columns = null): FilterText
     {
         $filter = parent::addFilterText($key, $name, $columns);
         $filter->setTemplate(__DIR__ . '/templates/datagrid_filter_text.latte');

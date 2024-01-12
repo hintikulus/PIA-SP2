@@ -89,8 +89,10 @@ final class StaticAuthorizator extends Permission
     {
         $this->allow(User::ROLE_REGULAR, 'Regular');
         $this->allow(User::ROLE_REGULAR, 'Admin:Ride:start');
+        $this->allow(User::ROLE_REGULAR, 'Admin:Ride:detail');
 
         $this->allow(User::ROLE_SERVICEMAN, 'Admin:Bike:dueForService');
+        $this->allow(User::ROLE_SERVICEMAN, 'Admin:Bike:service');
         $this->allow(User::ROLE_SERVICEMAN, 'Service');
         $this->allow(User::ROLE_ADMIN, 'Administration');
 

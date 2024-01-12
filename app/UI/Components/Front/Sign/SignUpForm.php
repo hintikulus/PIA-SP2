@@ -2,6 +2,7 @@
 
 namespace App\UI\Components\Front\Sign;
 
+use App\Domain\User\User;
 use App\Domain\User\UserService;
 use App\Model\Exception\Logic\UserNotFoundException;
 use App\Model\Exception\Runtime\AuthenticationException;
@@ -71,7 +72,7 @@ class SignUpForm extends BaseComponent
     public function formSucceeded(BaseForm $form, ArrayHash $values): void
     {
         try {
-            $this->userService->createUser($values['name'], $values['email'], $values['password1']);
+            $this->userService->createUser($values['name'], $values['email'], $values['password1'], User::ROLE_REGULAR);
             $this->flashSuccess($this->pt->translate('flash_success'));
         } catch (UserNotFoundException $e)
         {

@@ -21,7 +21,7 @@ final class Version20231205112215 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql(
-            "CREATE TABLE `PIA-SP`.`ride` (
+            "CREATE TABLE `ride` (
   `id` BINARY(16) NOT NULL,
   `user_id` BINARY(16) NOT NULL,
   `bike_id` BINARY(16) NOT NULL,

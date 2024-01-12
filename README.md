@@ -21,7 +21,7 @@ In the default configuration, the application starts and is accessible from `[ht
 
 The default user with administrator rights has access credentials.
 ```
-login: admin
+login: admin@hintik.cz
 password: admin
 ```
 

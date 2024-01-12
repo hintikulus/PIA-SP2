@@ -64,7 +64,7 @@ class GoogleButton extends BaseComponent
             $user = $this->userService->findByEmail($owner->getEmail());
             if ($user === null)
             {
-                $user = $this->userService->createUser($owner->getName(), $owner->getEmail(), null, ['discord_id' => $owner->getId()]);
+                $user = $this->userService->createUser($owner->getName(), $owner->getEmail(), null, \App\Domain\User\User::ROLE_REGULAR, ['discord_id' => $owner->getId()]);
             }
             $this->userService->updateLastLoginDatetime($user);
             $this->user->login($user->toIdentity());

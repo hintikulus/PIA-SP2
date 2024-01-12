@@ -16,14 +16,6 @@ class BikeController extends BaseWebSocketController
     {
     }
 
-    public function publish(array $event, IClient $client, ITopic $topic)
-    {
-        $outgoing = new \stdClass();
-        $outgoing->time = (new DateTime())->format(App::DATETIME_FORMAT);
-        $outgoing->from = $client->getId();
-        $outgoing->content = $event['message'];
-
-    }
 
     public function actionPush(array $data, ITopic $topic)
     {
